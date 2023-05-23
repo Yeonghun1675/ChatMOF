@@ -30,25 +30,6 @@ best_ckpt/
 
 # file
 demo.py
-moftransformer/database/coremof/
-moftransformer/database/hmof/
-moftransformer/database/qmof/
-moftransformer/database/finetuned/
-moftransformer/examples/dataset/
-moftransformer/config.py
-
-dft/
-figures/
-case_study/
-data/
-test/
-tmp/
-embedding
-
-# baseline_model
-baseline_model/*/*.csv
-baseline_model/*/*.txt
-baseline_model/*/output
 
 # logs
 logs/
