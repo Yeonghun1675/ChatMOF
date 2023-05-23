@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 from langchain.callbacks.manager import Callbacks
 from langchain.chains.base import Chain
-from langchain.experimental.plan_and_execute.schema import StepResponse
+from chatmof.schema import StepResponse
 
 
 class BaseExecutor(BaseModel):

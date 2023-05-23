@@ -1,36 +1,39 @@
-from langchain.llms import OpenAI, OpenAIChat
+from langchain.llms import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.agents import load_tools
-
 from executors.agent_executor import load_agent_executor
 from planners.chat_planner import load_chat_planner
-from agent_executor import PlanAndExecute
+from agent_excutor import ChatMOF
+from chatmof.planners.base import LLMPlanner
+from chatmof.tools import load_mofchat_tools
 
 
-llm = OpenAI(temperature=0)
-tools = load_tools(
-    tool_names = ['serpapi','llm-math'],
-    llm = llm,
-)
+llm = ChatOpenAI(temperature=0)
+tool = load_mofchat_tools(llm)
+#tool = load_tools(['serpapi', 'llm-math'], llm=llm)
+verbose = True
 
 planner = load_chat_planner(
-    llm = llm,
-    verbose = True,
+    llm=llm,
+    verbose=verbose,
 )
 
 executor = load_agent_executor(
-    llm = llm,
-    tools = tools,
-    verbose = True,
+    llm=llm,
+    tools=tool,
+    verbose=verbose,
 )
 
-pne = PlanAndExecute(
+assert isinstance(planner, LLMPlanner), f"{type(planner)}"
+
+
+chatmof = ChatMOF(
     planner = planner,
     executer = executor,
 )
 
-pne(
+chatmof(
     {
-        #'input': 'What was the high temperature in SF yesterday in Fahrenheit? What is that number raised to the .023 power?'
-        'input': 'What Surface area for IRMOF-1?'
+        'input': 'What is surface area of ACOGEF_clean?'
     }
 )

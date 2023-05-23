@@ -8,6 +8,7 @@ __pycache__/
 *.tar.gz
 *.ckpt
 *.ipynb
+test*.*
 
 .ipynb_checkpoints/
 

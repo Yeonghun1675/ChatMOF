@@ -12,7 +12,7 @@ from chatmof.schema import (
 )
 
 
-class PlanAndExecute(Chain):
+class ChatMOF(Chain):
     planner: BasePlanner
     executer: BaseExecutor
     step_container: BaseStepContainer = Field(default_factory=ListStepContainer)

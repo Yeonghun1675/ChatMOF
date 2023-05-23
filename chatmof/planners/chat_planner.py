@@ -2,8 +2,8 @@ import re
 
 from langchain.base_language import BaseLanguageModel
 from langchain.chains import LLMChain
-from langchain.experimental.plan_and_execute.planners.base import LLMPlanner
-from langchain.experimental.plan_and_execute.schema import (
+from chatmof.planners.base import LLMPlanner
+from chatmof.schema import (
     Plan,
     PlanOutputParser,
     Step,
@@ -19,7 +19,15 @@ SYSTEM_PROMPT = (
     "to accurately complete the task. If the task is a question, "
     "the final step should almost always be 'Given the above steps taken, "
     "please respond to the users original question'. "
-    "At the end of your plan, say '<END_OF_PLAN>'"
+    "At the end of your plan, say '<END_OF_PLAN>'\n"
+
+    "There are three tools you can utilize when creating a plan:\n"
+    "1. search in a look-up table. Search for previously calculated data for CoREMOF datasets "
+    "(starting with 6 capitalized English letters, e.g. ZUTSIM).\n"
+    "2. prediction using a machine learning model: you can take the path of a structure file "
+    "(e.g., irmof1.cif) as input to predict the properties of a material. "
+    "Predictable properties: surface area, pore volume, hydrogen uptake.\n"
+    "3. Get the properties of a material using an internet search\n"
 )
 
 

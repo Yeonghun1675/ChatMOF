@@ -1,11 +1,11 @@
 from abc import abstractmethod
-from typing import Any, List, Bool, Optional
+from typing import Any, List, Optional
 
 from pydantic import BaseModel
 
 from langchain.callbacks.manager import Callbacks
 from langchain.chains.llm import LLMChain
-from langchain.experimental.plan_and_execute.schema import Plan, PlanOutputParser
+from chatmof.schema import Plan, PlanOutputParser
 
 
 class BasePlanner(BaseModel):
@@ -24,7 +24,7 @@ class LLMPlanner(BasePlanner):
     llm_chain: LLMChain
     output_parser: PlanOutputParser
     stop: Optional[List] = None
-    verbose: Optional[Bool] = False
+    verbose: Optional[bool] = False
 
     def plan(self, inputs: dict, callbacks: Callbacks = None, **kwargs: Any) -> Plan:
         """Given input, decided what to do."""
