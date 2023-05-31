@@ -1,39 +1,25 @@
 from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
-from langchain.agents import load_tools
-from executors.agent_executor import load_agent_executor
-from planners.chat_planner import load_chat_planner
-from agent_excutor import ChatMOF
-from chatmof.planners.base import LLMPlanner
-from chatmof.tools import load_mofchat_tools
+from chatmof.agents.agent import ChatMOF
+from langchain.callbacks import StdOutCallbackHandler
 
 
-llm = ChatOpenAI(temperature=0)
-tool = load_mofchat_tools(llm)
-#tool = load_tools(['serpapi', 'llm-math'], llm=llm)
-verbose = True
+if __name__ == '__main__':
+    question = "What is the surface area of ACOGEF_clean?"
+    #question = "Tell me structures that has void fraction between 0.2 and 0.3"
+    #question = "What is top-3 structures that have high surface area?"
+    #question = "Tell me top-5 structures that has void fraction near 0.7."
+    #question = "Does ACOGEF_clean has open metal site or not?"
+    #question = "What is the hydrogen uptake of ACOGEF_clean?"
 
-planner = load_chat_planner(
-    llm=llm,
-    verbose=verbose,
-)
+    verbose = True
+    search_internet = False
 
-executor = load_agent_executor(
-    llm=llm,
-    tools=tool,
-    verbose=verbose,
-)
+    llm = ChatOpenAI(temperature=0)
+    callback_manager = [StdOutCallbackHandler()]
 
-assert isinstance(planner, LLMPlanner), f"{type(planner)}"
-
-
-chatmof = ChatMOF(
-    planner = planner,
-    executer = executor,
-)
-
-chatmof(
-    {
-        'input': 'What is surface area of ACOGEF_clean?'
-    }
-)
+    chatmof = ChatMOF.from_llm(
+        llm=llm, 
+        verbose=verbose, 
+    )
+    output = chatmof.run(question, callbacks=callback_manager)

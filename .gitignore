@@ -12,6 +12,9 @@ test*.*
 
 .ipynb_checkpoints/
 
+# database
+database/
+
 # libs
 libs/
 

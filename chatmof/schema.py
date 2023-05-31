@@ -1,3 +1,4 @@
+import re
 from abc import abstractmethod
 from typing import List, Tuple
 
@@ -38,7 +39,11 @@ class ListStepContainer(BaseModel):
         return self.steps
 
     def get_final_response(self) -> str:
-        return self.steps[-1][1].response
+        response = self.steps[-1][1].response
+        if re.match(r"<END_OF_PLAN>", response):
+            return self.steps[-2][1].response
+        else:
+            return response
 
 
 class PlanOutputParser(BaseOutputParser):
