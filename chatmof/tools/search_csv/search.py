@@ -53,11 +53,10 @@ class CSVSearchAgent(BaseModel):
         except StopIteration:
             return "Failed to parse response from agent"
         except OutputParserException as e:
-            result = re.search('final answer(\sis)\s?\:?\s?(?P<output>.+)`?$', str(e).replace('\n', ' '), re.IGNORECASE)
-            if result:
-                return "Result : {}\nPlease check that these result lead to a final answer.".format(result.group("output"))
-            else:
-                raise e
+            return (
+                f"Result : {str(e)}\n"
+                "Please check that these result lead to a final answer."
+            )
         
         return self.parse_data(result)
         
@@ -92,11 +91,10 @@ class CSVSearchAgent(BaseModel):
         except StopIteration:
             return "Failed to parse response from agent"
         except OutputParserException as e:
-            result = re.search('final answer(\sis)\s?\:?\s?(?P<output>.+)`?$', str(e).replace('\n', ' '), re.IGNORECASE)
-            if result:
-                return "Result : {}\nPlease check that these result lead to a final answer.".format(result.group("output"))
-            else:
-                raise e
+            return (
+                f"Result : {str(e)}\n"
+                "Please check that these result lead to a final answer."
+            )
             
         return self.parse_data(result)
             

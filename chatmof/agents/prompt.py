@@ -10,11 +10,12 @@ PROMPT = (
     "1. search in a look-up table. Search for previously calculated data for CoREMOF datasets "
     "(starting with 6 capitalized English letters, e.g. ZUTSIM, ARAZAT_clean).\n"
     'The question must be written to produce a answer with the fewest number of tokens. '
+    'List of properties: surface area, pore volume'
     "2. prediction using a machine learning model: you can take the path of a structure file "
     "(e.g., irmof1.cif) as input to predict the properties of a material. "
     "Structure files are existed in directory \'database/structures/raw\'. "
     "If you can't find the structure file, you must ask HUMAN for the path of the structure file. "
-    "Predictable properties: surface area, pore volume, hydrogen uptake.\n"
+    "Predictable properties: surface area, pore volume, hydrogen uptake, bandgap.\n"
     "\n"
     "HUMAN : {query}"
 )

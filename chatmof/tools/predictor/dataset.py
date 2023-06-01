@@ -1,5 +1,5 @@
 import os
-from typing import Dict
+from typing import Dict, List
 from pathlib import Path
 import torch
 from moftransformer.datamodules import Dataset as MOFDataset
@@ -10,9 +10,8 @@ from chatmof import __root_dir__
 class ChatDataset(MOFDataset):
     def __init__(
             self,
-            data_list: str,
+            data_list: List[str],
             data_dir: str = os.path.join(__root_dir__, 'database/structures/raw'),
-            sep: str = '\n',
             nbr_fea_len: int = 64,
     ) -> Dict[str, torch.Tensor]:
         
@@ -31,7 +30,7 @@ class ChatDataset(MOFDataset):
         else:
             self.cif_ids = [
                 data.replace(".cif", "")
-                for data in data_list.split(sep)
+                for data in data_list
                 ]
         
         self.targets = [1] * len(self.cif_ids)

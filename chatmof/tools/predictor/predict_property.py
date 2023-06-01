@@ -1,7 +1,6 @@
 import os
+import re
 from pydantic import BaseModel
-from functools import partial
-from moftransformer.modules import Module
 from chatmof import __root_dir__
 from chatmof.tools.predictor.utils import predict
 
@@ -12,18 +11,26 @@ class Predictor(BaseModel):
     """
     verbose: bool = False
     model_dir: str = os.path.join(__root_dir__, 'database/load_model')
+    sep: str = ','
+
+    def cleanup(self, query: str) -> str:
+        query = re.sub(r"(^[\'\"])|([\'\"]$)", "", query)    # remove ' and "
+        return query
 
     def run(
             self,
-            data_list: str, 
-            property: str,
-
+            query: str,
     ) -> str:
         """predict properties from cif-files"""
+        query = self.cleanup(query)
+        prop, *data_list = [
+            q.strip() for q in query.split(self.sep)
+        ]
 
-        data_dir = os.path.join(self.model_dir, f'{property}/model.ckpt')
-        params = os.path.join(self.model_dir, f'{property}/hparams.yaml')
+        data_dir = os.path.join(__root_dir__, 'database/structures/raw')
+        params = os.path.join(self.model_dir, f'{prop}/hparams.yaml')
 
+        print ("\n")
         output = predict(
             data_dir=data_dir,
             data_list=data_list,
@@ -36,6 +43,10 @@ class Predictor(BaseModel):
         
         string = ""
         for cif, logit in zip(cif_id, logits):
-            string += f'{cif} : {logit} m^2/g\n'
-
+            string += f'{cif} : {logit} eV\n'
+        string += 'Please check that these result lead to a final answer.'
         return string
+    
+
+if __name__ == '__main__':
+    Predictor(verbose=True).run(data_list="ACOGEF_clean", property="bandgap")

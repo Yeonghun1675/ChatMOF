@@ -4,19 +4,22 @@ from contextlib import redirect_stdout
 from typing import Dict, Any, List
 from pathlib import Path
 from collections import defaultdict
+from functools import partial
 import yaml
 
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
+
 from moftransformer.modules import Module
 from moftransformer.utils.validation import _IS_INTERACTIVE
-from chatmof.tools.predictor.dataloader import load_datamodule
+
+from chatmof.tools.predictor.dataset import ChatDataset
 
 
 def read_yaml(config: str) -> Dict[str, Any]:
     path = Path(config)
     if not path.exists():
-        raise FileNotFoundError('Config file does not existed in yaml file')
+        raise FileNotFoundError(f'Config file does not existed in yaml file, {config}')
     elif path.suffix != '.yaml':
         raise TypeError(f'config file must be *.yaml, not {path.suffix}')
     
@@ -32,7 +35,32 @@ def update_config(_config: Dict[str, Any]) -> None:
     _config['devices'] = 1
 
 
-def load_trainer(_config: Dict[str, Any]):
+def load_datamodule(
+        data_list: List[str], 
+        data_dir: str,
+        _config: Dict[str, Any]
+    ) -> DataLoader:
+
+    dataset = ChatDataset(
+        data_list=data_list,
+        data_dir=data_dir,
+        nbr_fea_len=_config['nbr_fea_len']
+    )
+
+    collate_fn = partial(
+        ChatDataset.collate,
+        img_size=_config['img_size']
+    )
+
+    return DataLoader(
+        dataset=dataset,
+        collate_fn=collate_fn,
+        batch_size=_config['per_gpu_batchsize'],
+        num_workers=_config['num_workers'],
+    )
+
+
+def load_trainer(_config: Dict[str, Any]) -> pl.Trainer:
     if _IS_INTERACTIVE:
         strategy = None
     elif pl.__version__ >= '2.0.0':
@@ -50,7 +78,6 @@ def load_trainer(_config: Dict[str, Any]):
         log_every_n_steps=0,
         logger=False,
     )
-
     return trainer
 
 
@@ -73,7 +100,7 @@ def _predict(
 
 def predict(
         data_dir: str,
-        data_list: str,
+        data_list: List[str],
         params: str,
         verbose: bool = False
 ) -> Dict[str, List[str]]:
@@ -90,27 +117,3 @@ def predict(
 
     output = _predict(dataloader, model, trainer)
     return output
-    
-
-if __name__ == '__main__':
-    params = '/home/dudgns1675/autogpt/ChatMOF/chatmof/database/load_model/bandgap/hparams.yaml'
-    data_dir = '/home/dudgns1675/autogpt/ChatMOF/chatmof/database/structures/raw'
-    data_list = 'ABAVIJ_clean\nZUZZEB_clean'
-
-    logging.getLogger("pytorch_lightning").setLevel(logging.ERROR)
-
-    config = read_yaml(params)
-    update_config(config)
-
-    dataloader = load_datamodule(data_list, data_dir, config)
-    model = Module(config)
-    #print(buf.getvalue())
-
-    trainer = load_trainer(config)
-
-    ret = _predict(dataloader, model, trainer)
-    #print(buf.getvalue())
-
-    #output = buf.getvalue()
-    #print (output)
-

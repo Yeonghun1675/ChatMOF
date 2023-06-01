@@ -13,6 +13,11 @@ def _get_search_csv(
         file_path: str|None = os.path.join(__root_dir__, 'database/tables/coremof.csv'),    
         verbose: bool = False,
         **kwargs: Any) -> BaseTool:
+    
+    with open(file_path) as f:
+        prop_ls = [i for i in next(f).split(',') if i]
+        prop_line = ", ".join(prop_ls)
+
     return Tool(
         name="search_csv",
         description=(
@@ -20,6 +25,7 @@ def _get_search_csv(
                 "Takes a question and provides the answer in JSON format. \n"
                 'The question must be written to produce a answer with the fewest number of tokens. '
                 'For example, you must not write the query to find the surface area of all structures. \n'
+                f"List of properties : {prop_line}"
                 "Example of search_csv\n"
                 "Query : What is the surface area of ABEYIR_clean?\n"
                 'Result : ["name": "ABEYIR_clean", "property": "Accessible Surface Area", "value": 446.707, "unit": "m^2/g"]'
