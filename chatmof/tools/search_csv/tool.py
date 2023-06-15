@@ -22,14 +22,14 @@ def _get_search_csv(
         name="search_csv",
         description=(
                 "A tools that extract information from a look-up table in the database. "
-                "Takes a question and provides the answer in JSON format. \n"
+                "search_csv takes a input as sentences (ex. What is the pore volume of ABEYIR_clean?). "
+                #"Takes a question and provides the answer in JSON format. "
                 'The question must be written to produce a answer with the fewest number of tokens. '
-                'For example, you must not write the query to find the surface area of all structures. \n'
-                f"List of properties : {prop_line}"
-                "Example of search_csv\n"
-                "Query : What is the surface area of ABEYIR_clean?\n"
-                'Result : ["name": "ABEYIR_clean", "property": "Accessible Surface Area", "value": 446.707, "unit": "m^2/g"]'
+                'For example, you must not write the query to find the surface area of all structures. '
+                f"Property must be one of [{prop_line}]"
+                #"Example of search_csv\n"
+                #"Query : What is the surface area of ABEYIR_clean?\n"
+                #'Result : ["name": "ABEYIR_clean", "property": "Accessible Surface Area", "value": 446.707, "unit": "m^2/g"]'
         ),
         func=CSVSearchAgent.from_llm(llm, file_path, verbose=verbose).run,
-        coroutine=CSVSearchAgent.from_llm(llm, file_path, verbose=verbose).arun,
     )

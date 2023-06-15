@@ -44,7 +44,8 @@ class CSVSearchAgent(BaseModel):
         agent = create_csv_agent(
             self.llm, 
             self.file_path, 
-            verbose=self.verbose,
+            verbose=self.verbose,   
+            max_iterations=2,
         )
         template = prompt_template.format(question=query, filename=self.file_path)
 
@@ -53,49 +54,15 @@ class CSVSearchAgent(BaseModel):
         except StopIteration:
             return "Failed to parse response from agent"
         except OutputParserException as e:
+            text = str(e)
+            if text.startswith("Could not parse LLM output: `"):
+                text = text.removeprefix("Could not parse LLM output: `").removesuffix("`")
+
             return (
                 f"Result : {str(e)}\n"
                 "Please check that these result lead to a final answer."
             )
         
-        return self.parse_data(result)
-        
-    async def arun(
-            self,       
-            query: str
-    ) -> str:
-        """Running csv_agent and parse result"""
-
-        if re.search(r"\b(all|every)\b", query):
-            return (
-                'The quary for search_csv must be written to produce a answer with the fewest number of tokens. '
-                'You must write your query to extract only the information you need instead of getting all the information. '
-                'For instance, rather than querying "What is the pore volume of all structures?", you can write a query that asks "What are the top 10 structures with the smallest pore volume?". '
-                'Please rewrite the query for tool "search_csv".'
-            )
-
-        prompt_template = PromptTemplate.from_template(
-            template=PROMPT,
-            template_format='jinja2',
-        )
-
-        agent = create_csv_agent(
-            self.llm, 
-            self.file_path, 
-            verbose=self.verbose,
-        )
-        template = prompt_template.format(question=query, filename=self.file_path)
-
-        try:
-            result = await agent.arun(template) 
-        except StopIteration:
-            return "Failed to parse response from agent"
-        except OutputParserException as e:
-            return (
-                f"Result : {str(e)}\n"
-                "Please check that these result lead to a final answer."
-            )
-            
         return self.parse_data(result)
             
     def parse_data(self, result):

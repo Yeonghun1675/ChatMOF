@@ -11,7 +11,7 @@ class ChatDataset(MOFDataset):
     def __init__(
             self,
             data_list: List[str],
-            data_dir: str = os.path.join(__root_dir__, 'database/structures/raw'),
+            data_dir: str = os.path.join(__root_dir__, 'database/structures/coremof'),
             nbr_fea_len: int = 64,
     ) -> Dict[str, torch.Tensor]:
         
@@ -22,8 +22,8 @@ class ChatDataset(MOFDataset):
         self.nbr_fea_len = nbr_fea_len
         self.tasks = {}
 
-        if data_list == 'all':
-            self.cif_dis = [
+        if 'all' in data_list:
+            self.cif_ids = [
                 cif.stem 
                 for cif in Path(data_dir).glob('*.cif')
                 ]

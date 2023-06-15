@@ -36,7 +36,7 @@ class ChatMOF(Chain):
         prompt = PromptTemplate(template=PROMPT, input_variables=[self.input_key])
         output = self.agent.run(
             prompt.format(**{self.input_key: query}),
-                callbacks=callbacks
+                callbacks=callbacks,
         )
 
         print ('\n')
@@ -49,17 +49,6 @@ class ChatMOF(Chain):
             self.output_key: output
         }
     
-    async def _acall(
-            self,
-            query: str,
-    ) -> Dict[str, Any]:
-        prompt = PromptTemplate(template=PROMPT, input_variables=[self.input_key])
-        output = await self.agent.arun(prompt.format(**{self.input_key: query}))
-
-        return {
-            self.output_key: output
-        }
-
     @classmethod
     def from_llm(
         cls: BaseModel,
@@ -74,5 +63,4 @@ class ChatMOF(Chain):
             agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
             verbose=verbose,
         )
-        
         return cls(agent=agent, llm=llm, verbose=verbose)

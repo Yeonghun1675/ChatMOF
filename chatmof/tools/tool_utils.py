@@ -8,11 +8,8 @@ from chatmof.tools.search_csv import _get_search_csv
 
 
 _MOF_TOOLS: Dict[str, Callable[[BaseLanguageModel], BaseTool]] = {
-    "property_predict": _get_predict_properties,
-}
-
-_MOF_LLM_TOOLS: Dict[str, Callable[[BaseLanguageModel], BaseTool]] = {
     "search_csv" : _get_search_csv,
+    "property_predict": _get_predict_properties,
 }
 
 _load_tool_names: List[str] = [
@@ -35,7 +32,6 @@ _load_tool_names: List[str] = [
 
 def load_chatmof_tools(llm: BaseLanguageModel, verbose: bool=False) -> List[BaseTool]:
     tools = load_tools(_load_tool_names, llm=llm)
-    custom_tools = [model() for model in _MOF_TOOLS.values()]
-    custom_llm_tools = [model(llm=llm, verbose=verbose) for model in _MOF_LLM_TOOLS.values()]
+    custom_tools = [model(llm=llm, verbose=verbose) for model in _MOF_TOOLS.values()]
 
-    return custom_tools + custom_llm_tools + tools
+    return custom_tools + tools

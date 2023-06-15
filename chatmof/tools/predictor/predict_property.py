@@ -27,8 +27,10 @@ class Predictor(BaseModel):
             q.strip() for q in query.split(self.sep)
         ]
 
-        data_dir = os.path.join(__root_dir__, 'database/structures/raw')
+        data_dir = os.path.join(__root_dir__, 'database/structures/coremof')
         params = os.path.join(self.model_dir, f'{prop}/hparams.yaml')
+        if not os.path.exists(params):
+            return f"There are no prediction model for {prop}. Please check the property that possible to predict."
 
         print ("\n")
         output = predict(
