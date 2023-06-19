@@ -18,7 +18,7 @@ class CSVSearchAgent(BaseModel):
     """
     
     llm: BaseLanguageModel
-    file_path: str|None = os.path.join(__root_dir__, 'database/tables/coremof.csv'),    
+    file_path: str = os.path.join(__root_dir__, 'database/tables/coremof.csv'),    
     prompt: BasePromptTemplate = PROMPT
     verbose: bool = False
 
@@ -85,7 +85,7 @@ class CSVSearchAgent(BaseModel):
     def from_llm(
         cls,
         llm: BaseLanguageModel,
-        file_path: str|None = os.path.join(__root_dir__, 'database/tables/coremof.csv'),    
+        file_path: str = os.path.join(__root_dir__, 'database/tables/coremof.csv'),    
         verbose: bool = False
     ) -> BaseModel:
         return cls(llm=llm, file_path=file_path, verbose=verbose)

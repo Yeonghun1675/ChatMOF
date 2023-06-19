@@ -10,7 +10,7 @@ from chatmof.tools.search_csv.search import CSVSearchAgent
 
 def _get_search_csv(
         llm: BaseLanguageModel,
-        file_path: str|None = os.path.join(__root_dir__, 'database/tables/coremof.csv'),    
+        file_path: str = os.path.join(__root_dir__, 'database/tables/coremof.csv'),    
         verbose: bool = False,
         **kwargs: Any) -> BaseTool:
     
