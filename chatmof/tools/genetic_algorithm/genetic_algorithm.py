@@ -46,8 +46,13 @@ class GeneticAlgorithmChain(Chain):
 
     def parse_parents(self, parents:Iterable[Iterable[str]]):
         string = ""
-        for parent, value in parents:
-            string += f'{parent} (value: {value})\n'
+        for parent in parents:
+            if isinstance(parent, list):
+                name, value = parent
+                name, value = name.strip(), value.strip()
+            elif isinstance(parent, dict):
+                name, value = parent.values()
+            string += f'{name} (value: {value[:6]})\n'
         return string
     
     def _call(

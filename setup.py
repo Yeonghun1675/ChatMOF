@@ -29,5 +29,5 @@ setup(
     #url="https://hspark1212.github.io/MOFTransformer/",
     #download_url="https://github.com/hspark1212/MOFTransformer",
     #entry_points={"console_scripts": ["moftransformer=moftransformer.cli.main:main"]},
-    python_requires=">=3.8",
+    python_requires=">=3.9",
 )

@@ -5,12 +5,13 @@ from typing import List
 from pathlib import Path
 from pydantic import BaseModel
 from chatmof import __root_dir__
+from chatmof.config import config
 from chatmof.tools.predictor.utils import predict, model_names, search_file
 
 
 class MOFTransformerRunner(BaseModel):
-    model_dir: str
-    data_dir: str
+    model_dir: str = config['model_dir']
+    data_dir: str = config['data_dir']
     verbose: bool = False
 
     def run(self, prop, material):
@@ -48,7 +49,7 @@ class MOFTransformerRunner(BaseModel):
 
             if f_mat := search_file(mat, data_dir):
                 data_list.extend(f_mat)
-        
+
         if len(data_list) < len(s_mat):
             raise ValueError(f'There are no data in {material}')
         
@@ -58,6 +59,9 @@ class MOFTransformerRunner(BaseModel):
 if __name__ == '__main__':
     from chatmof.config import config
 
-    runner = MOFTransformerRunner(model_dir=config['model_dir'], data_dir=config['data_dir'])
+    runner = MOFTransformerRunner(
+        model_dir=config['model_dir'], 
+        data_dir=config['data_dir']
+    )
     output = runner.run('bandgap', 'PUG*')
     print (output)

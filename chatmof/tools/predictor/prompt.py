@@ -38,10 +38,12 @@ if __name__ == '__main__':
     from langchain.chains import LLMChain
     from langchain.chat_models import ChatOpenAI
 
+    from chatmof.tools.predictor.utils import model_names
+
     llm = ChatOpenAI(temperature=0.0)
     prompt = PromptTemplate(template=PROMPT, input_variables=['question', 'tool_names'])
     chain = LLMChain(llm=llm, prompt=prompt)
     output = chain.run(
         question='Predict surface area and save results in csv format, only pcu topology.',
-        tool_names=tool_names)
+        tool_names=model_names)
     print (output)

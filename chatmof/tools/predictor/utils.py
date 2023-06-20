@@ -93,8 +93,8 @@ def predict(
         verbose: bool = False
 ) -> Dict[str, List[str]]:
     
-    if not verbose:
-        logging.getLogger("pytorch_lightning").setLevel(logging.ERROR)    
+    #if not verbose:
+    logging.getLogger("pytorch_lightning").setLevel(logging.ERROR)    
 
     config = read_yaml(params)
     update_config(config)
@@ -114,7 +114,6 @@ def predict(
 
 def search_file(name: str, direc: Path) -> List[Path]:
     name = name.strip()
-
     if '*' in name:
         return list(direc.glob(name))
     

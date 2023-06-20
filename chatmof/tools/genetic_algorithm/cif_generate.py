@@ -1,19 +1,44 @@
+import os
 from typing import List, Optional
 from pathlib import Path
 from tqdm import tqdm
 import pormake as pm
-from moftransformer.utils.prepare_data import make_prepared_data, get_logger
+from moftransformer.utils.prepare_data import make_prepared_data
+import logging
+from chatmof.config import config
 
 
-DATABASE = pm.database()
+pm.log.disable_print()
+pm.log.disable_file_print()   
+
+DATABASE = pm.Database()
 builder = pm.Builder()
-logger = get_logger('generate_mof.log')
+
+
+def get_logger(filename):
+    if os.path.exists(filename):
+        os.unlink(filename)
+
+    logger = logging.getLogger(filename)
+    logger.setLevel(logging.ERROR)
+
+    formatter = logging.Formatter(
+        fmt="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+
+    file_handler = logging.FileHandler(filename)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    return logger
+
+logger = get_logger(config['logger'])
 
 
 class CIFGenerator(object):
     def __init__(self, save_dir:str) -> None:
         self.save_dir = Path(save_dir)
-
+        self.save_dir.mkdir(exist_ok=True, parents=True)
+        
     def run(
         self, 
         topology: str,
@@ -23,7 +48,7 @@ class CIFGenerator(object):
 
         for cif in tqdm(cif_list, desc=topology):
             save_path = self.save_dir/f'{topology}+{cif}.cif'
-            self._run_cif(self, cif, topo, save_path)                      
+            success = self._run_cif(cif, topo, save_path)                      
 
     def _run_cif(
             self,
@@ -32,7 +57,17 @@ class CIFGenerator(object):
             save_path: Path,
     ):
         try:
-            is_success = make_prepared_data(save_path, self.save_dir)
+            if not save_path.exists():
+                current_cif = self._generate_cif(cif, topo)
+                current_cif.write_cif(str(save_path))
+
+            is_success = make_prepared_data(
+                save_path, 
+                self.save_dir, 
+                logger=logger, 
+                eg_logger=logger
+            )
+
             if not is_success:
                 save_path.unlink()
                 return False
