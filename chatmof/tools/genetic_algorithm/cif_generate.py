@@ -31,16 +31,6 @@ class CIFGenerator(object):
             topo: pm.Topology,
             save_path: Path,
     ):
-        # if not save_path.exists():    
-        #     try:
-        #         material = self._generate_cif(self, cif, topo)
-        #         if material:
-        #             material.write_cif(str(save_path))
-        #         else:
-        #             return False
-        #     except Exception as e:
-        #         return False
-        
         try:
             is_success = make_prepared_data(save_path, self.save_dir)
             if not is_success:

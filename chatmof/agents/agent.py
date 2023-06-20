@@ -17,11 +17,11 @@ class ChatMOF(Chain):
     output_key: str = "output"
     
     @property
-    def input_keys(self) -> list[str]:
+    def input_keys(self) -> List[str]:
         return [self.input_key]
     
     @property
-    def output_keys(self) -> list[str]:
+    def output_keys(self) -> List[str]:
         return [self.output_key]
     
     def _call(

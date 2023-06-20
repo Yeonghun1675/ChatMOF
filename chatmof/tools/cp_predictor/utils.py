@@ -9,19 +9,11 @@ import yaml
 
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
-from langchain.tools.human import HumanInputRun
 
 from moftransformer.modules import Module
 from moftransformer.utils.validation import _IS_INTERACTIVE
 
-from chatmof import __root_dir__
 from chatmof.tools.predictor.dataset import ChatDataset
-
-
-_predictable_properties = [
-    path.stem for path in (Path(__root_dir__)/'database/load_model').iterdir()
-]
-model_names = ",".join(_predictable_properties)
 
 
 def read_yaml(config: str) -> Dict[str, Any]:
@@ -44,12 +36,14 @@ def update_config(_config: Dict[str, Any]) -> None:
 
 
 def load_datamodule(
-        data_list: List[Path], 
+        data_list: List[str], 
+        data_dir: str,
         _config: Dict[str, Any]
     ) -> DataLoader:
 
     dataset = ChatDataset(
         data_list=data_list,
+        data_dir=data_dir,
         nbr_fea_len=_config['nbr_fea_len']
     )
 
@@ -87,8 +81,26 @@ def load_trainer(_config: Dict[str, Any]) -> pl.Trainer:
     return trainer
 
 
+def _predict(
+        dataloader: DataLoader, 
+        model: Module,
+        trainer: pl.Trainer,
+) -> List[str]:
+
+    rets = trainer.predict(model, dataloader)
+    keys = rets[0].keys()
+
+    output = defaultdict(list)
+    for ret in rets:
+        for key, value in ret.items():
+            output[key].extend(value)
+
+    return output
+
+
 def predict(
-        data_list: List[Path],
+        data_dir: str,
+        data_list: List[str],
         params: str,
         verbose: bool = False
 ) -> Dict[str, List[str]]:
@@ -99,27 +111,9 @@ def predict(
     config = read_yaml(params)
     update_config(config)
 
-    dataloader = load_datamodule(data_list, config)
+    dataloader = load_datamodule(data_list, data_dir, config)
     model = Module(config)
     trainer = load_trainer(config)
 
-    rets = trainer.predict(model, dataloader)
-    output = defaultdict(list)
-    for ret in rets:
-        for key, value in ret.items():
-            output[key].extend(value)
-
+    output = _predict(dataloader, model, trainer)
     return output
-
-
-def search_file(name: str, direc: Path) -> List[Path]:
-    name = name.strip()
-
-    if '*' in name:
-        return list(direc.glob(name))
-    
-    f_name = direc/name
-    if f_name.exists():
-        return [f_name]
-    
-    return False
