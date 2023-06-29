@@ -56,7 +56,8 @@ class ChatMOF(Chain):
         verbose: bool = False,
         ):
 
-        tools = load_chatmof_tools(llm, verbose=verbose)
+        tools = load_chatmof_tools(llm, verbose=verbose)[:1]
+        #tools = 
         agent = initialize_agent(
             tools,
             llm,
