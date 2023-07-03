@@ -14,16 +14,19 @@ class MOFTransformerRunner(BaseModel):
     data_dir: str = config['data_dir']
     verbose: bool = False
 
-    def run(self, prop, material):
+    def run(self, 
+            prop: str, 
+            material: str):
         if prop not in model_names:
             raise ValueError(f'property should be one {model_names}, not {property}')
 
-        params = os.path.join(self.model_dir, f'{prop}/hparams.yaml')
+        #params = os.path.join(self.model_dir, f'{prop}/hparams.yaml')
+        model_dir = Path(self.model_dir)/prop
         data_list = self.parse_data(material)
 
         output = predict(
             data_list=data_list,
-            params=params,
+            model_dir=model_dir,
             verbose=self.verbose,
         )
 

@@ -1,9 +1,8 @@
 import re
-import copy
 import json
-import numpy as np
 import pandas as pd
-from typing import Dict, Any, List, Optional, Iterable
+from pathlib import Path
+from typing import Dict, Any, List, Optional
 from langchain.base_language import BaseLanguageModel
 from langchain.chains.base import Chain
 from langchain.chains.llm import LLMChain
@@ -15,6 +14,7 @@ from chatmof import __root_dir__
 from chatmof.config import config
 from chatmof.tools.predictor.runner import MOFTransformerRunner
 from chatmof.tools.predictor.utils import _predictable_properties, model_names
+from chatmof.tools.search_csv.base import TableSearcher
 from chatmof.tools.genetic_algorithm.genetic_algorithm import GeneticAlgorithmChain
 from chatmof.tools.genetic_algorithm.prompt import PLAN_PROMPT
 from chatmof.tools.genetic_algorithm.cif_generate import CIFGenerator
@@ -24,7 +24,7 @@ class Generator(Chain):
     llm: BaseLanguageModel
     llm_chain: LLMChain
     generator_chain: GeneticAlgorithmChain
-    topologies: List[str] = ['pcu']
+    topologies: List[str] = ['pcu', 'acs']
     input_key: str = 'question'
     output_key: str = 'answer'
 
@@ -44,77 +44,105 @@ class Generator(Chain):
         _run_manager = run_manager or CallbackManagerForChainRun.get_noop_manager()
         callbacks = _run_manager.get_child()
 
-        llm_output = self.llm_chain.predict(
+        llm_output = self.llm_chain.run(
            question=inputs[self.input_key],
            model_names=model_names,
            stop=['Question:'],
            callbacks=callbacks
         )
 
-        output = self._parse_data(llm_output)
+        output = self._parse_output(llm_output)
         
-        run_manager.on_text(f'\nPlan for Generator : ', color='green')
-        for key, answer in output.items():
-            run_manager.on_text(f"\n{key}: ", verbose=self.verbose)
-            run_manager.on_text(answer, verbose=self.verbose, color='yellow')
+        run_manager.on_text('\n[Generator] Thought: ', verbose=self.verbose)
+        run_manager.on_text(output['Thought'], verbose=self.verbose, color='yellow')
 
-        run_manager.on_text('\n\nCycle 1.\n', color='green')
-
+        df_dict = dict()
+        run_manager.on_text('\n[Generator] Predict Properties: ', verbose=self.verbose)
+        run_manager.on_text(output['Property'] + "\n", verbose=self.verbose, color='yellow')
         for topology in self.topologies:
-            run_manager.on_text('\nPredict property:\n', verbose=self.verbose, color='green')
             df = self.run_predictor(prop_text=output['Property'], topology=topology, data_dir=config['hmof_dir'])
-            agent = create_pandas_dataframe_agent(
-                llm=self.llm,
-                df = df,
-                verbose=self.verbose,
-                callback_manager=callbacks,
-                return_intermediate_steps=True,
-                max_iterations=1,                
-            )            
-            
-            run_manager.on_text('\nSearch:', verbose=self.verbose, color='green')
-            prompt = output['Search'] +\
-                ' You must print in the form of a list of cif_id and properties with header. '\
-                'For example) cif_id, bandgap\nacs+N12+E1, 0.21\nacs+N42+E42, 0.644'
-            search_output = agent(prompt)
+            df_dict[topology] = df
 
-            parents = self._parse_predictor(search_output)
-            
-            run_manager.on_text('\nGenerate: \n', verbose=self.verbose, color='green')
-            new_output = self.generator_chain.run(
-                question=output['Generate'],
-                parents=parents,
-            )
+        for cycle in range(1, config['num_genetic_cycle']+1):
+            run_manager.on_text(f'\n\n[Generator] Run genetic algorithm : Cycle {cycle}.\n', color='green')
+            df_dict = self.run_genetic(df_dict, output, run_manager, cycle)
 
-            run_manager.on_text('\nBuild CIF: \n', verbose=self.verbose, color='green')
-            generator = CIFGenerator(config['generate_dir'])
-            generator.run(topology=topology, cif_list=new_output)
+        run_manager.on_text('\n[Generator] Final Thought: ', verbose=self.verbose)
+        run_manager.on_text(output['Final Thought'], verbose=self.verbose, color='yellow')
+        
+        df_final = df_dict[self.topologies[0]]
+        for topo in self.topologies[1:]:
+            df_gen = df_dict[topo]
+            df_final.merge(df_gen, on='cif_id', how='outer')
 
-
-        df_gen = self.run_predictor(
-            prop_text=output['Property'], 
-            topology=topology, 
-            data_dir=config['generate_dir']
-        )
-
-        df_final = copy.deepcopy(df)
-        df_final.merge(df_gen, on='cif_id', how='outer')
-        print (df_gen)
-
-        final_agent = create_pandas_dataframe_agent(
-            llm=self.llm,
-            df = df_final,
+        searcher = TableSearcher.from_dataframe(
+            llm = self.llm,
+            dataframe = df_final,
             verbose=self.verbose,
-            callback_manager=callbacks,
+            run_manager=run_manager,
         )
 
-        final_output = final_agent.run(output['Final Thought'] + ' Use print when using python_repl_ast.')
-        return {self.output_key: final_output,
-                'origin_df': df,
-                'generate_df': df_gen,
-                }    
+        final_output = searcher.run(output['Final Thought'])
+        return {self.output_key: final_output}
 
-    def _parse_data(self, text):
+
+    def run_genetic(self, df_dict, output, run_manager, cycle):
+        run_manager.on_text('\n[Generator] Find Parents: ', verbose=self.verbose)
+        run_manager.on_text(output['Search'], verbose=self.verbose, color='yellow')
+        prop = output['Property']
+        direc = Path(config['generate_dir']) / f'{prop}-{cycle}'
+
+        parent_dict = dict()
+        for topology in self.topologies:
+            searcher = TableSearcher.from_dataframe(
+                llm=self.llm,
+                dataframe = df_dict[topology],
+                verbose=self.verbose,
+            )            
+            prompt = output['Search'] +\
+                ' You must print line-by-line list of cif_id and properties line by line with header, not print `df` directly. '\
+                'For example, output should like ```cif_id, bandgap\nacs+N12+E1, 0.21\nacs+N42+E42, 0.644```'
+            search_output = searcher.run(
+                question=prompt, 
+                return_observation=True,
+                run_manager = run_manager,
+            )
+            parents = self._parse_predictor(search_output)
+            parent_dict[topology] = parents
+            
+        run_manager.on_text('\n[Generator] Get Children: ', verbose=self.verbose)
+        run_manager.on_text(output['Generate'], verbose=self.verbose, color='yellow')
+
+        child_dict = dict()
+        for topology in self.topologies:
+            children = self.generator_chain.run(
+                question=output['Generate'],
+                parents=parent_dict[topology],
+                run_manager=run_manager,
+            )
+            child_dict[topology] = children
+
+        run_manager.on_text('\n[Generator] Generate Structures: ', verbose=self.verbose)
+
+        generator = CIFGenerator(direc)
+        for topology in self.topologies:
+            generator.run(topology=topology, cif_list=child_dict[topology])
+
+        run_manager.on_text('\n[Generator] Predict Properties: ', verbose=self.verbose)
+        run_manager.on_text(output['Property']+"\n", verbose=self.verbose, color='yellow')
+        
+        for topology in self.topologies:
+            df_gen = self.run_predictor(
+                prop_text=output['Property'], 
+                topology=topology, 
+                data_dir=direc,
+            )
+            df_dict[topology].merge(df_gen, on='cif_id', how='outer')
+            df_gen.to_csv(str(direc/'output.csv'))
+        
+        return df_dict
+
+    def _parse_output(self, text):
         thought = re.search(r"Thought:\s*(.+?)\s*\n", text, re.DOTALL)
         search = re.search(r"Search look-up table:\s*(.+?)\s*\n", text, re.DOTALL)
         prop = re.search(r"Property:\s*(.+?)\s*\n", text, re.DOTALL)
@@ -150,7 +178,7 @@ class Generator(Chain):
     def run_predictor(self, prop_text: str, topology: str, data_dir: str) -> List[str]:
         runner = MOFTransformerRunner(
             model_dir=config['model_dir'],
-            data_dir=data_dir,
+            data_dir=str(data_dir),
             verbose=self.verbose,
         )
         
@@ -167,15 +195,11 @@ class Generator(Chain):
 
         return df
 
-    def _parse_predictor(self, agent_output: Dict[str, Any]) -> List[List[str]]:
-        tool_action, output = agent_output['intermediate_steps'][-1]
-        if tool_action.tool != 'python_repl_ast':
-            raise ValueError(f'{tool_action.tool} is not python_repl_ast')
-        
+    def _parse_predictor(self, output: str) -> List[List[str]]: 
         try:
             data_ls = json.loads(output)
             if isinstance(data_ls, list):
-                return data_ls    
+                return data_ls
             elif isinstance(data_ls, dict):
                 if 'cif_id' in data_ls:
                     return zip(*data_ls.values())
@@ -187,9 +211,9 @@ class Generator(Chain):
         except json.JSONDecodeError:
             data_ls = output.split('\n')
             if re.search(r'cif_id', data_ls[0]):
-                return [re.split(r',\s*|\s+', line.strip()) for line in data_ls[1:] if line.strip()]
+                return [re.split(r',\s*|\s+', line.replace("|", "").strip()) for line in data_ls[1:] if line.strip()]
             else:
-                return [re.split(r',\s*|\s+', line.strip()) for line in data_ls if line.strip()]
+                return [re.split(r',\s*|\s+', line.replace("|", "").strip()) for line in data_ls if line.strip()]
 
     @classmethod
     def from_llm(

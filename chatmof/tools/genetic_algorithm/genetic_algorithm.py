@@ -6,7 +6,7 @@ from langchain.chains.llm import LLMChain
 from langchain.prompts import BasePromptTemplate, PromptTemplate
 from langchain.callbacks.manager import CallbackManagerForChainRun
 
-from chatmof import __root_dir__
+from chatmof.config import config
 from chatmof.tools.genetic_algorithm.prompt import GENETIC_PROMPT
 
 
@@ -45,14 +45,20 @@ class GeneticAlgorithmChain(Chain):
             return None
 
     def parse_parents(self, parents:Iterable[Iterable[str]]):
+        n_parents = config['num_parents']
         string = ""
-        for parent in parents:
-            if isinstance(parent, list):
+        for i, parent in enumerate(parents):
+            if i> n_parents:
+                return string
+            if len(parent) < 2:
+                continue
+            elif isinstance(parent, list):
                 name, value = parent
                 name, value = name.strip(), value.strip()
             elif isinstance(parent, dict):
                 name, value = parent.values()
             string += f'{name} (value: {value[:6]})\n'
+
         return string
     
     def _call(

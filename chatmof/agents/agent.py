@@ -54,10 +54,8 @@ class ChatMOF(Chain):
         cls: BaseModel,
         llm: BaseLanguageModel,
         verbose: bool = False,
-        ):
-
-        tools = load_chatmof_tools(llm, verbose=verbose)[:1]
-        #tools = 
+    ) -> Chain:
+        tools = load_chatmof_tools(llm, verbose=verbose)
         agent = initialize_agent(
             tools,
             llm,

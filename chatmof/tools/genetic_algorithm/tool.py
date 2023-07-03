@@ -9,13 +9,15 @@ from chatmof.tools.genetic_algorithm.base import Generator
 
 
 def _get_generator(
+        llm: BaseLanguageModel,
         verbose: bool = False,
         **kwargs: Any
 ) -> BaseTool:
     return Tool(
         name="generator",
         description=(
-            "Generate material for specific properties using genetic algorithm. "            
+            "The tool to use when you need to create materials. "            
+            "input must be provided in the form of a full sentence. "
         ),
-        func=Generator(verbose=verbose).run,
+        func=Generator.from_llm(llm=llm, verbose=verbose).run,
     )

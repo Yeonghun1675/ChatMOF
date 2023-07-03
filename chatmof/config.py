@@ -6,17 +6,25 @@ config = {
     # data directory
     'data_dir': os.path.join(__root_dir__, 'database/structures/coremof/'),
     'model_dir': os.path.join(__root_dir__, 'database/load_model/'),
-    'lookup_dir': os.path.join(__root_dir__, 'database/tables/coremof.csv'),
     'hmof_dir': os.path.join(__root_dir__, 'database/structures/hMOF/'),
     'generate_dir': os.path.join(__root_dir__, 'database/structures/generate'),
 
-    # LLM - openAI
-    'temperature': 0,
+    # table searcher
+    'lookup_dir': os.path.join(__root_dir__, 'database/tables/coremof.xlsx'),
+    'max_iteration': 3,
 
-    # MOFTransformer
+    # building block searcher
+    'buildingblock_dir' : os.path.join(__root_dir__, 'database/tables/mofkey.xlsx'),
 
+    # predictor
+    'max_length_in_predictor' : 30,
+    'accelerator' : 'cuda',
 
     # genetic algorithm
+    'num_genetic_cycle': 3,
+    'num_parents': 200,
     'logger': 'generate_mof.log',
-    
+
+    # LLM - openAI
+    'temperature': 0,    
 }

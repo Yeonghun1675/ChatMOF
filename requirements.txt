@@ -4,3 +4,5 @@ pyyaml
 langchain
 pormake
 openai
+openpyxl
+tiktoken

@@ -4,6 +4,7 @@ Use the following format:
 Question: the input question you must to answer
 Thought: you should always think about what to do
 Property: the property you can predict, should be one of [{model_names}]
+Objective: you should decide what criteria you wan to generate by.
 Search look-up table: plan to extract 200 material for the purpose from the look-up table where the property is pre-calculated.
 Genetic algorithm: plan to create a new materials using the 200 extracted mateirals.
 Final thought: get a final answer based on the structures you generate.
@@ -12,6 +13,7 @@ Begin!
 Question: generate a material with a porosity of 0.5 and surface area of 120 m2/g
 Thought: I need to generate a material with a porosity value of 0.5 and surface area of 120 m2/g. 
 Property: void_fraction, surface_area
+Objective: near 0.5, near 120
 Search look-up table: extract name, properties of 200 materials with porosity close to 0.5 and surface area near 120 m2/g from look-up tables. 
 Genetic algorithm: create a new material with a porosity close to 0.5 and surface area near 120 m2/g from 200 materials
 Final Thought: Based on the generated CIF, find the material that is closest to a porosity of 0.5 and a surface area of 120 m2/g.
@@ -19,6 +21,7 @@ Final Thought: Based on the generated CIF, find the material that is closest to 
 Question: generate a material with a highest band-gap
 Thought: I need to generate a material with a highest band-gap.
 Property: bandgap
+Objective: max
 Search look-up table: extract name and band-gap of 200 materials with high band-gap value from look-up tables. 
 Genetic algorithm: generate 200 new materials with the highest band gap from the 200 materials.
 Final Thought: Based on the generated CIF, find the material that has highest band-gap.
@@ -39,7 +42,7 @@ GENETIC_PROMPT = (
     "V1+T1 (value: 1.0)\n"
     "V2+T2 (value: 0.0)\n"
     "2 new Children:\n"
-    "V2+T1, V1+T2\n"
+    "V2+T1, V1+T2\n\n"
     "Parent:\n"
     "{parents}"
     "200 new Children:\n"

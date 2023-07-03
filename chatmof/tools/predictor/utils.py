@@ -1,6 +1,4 @@
-import io
 import logging
-from contextlib import redirect_stdout
 from typing import Dict, Any, List
 from pathlib import Path
 from collections import defaultdict
@@ -9,19 +7,18 @@ import yaml
 
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
-from langchain.tools.human import HumanInputRun
 
 from moftransformer.modules import Module
 from moftransformer.utils.validation import _IS_INTERACTIVE
 
-from chatmof import __root_dir__
+from chatmof.config import config as default_config
 from chatmof.tools.predictor.dataset import ChatDataset
 
 
 _predictable_properties = [
-    path.stem for path in (Path(__root_dir__)/'database/load_model').iterdir()
+    path.stem for path in Path(default_config['model_dir']).iterdir()
 ]
-model_names = ",".join(_predictable_properties)
+model_names = ",".join(_predictable_properties + ['else'])
 
 
 def read_yaml(config: str) -> Dict[str, Any]:
@@ -37,8 +34,10 @@ def read_yaml(config: str) -> Dict[str, Any]:
     return file['config']
 
 
-def update_config(_config: Dict[str, Any]) -> None:
+def update_config(_config: Dict[str, Any], p_model: Path) -> None:
     pl.seed_everything(_config["seed"])
+    _config['accelerator'] = default_config['accelerator']
+    _config['load_path'] = str(p_model)
     _config['max_epochs'] = 1
     _config['devices'] = 1
 
@@ -89,15 +88,17 @@ def load_trainer(_config: Dict[str, Any]) -> pl.Trainer:
 
 def predict(
         data_list: List[Path],
-        params: str,
-        verbose: bool = False
+        model_dir: Path,
+        verbose: bool = False,
 ) -> Dict[str, List[str]]:
     
     #if not verbose:
     logging.getLogger("pytorch_lightning").setLevel(logging.ERROR)    
 
+    params = model_dir/'hparams.yaml'
+    p_model, = model_dir.glob('*.ckpt')
     config = read_yaml(params)
-    update_config(config)
+    update_config(config, p_model)
 
     dataloader = load_datamodule(data_list, config)
     model = Module(config)

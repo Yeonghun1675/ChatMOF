@@ -10,6 +10,9 @@ etc/
 *.ckpt
 *.ipynb
 test*.*
+cp_search_csv/
+test/
+
 
 .ipynb_checkpoints/
 
