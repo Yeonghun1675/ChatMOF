@@ -66,5 +66,5 @@ if __name__ == '__main__':
         model_dir=config['model_dir'], 
         data_dir=config['data_dir']
     )
-    output = runner.run('bandgap', 'PUG*')
+    output = runner.run('solvent_removal_stability', 'PUG*')
     print (output)

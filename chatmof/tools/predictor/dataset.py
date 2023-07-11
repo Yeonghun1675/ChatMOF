@@ -28,4 +28,4 @@ class ChatDataset(MOFDataset):
 
         self.data_dir = data_list[0].parent
         
-        self.targets = [1] * len(self.cif_ids)
+        self.targets = [0] * len(self.cif_ids)

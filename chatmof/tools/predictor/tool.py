@@ -19,6 +19,7 @@ def _get_predict_properties(
         description=(
             "Useful tool to predict material properties using machine learning. "
             "More imprecise than the search_csv tool, but can be used universally. "
+            "You must use predictor before using google_search or wikipedia. "
             "The input must be a detailed full sentence to answer the question."
         ),
         func=Predictor.from_llm(llm=llm, verbose=verbose).run,

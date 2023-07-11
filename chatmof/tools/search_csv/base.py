@@ -21,6 +21,7 @@ class TableSearcher(Chain):
     llm_chain: LLMChain
     df: pd.DataFrame
     encoder: tiktoken.core.Encoding
+    num_max_data: int = 200
     input_key: str = 'question'
     output_key: str = 'answer'
 
@@ -33,11 +34,11 @@ class TableSearcher(Chain):
         return [self.output_key]
     
     def _parse_output(self, text:str) -> Dict[str, Any]:
-        thought = re.search(r"(?<!Final )Thought:\s*(.+?)\s*(\n|$)", text, re.DOTALL)
-        input_ = re.search(r"Input:\s*(?:```|`)(.+?)(?:```|`)\s*(\n|$)", text, re.DOTALL)
-        final_thought = re.search(r"Final Thought:\s*(.+?)\s*(\n|$)", text, re.DOTALL)
-        final_answer = re.search(r"Final Answer:\s*(.+?)\s*(\n|$)", text, re.DOTALL)
-
+        thought = re.search(r"(?<!Final )Thought:\s*(.+?)\s*(Observation|Final|Input|Thought|Question|$)", text, re.DOTALL)
+        input_ = re.search(r"Input:\s*(?:```|`)?(.+?)(?:```|`)?\s*(Observation|Final|Input|Thought|Question|$)", text, re.DOTALL)
+        final_thought = re.search(r"Final Thought:\s*(.+?)\s*(Observation|Final|Input|Thought|Question|$)", text, re.DOTALL)
+        final_answer = re.search(r"Final Answer:\s*(.+?)\s*(Observation|Final|Input|Thought|Question|$)", text, re.DOTALL)
+        
         if (not input_) and (not final_answer):
             raise ValueError(f'unknown format from LLM: {text}')
         
@@ -68,7 +69,11 @@ class TableSearcher(Chain):
             raise ValueError(f'table must be .csv, .xlsx, or .json, not {file_path.suffix}')
 
         return df
-
+    
+    def _write_log(self, action, text, run_manager):
+        run_manager.on_text(f"\n[Table Searcher] {action}: ", verbose=self.verbose)
+        run_manager.on_text(text, verbose=self.verbose, color='yellow')
+    
     def _call(
             self,
             inputs: Dict[str, Any],
@@ -85,63 +90,89 @@ class TableSearcher(Chain):
 
         for i in range(max_iteration + 1):
             llm_output = self.llm_chain.run(
+                df_index = str(list(self.df)),
                 df_head = self.df.head().to_markdown(),
                 question=input_,
                 agent_scratchpad = agent_scratchpad,
                 callbacks=callbacks,
                 stop=['Observation:', 'Question:',]
             )
+
+            if not llm_output.strip():
+                agent_scratchpad += 'Thought: '
+                llm_output = self.llm_chain.run(
+                    df_index = str(list(self.df)),
+                    df_head = self.df.head().to_markdown(),
+                    question=input_,
+                    agent_scratchpad = agent_scratchpad,
+                    callbacks=callbacks,
+                    stop=['Observation:', 'Question:',]
+                )
+            
+            if llm_output.endswith('Final Answer: success'):
+                thought = f'Final Thought: we have to answer the question `{input_}` using observation\n'
+                agent_scratchpad += thought
+                llm_output = self.llm_chain.run(
+                    df_index = str(list(self.df)),
+                    df_head = self.df.head().to_markdown(),
+                    question=input_,
+                    agent_scratchpad = agent_scratchpad,
+                    callbacks=callbacks,
+                    stop=['Observation:', 'Question:',]
+                )
+                llm_output = thought + llm_output
+
             output = self._parse_output(llm_output)
 
             if output['Final Answer']:
                 if output['Thought']:
                     raise ValueError(llm_output)
                 
-                run_manager.on_text(f"\n[Table Searcher] Final Thought: ", verbose=self.verbose)
-                run_manager.on_text(output['Final Thought'], verbose=self.verbose, color='yellow')
+                self._write_log('Final Thought', output['Final Thought'], run_manager)
 
-                final_answer = output['Final Answer']
+                final_answer: str = output['Final Answer']
+                #if final_answer == 'success':
+                #    agent_scratchpad += 'Thought: {}\nInput: {} \nObservation: {}\n'\
+                #            .format(output['Thought'], output['Input'], observation)
 
-                check_sentence = ' You must make sure that this answer leads to the final answer. You should not do any additional verification on the answer.'
+                check_sentence = ' Check to see if this answer can be your final answer, and if so, you should submit your final answer. You should not do any additional verification on the answer.'
                 if re.search(r'nothing', final_answer):
                     final_answer = 'There are no data in database.' # please use tool `predictor` to get answer.'
-                elif '.' in final_answer:
+                elif final_answer.endswith('.'):    
                     final_answer += check_sentence
                 else:
-                    final_answer = f'The answer is {final_answer}.{check_sentence}'
+                    final_answer = f'The answer for question "{input_}" is {final_answer}.{check_sentence}'
                 return {self.output_key: final_answer}
             
             elif i >= max_iteration:
-                run_manager.on_text(f"\n[Table Searcher] Final Thought: ", verbose=self.verbose)
-                run_manager.on_text('There are no data in database', verbose=self.verbose, color='yellow')
-                final_answer = 'There are no data in database.' # please use tool `predictor` to get answer.'
+                final_answer = 'There are no data in database'
+                self._write_log('Final Thought', final_answer, run_manager)
                 return {self.output_key: final_answer}
 
             else:
-                run_manager.on_text(f"\n[Table Searcher] Thought: ", verbose=self.verbose)
-                run_manager.on_text(output['Thought'], verbose=self.verbose, color='yellow')
-                run_manager.on_text(f"\n[Table Searcher] Input: \n", verbose=self.verbose)
-                run_manager.on_text(output['Input'], verbose=self.verbose, color='yellow')
-
+                self._write_log('Thought', output['Thought'], run_manager)
+                self._write_log('Input', output['Input'], run_manager)
+                
             pytool = PythonAstREPLTool(locals={'df':self.df})
             observation = str(pytool.run(output['Input'])).strip()
 
             num_tokens = len(self.encoder.encode(observation))
-            if num_tokens > 3400:
-                observation = "The number of tokens has been exceeded. To reduce the length of the message, please modify code to only pull up to 200 data."
-            elif return_observation:
-                run_manager.on_text(f"\n[Table Searcher] Observation: ", verbose=self.verbose)
+            
+            if return_observation:
                 if "\n" in observation:
-                    run_manager.on_text("\n"+observation, verbose=self.verbose, color='yellow')
+                    self._write_log('Observation', "\n"+observation, run_manager)
                 else:
-                    run_manager.on_text(observation, verbose=self.verbose, color='yellow')
+                    self._write_log('Observation', observation, run_manager)
                 return {self.output_key: observation}
+            
+            if num_tokens > 3400:
+                observation = f"The number of tokens has been exceeded. To reduce the length of the message, please modify code to only pull up to {self.num_max_data} data."
+                self.num_max_data = self.num_max_data // 2
 
-            run_manager.on_text(f"\n[Table Searcher] Observation: ", verbose=self.verbose)
             if "\n" in observation:
-                run_manager.on_text("\n"+observation, verbose=self.verbose, color='yellow')
+                self._write_log('Observation', "\n"+observation, run_manager)
             else:
-                run_manager.on_text(observation, verbose=self.verbose, color='yellow')
+                self._write_log('Observation', observation, run_manager)
 
             agent_scratchpad += 'Thought: {}\nInput: {} \nObservation: {}\n'\
                 .format(output['Thought'], output['Input'], observation)
@@ -158,7 +189,7 @@ class TableSearcher(Chain):
     ) -> Chain:
         template = PromptTemplate(
             template=prompt,
-            input_variables=['df_head', 'question', 'agent_scratchpad']
+            input_variables=['df_index', 'df_head', 'question', 'agent_scratchpad']
         )
         llm_chain = LLMChain(llm=llm, prompt=template)
         df = cls._get_df(file_path)
@@ -175,7 +206,7 @@ class TableSearcher(Chain):
     ) -> Chain:
         template = PromptTemplate(
             template=prompt,
-            input_variables=['df_head', 'question', 'agent_scratchpad']
+            input_variables=['df_index', 'df_head', 'question', 'agent_scratchpad']
         )
         llm_chain = LLMChain(llm=llm, prompt=template)
         encoder = tiktoken.encoding_for_model(llm.model_name)

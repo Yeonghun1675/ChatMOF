@@ -20,10 +20,11 @@ config = {
     'max_length_in_predictor' : 30,
     'accelerator' : 'cuda',
 
-    # genetic algorithm
-    'num_genetic_cycle': 3,
+    # generator
+    'num_genetic_cycle': 1,
     'num_parents': 200,
     'logger': 'generate_mof.log',
+    'topologies': ['pcu', 'acs',],
 
     # LLM - openAI
     'temperature': 0,    

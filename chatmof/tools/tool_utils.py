@@ -15,7 +15,7 @@ _MOF_TOOLS: Dict[str, Callable[[BaseLanguageModel], BaseTool]] = {
 }
 
 _load_tool_names: List[str] = [
-    #'python_repl',
+    'python_repl',
     #'requests',
     #'requests_get',
     #'requests_post',
@@ -23,16 +23,28 @@ _load_tool_names: List[str] = [
     #'requests_put',
     #'requests_delete',
     #'terminal',
-    'google-search',
-    'google-search-results-json',
-    'wikipedia',
     'human',
     'llm-math',
     'pal-math'
 ]
 
+_load_internet_tool_names: list[str] = [
+    'google-search',
+    'google-search-results-json',
+    'wikipedia',
+]
 
-def load_chatmof_tools(llm: BaseLanguageModel, verbose: bool=False) -> List[BaseTool]:
+
+def load_chatmof_tools(
+        llm: BaseLanguageModel, 
+        verbose: bool=False,
+        search_internet: bool=True,    
+    ) -> List[BaseTool]:
     tools = load_tools(_load_tool_names, llm=llm)
+    internet_tools = load_tools(_load_internet_tool_names, llm=llm)
     custom_tools = [model(llm=llm, verbose=verbose) for model in _MOF_TOOLS.values()]
-    return custom_tools + tools
+
+    if search_internet:
+        return custom_tools + tools + internet_tools
+    else:
+        return custom_tools + tools

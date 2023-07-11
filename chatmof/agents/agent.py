@@ -1,12 +1,13 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from pydantic import BaseModel
 from langchain.chains.base import Chain
 from langchain.base_language import BaseLanguageModel
 from langchain.agents import initialize_agent, AgentType
 from langchain.callbacks.base import BaseCallbackHandler
+from langchain.callbacks.manager import CallbackManagerForChainRun
 from langchain.prompts import PromptTemplate
 from chatmof.tools import load_chatmof_tools
-from chatmof.agents.prompt import PROMPT
+from chatmof.agents.prompt import PREFIX, FORMAT_INSTRUCTIONS, SUFFIX
 
 
 class ChatMOF(Chain):
@@ -26,18 +27,14 @@ class ChatMOF(Chain):
     
     def _call(
             self,
-            query: str,
-            callbacks: List[BaseCallbackHandler] or None = None
+            inputs: Dict[str, Any],
     ) -> Dict[str, Any]:
         
+        query = inputs[self.input_key]
         print ("\n" + "#"*10 + ' Question ' + "#"*30)
-        print (query['query'])
+        print (query)
         
-        prompt = PromptTemplate(template=PROMPT, input_variables=[self.input_key])
-        output = self.agent.run(
-            prompt.format(**{self.input_key: query}),
-                callbacks=callbacks,
-        )
+        output = self.agent.run(query)
 
         print ('\n')
         print ("#"*10 + ' Output ' + "#" * 30)
@@ -54,12 +51,26 @@ class ChatMOF(Chain):
         cls: BaseModel,
         llm: BaseLanguageModel,
         verbose: bool = False,
+        search_internet: bool = True,
     ) -> Chain:
-        tools = load_chatmof_tools(llm, verbose=verbose)
+        
+        tools = load_chatmof_tools(
+            llm=llm, 
+            verbose=verbose, 
+            search_internet=search_internet
+        )
+        
+        agent_kwargs = {
+            'prefix': PREFIX,
+            #'format_instructions': FORMAT_INSTRUCTIONS,
+            'suffix': SUFFIX
+        }
         agent = initialize_agent(
             tools,
             llm,
             agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
             verbose=verbose,
+            agent_kwargs=agent_kwargs,
+            handle_parsing_errors=True,
         )
         return cls(agent=agent, llm=llm, verbose=verbose)

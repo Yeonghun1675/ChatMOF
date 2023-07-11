@@ -16,7 +16,8 @@ def _get_generator(
     return Tool(
         name="generator",
         description=(
-            "The tool to use when you need to create materials. "            
+            "The tool to use when you need to create materials with specific properties. "
+            "It is not used in the prediction task. "
             "input must be provided in the form of a full sentence. "
         ),
         func=Generator.from_llm(llm=llm, verbose=verbose).run,

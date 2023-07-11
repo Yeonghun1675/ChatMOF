@@ -59,7 +59,7 @@ class Predictor(Chain):
             raise ValueError('number of properties and materials are not the same: {text}')
         for prop in properties:
             if prop not in _predictable_properties:
-                raise ValueError('Predictor can not predict the property')
+                raise ValueError(f'Predictor can not predict the property: {prop}')
         
         return {
             'Thought': thought.group(1),

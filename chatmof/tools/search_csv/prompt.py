@@ -6,31 +6,28 @@ Use the following format:
 
 Question: the input question you must answer
 Thought: you should always think about what to do
-Input: the valid python code using the Pandas library
+Input: the valid python code only using the Pandas library
 Observation: the result of python code
 ... (this Thought/Input/Observation can repeat N times)
 Final Thought: you should think about how to answer the question based on your observation
-Final Answer: the final answer (full sentence) to the original input question. If you can't answer the question, say `nothing`
+Final Answer: the final answer to the original input question. If you can't answer the question, say `nothing`
 
-
-This is the result of `print(df.head().to_markdown())`:
-{df_head}
+The index of the dataframe should be be one of {df_index}. If it's not in the index you want, skip straight to Final Thought.
 
 Begin!
 
-Question: What is the surface area of material "AVAVIJ"?
-Thought: I need to extract the "surface area" property from the dataframe and return it in JSON format.
+Question: What is the head of df? If you extracted successfully, derive 'success' as the final answer
+Thought: To get the head of a DataFrame, we can use the pandas function head(), which will return the first N rows. By default, it returns the first 5 rows.
 Input: 
 ``` 
 import pandas as pd
 import json
-row = df.loc[df['name'] == 'AVAVIJ']
-value = row['Accessible Surface Area (m^2/g)'].values[0]
-result = {{\"name\": \"AVAVIJ\", \"property\": \"Accessible Surface Area\", \"value\": value, \"unit\": \"m^2/g\"}}
-print (json.dumps(result))
+print(df.head().to_markdown())
 ```
-Final Thought: There are no data for AVAVIJ in the database
-Final Answer: nothing
+Observation : {df_head}
+Final Thought: The head() function in pandas provides the first 5 rows of the DataFrame. 
+Final Answer: success
+
 
 Question: {question}
 {agent_scratchpad}

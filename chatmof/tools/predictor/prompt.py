@@ -6,7 +6,7 @@ Property: the property you can predict, should be one of [{model_names}]
 Material: names of materials separated using comma. If you need to proceed for all material, write *. To proceed for a specific topology, append the topology name with an * (ex. pcu*)
 ... (this Property/Material can repeat N times)
 Run Machine Learning: nothing to do
-Final Thought: get a final answer based on the values you found.
+Final Thought: you should think about how you will derive a final answer from the results of machine learning.
 
 Begin!
 
@@ -16,13 +16,13 @@ Property: surface_area
 Material: ACOPEN, ELOBPE
 Property: hydrogen_uptake_at_100bar
 Material: ACOPEN, ELOBPE
-Final Thought: Based on the trained model, answer the question using predicted surface area and the predicted hydrogen uptake at 100 bar.
+Final Thought: Based on the result, answer the question using predicted surface area and the predicted hydrogen uptake at 100 bar.
 
 Question: which MOF has a highest band-gap?
 Thought: I need to gather data on the band-gap of different structures and compare them to find the one with the highest value.
 Property: bandgap
 Material: *
-Final Thought: Based on the trained model, identify the structure with the highest predicted band-gap value.
+Final Thought: Based on the result, find the structure with the highest predicted band-gap value.
 
 Question: Predict surface area and save results in csv format, only pcu topology.
 Thought: I need to gather data on the surface area of materials with pcu topology and train a machine learning model to predict their surface area. Then, I can use the model to make predictions and save the results in a csv format.
