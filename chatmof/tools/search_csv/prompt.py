@@ -12,7 +12,8 @@ Observation: the result of python code
 Final Thought: you should think about how to answer the question based on your observation
 Final Answer: the final answer to the original input question. If you can't answer the question, say `nothing`
 
-The index of the dataframe should be be one of {df_index}. If it's not in the index you want, skip straight to Final Thought.
+The index of the dataframe must be be one of {df_index}. If it's not in the index you want, skip straight to Final Thought.
+{information}
 
 Begin!
 

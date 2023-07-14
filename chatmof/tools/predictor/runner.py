@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import re
+import json
 from typing import List
 from pathlib import Path
 from pydantic import BaseModel
@@ -33,9 +34,16 @@ class MOFTransformerRunner(BaseModel):
         if 'regression_logits' in output:
             cif_id = output['cif_id']
             logits = output['regression_logits']
-        else:
-            raise NotImplementedError()
-
+        elif 'classification_logits_index' in output:
+            label_json = model_dir/'label.json'
+            if not label_json.exists():
+                raise FileNotFoundError(f'There are no "label.json" in {model_dir}')
+            with label_json.open() as f:
+                labels = json.load(f)
+            
+            cif_id = output['cif_id']
+            logits = [labels[i] for i in output['classification_logits_index']]
+            
         return cif_id, logits
         
     def parse_data(self, material:str) -> List[Path]:

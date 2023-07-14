@@ -84,6 +84,7 @@ class TableSearcher(Chain):
         return_observation = inputs.get('return_observation', False)
         
         agent_scratchpad = ''
+        information = inputs.get('information', "")
         max_iteration = config['max_iteration']
 
         input_ = self._clear_name(inputs[self.input_key])
@@ -91,6 +92,7 @@ class TableSearcher(Chain):
         for i in range(max_iteration + 1):
             llm_output = self.llm_chain.run(
                 df_index = str(list(self.df)),
+                information = information,
                 df_head = self.df.head().to_markdown(),
                 question=input_,
                 agent_scratchpad = agent_scratchpad,
@@ -102,6 +104,7 @@ class TableSearcher(Chain):
                 agent_scratchpad += 'Thought: '
                 llm_output = self.llm_chain.run(
                     df_index = str(list(self.df)),
+                    information = information,
                     df_head = self.df.head().to_markdown(),
                     question=input_,
                     agent_scratchpad = agent_scratchpad,
@@ -109,13 +112,15 @@ class TableSearcher(Chain):
                     stop=['Observation:', 'Question:',]
                 )
             
-            if llm_output.endswith('Final Answer: success'):
+            #if llm_output.endswith('Final Answer: success'):
+            if re.search(r'Final Answer: (success|.* above|.* DataFrames?).?$', llm_output):
                 thought = f'Final Thought: we have to answer the question `{input_}` using observation\n'
                 agent_scratchpad += thought
                 llm_output = self.llm_chain.run(
                     df_index = str(list(self.df)),
                     df_head = self.df.head().to_markdown(),
                     question=input_,
+                    information = information,
                     agent_scratchpad = agent_scratchpad,
                     callbacks=callbacks,
                     stop=['Observation:', 'Question:',]
@@ -166,6 +171,7 @@ class TableSearcher(Chain):
                 return {self.output_key: observation}
             
             if num_tokens > 3400:
+                raise ValueError('The number of tokens has been exceeded.')
                 observation = f"The number of tokens has been exceeded. To reduce the length of the message, please modify code to only pull up to {self.num_max_data} data."
                 self.num_max_data = self.num_max_data // 2
 
@@ -206,7 +212,7 @@ class TableSearcher(Chain):
     ) -> Chain:
         template = PromptTemplate(
             template=prompt,
-            input_variables=['df_index', 'df_head', 'question', 'agent_scratchpad']
+            input_variables=['df_index', 'information', 'df_head', 'question', 'agent_scratchpad']
         )
         llm_chain = LLMChain(llm=llm, prompt=template)
         encoder = tiktoken.encoding_for_model(llm.model_name)

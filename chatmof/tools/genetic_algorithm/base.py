@@ -67,7 +67,7 @@ class Generator(Chain):
             df = self.run_predictor(prop_text=prop, topology=topology, data_dir=config['hmof_dir'])
             df_dict[topology] = df
 
-        save_path = Path(config['generate_dir'])/'{prop}-0.csv'
+        save_path = Path(config['generate_dir'])/f'{prop}-0.csv'
         pd.concat(df_dict.values()).to_csv(str(save_path))
 
         for cycle in range(1, config['num_genetic_cycle']+1):
@@ -88,7 +88,10 @@ class Generator(Chain):
             run_manager=run_manager,
         )
 
-        final_output = searcher.run(output['Final Thought'])
+        final_output = searcher.run(
+            question=output['Final Thought'],
+            run_manager=run_manager,    
+        )
         return {self.output_key: final_output}
 
 
@@ -100,10 +103,13 @@ class Generator(Chain):
 
         parent_dict = dict()
         for topology in self.topologies:
+            print (df_dict[topology])
+
             searcher = TableSearcher.from_dataframe(
                 llm=self.llm,
                 dataframe = df_dict[topology],
                 verbose=self.verbose,
+                run_manager=run_manager,
             )            
             prompt = '{} (Objective: {})'.format(output['Search'], output['Objective'])
             search_output = searcher.run(
@@ -126,22 +132,27 @@ class Generator(Chain):
                 run_manager=run_manager,
             )
             child_dict[topology] = children
+            print (children)
 
         self._write_log('Generate Structures', '', run_manager)
 
         generator = CIFGenerator(direc)
         for topology in self.topologies:
-            generator.run(topology=topology, cif_list=child_dict[topology])
+                generator.run(topology=topology, cif_list=child_dict[topology])
 
         self._write_log('Predict Properties', output['Property']+"\n", run_manager)
         
         df_ls = []
         for topology in self.topologies:
-            df_gen = self.run_predictor(
-                prop_text=output['Property'], 
-                topology=topology, 
-                data_dir=direc,
-            )
+            try:
+                df_gen = self.run_predictor(
+                    prop_text=output['Property'], 
+                    topology=topology, 
+                    data_dir=direc,
+                )
+            except ValueError:
+                continue
+            
             df_dict[topology].merge(df_gen, on='cif_id', how='outer')
             df_ls.append(df_gen)
 
