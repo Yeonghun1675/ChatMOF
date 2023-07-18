@@ -79,7 +79,7 @@ class Generator(Chain):
         df_final = df_dict[self.topologies[0]]
         for topo in self.topologies[1:]:
             df_gen = df_dict[topo]
-            df_final.merge(df_gen, on='cif_id', how='outer')
+            df_final = df_final.merge(df_gen, how='outer')
 
         searcher = TableSearcher.from_dataframe(
             llm = self.llm,
@@ -103,23 +103,24 @@ class Generator(Chain):
 
         parent_dict = dict()
         for topology in self.topologies:
-            print (df_dict[topology])
-
             searcher = TableSearcher.from_dataframe(
                 llm=self.llm,
                 dataframe = df_dict[topology],
                 verbose=self.verbose,
                 run_manager=run_manager,
             )            
-            prompt = '{} (Objective: {})'.format(output['Search'], output['Objective'])
+            prompt = "{} (Objective: {}). If you need to set a range of data, you need to make it wide to make the data exist."\
+                    .format(output['Search'], output['Objective'])
             search_output = searcher.run(
                 question=prompt, 
                 return_observation=True,
                 run_manager = run_manager,
             )
             parents = self._parse_predictor(search_output)
+
             if not parents:
                 raise ValueError('There are no parents')
+                
             parent_dict[topology] = parents
             
         self._write_log('Get Children', output['Generate'], run_manager)
@@ -152,8 +153,8 @@ class Generator(Chain):
                 )
             except ValueError:
                 continue
-            
-            df_dict[topology].merge(df_gen, on='cif_id', how='outer')
+
+            df_dict[topology] = df_dict[topology].merge(df_gen, how='outer')
             df_ls.append(df_gen)
 
         pd.concat(df_ls).to_csv(str(direc/f'../{prop}-{cycle}.csv'))

@@ -26,7 +26,7 @@ if __name__ == '__main__':
     #question = "Can you check that ACOGEF is in directory /home/dudgns1675/autogpt/ChatMOF/chatmof/database/structures/raw ?"
     #question = "Can you provide the top 10 materials with the highest largest free pore diameter?"
     #question = 'What is the metal type in TUYNEI?'
-    question = "Can you generate the structures with the largest surface area?"
+    question = "What structures can you generate with a density near 0.4?"
 
     verbose = True
     search_internet = False
