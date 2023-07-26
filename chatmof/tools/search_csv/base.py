@@ -84,7 +84,7 @@ class TableSearcher(Chain):
         return_observation = inputs.get('return_observation', False)
         
         agent_scratchpad = ''
-        information = inputs.get('information', "")
+        information = inputs.get('information', "If unit exists, you must include it in the final output.")
         max_iteration = config['max_iteration']
 
         input_ = self._clear_name(inputs[self.input_key])
@@ -195,7 +195,7 @@ class TableSearcher(Chain):
     ) -> Chain:
         template = PromptTemplate(
             template=prompt,
-            input_variables=['df_index', 'df_head', 'question', 'agent_scratchpad']
+            input_variables=['df_index', 'information', 'df_head', 'question', 'agent_scratchpad']
         )
         llm_chain = LLMChain(llm=llm, prompt=template)
         df = cls._get_df(file_path)
