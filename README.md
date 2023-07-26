@@ -1,4 +1,4 @@
-![figure1](chatmof/figures/fig1.jpg)
+![figure1](figures/fig1.jpg)
 
 # ChatMOF : An Autonomous AI System for Predicting and Generating Metal-Organic Frameworks
 
@@ -34,7 +34,7 @@ $ moftransformer install-griday
 
 ChatMOF comprises three core components: an agent, toolkits, and an evaluator. Upon receiving a query from human, the agent formulates a plan and selects a suitable toolkit. Subsequently, the toolkit generates outputs following the proposed plan, and the evaluator makes these results into a final response.
 
-![figure1](chatmof/figures/fig2.jpg)
+![figure1](figures/fig2.jpg)
 
 
 
