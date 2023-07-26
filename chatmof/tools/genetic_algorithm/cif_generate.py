@@ -2,9 +2,11 @@ import os
 from typing import List, Optional
 from pathlib import Path
 from tqdm import tqdm
+import logging
+from timeout_decorator import timeout
+
 import pormake as pm
 from moftransformer.utils.prepare_data import make_prepared_data
-import logging
 from chatmof.config import config
 
 
@@ -73,9 +75,14 @@ class CIFGenerator(object):
                 return False
             else:
                 return True
+            
         except Exception as e:
+            if save_path.exists():
+                save_path.unlink()
+            logger.error(e)
             return False
 
+    @timeout(30) # timeout set to 30 second
     def _generate_cif(
         self,
         cif: str,

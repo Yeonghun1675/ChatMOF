@@ -9,8 +9,8 @@ from chatmof.tools.genetic_algorithm import _get_generator
 
 
 _MOF_TOOLS: Dict[str, Callable[[BaseLanguageModel], BaseTool]] = {
-    #"search_csv" : _get_search_csv,
-    #"predictor": _get_predict_properties,
+    "search_csv" : _get_search_csv,
+    "predictor": _get_predict_properties,
     'generator': _get_generator,
 }
 

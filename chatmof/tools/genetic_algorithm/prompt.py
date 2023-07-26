@@ -34,6 +34,7 @@ GENETIC_PROMPT = (
     "A substance consists of a block1, block2, and must maintain the order. "
     "I will give you 100 parent materials with value. "
     "Based on these, you must answer as many new children as you expect to answer the question. "
+    "The blocks used in the children must be the same blocks used in the parents. "
     "You must generate children diverse. "
     "The children must not be duplicates of existing parents or already created children. "
     "You output children only and nothing else."

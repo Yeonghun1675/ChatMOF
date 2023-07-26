@@ -21,14 +21,11 @@ config = {
     'accelerator' : 'cuda',
 
     # generator
-    'num_genetic_cycle': 3,
+    'num_genetic_cycle': 0,
     'num_parents': 200,
     'logger': 'generate_mof.log',
-    'topologies': ['pcu', 'dia', 'acs', 'pts', 'rtl', 'cds', 'srs', 'ths', 'bcu', 'fsc'],
-    #'topologies': ['pcu'],
-    #'topologies': ['pcu', 'acs', 'dia', 'scu', 'cds', 'dmd', 'sra', 'rtl', 'pts', 
-    #               'ths', 'tbo', 'pyr', 'the', 
-    #               'srs', 'nbo', 'fcu', 'sod', 'fsc', 'bcu'],
+    'topologies': ['pcu', 'dia', 'acs', 'rtl', 'cds', 'srs', 'ths', 'bcu', 'fsc'], # 'pts', 
+    #'topologies': ['pcu'], 
 
     # LLM - openAI
     'temperature': 0,    

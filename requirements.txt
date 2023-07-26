@@ -1,4 +1,3 @@
-torch
 moftransformer>=2.0
 pyyaml
 langchain
@@ -6,3 +5,6 @@ pormake
 openai
 openpyxl
 tiktoken
+google-api-python-client
+wikipedia
+timeout_decorator
