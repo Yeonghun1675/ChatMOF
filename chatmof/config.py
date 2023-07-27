@@ -4,8 +4,9 @@ from chatmof import __root_dir__
 
 config = {
     # data directory
-    'data_dir': os.path.join(__root_dir__, 'database/structures/coremof/'),
     'model_dir': os.path.join(__root_dir__, 'database/load_model/'),
+    'structure_dir': os.path.join(__root_dir__, 'database/structures/'),
+    'data_dir': os.path.join(__root_dir__, 'database/structures/coremof/'),
     'hmof_dir': os.path.join(__root_dir__, 'database/structures/hMOF/'),
     'generate_dir': os.path.join(__root_dir__, 'database/structures/generate'),
 

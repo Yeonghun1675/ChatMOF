@@ -17,10 +17,10 @@ def _get_visualizer(
     return Tool(
         name="visualizer",
         description=(
-                "A tools that visualize structure. "
+                "A tools to visualize the structure. "
                 "The input must be a detailed full sentence to answer the question."
         ),
-        func=Visualizer.from_filepath(
-            llm=llm, file_path=file_path, verbose=verbose
+        func=Visualizer.from_llm(
+            llm=llm, verbose=verbose
         ).run
     )
