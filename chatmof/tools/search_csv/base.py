@@ -140,7 +140,8 @@ class TableSearcher(Chain):
                 #    agent_scratchpad += 'Thought: {}\nInput: {} \nObservation: {}\n'\
                 #            .format(output['Thought'], output['Input'], observation)
 
-                check_sentence = ' Check to see if this answer can be your final answer, and if so, you should submit your final answer. You should not do any additional verification on the answer.'
+                #check_sentence = ' Check to see if this answer can be your final answer, and if so, you should submit your final answer. You should not do any additional verification on the answer.'
+                check_sentence = ''
                 if re.search(r'nothing', final_answer):
                     final_answer = 'There are no data in database.' # please use tool `predictor` to get answer.'
                 elif final_answer.endswith('.'):    
