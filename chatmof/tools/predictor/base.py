@@ -87,6 +87,7 @@ class Predictor(Chain):
         run_manager.on_text(output['Thought'], verbose=self.verbose, color='yellow')
 
         df_ls = []
+        info_ls = []
         for prop, mat in zip(output['Property'], output['Materials']):
             run_manager.on_text(f"\n[Predictor] Property: ", verbose=self.verbose)
             run_manager.on_text(prop, verbose=self.verbose, color='yellow')
@@ -98,13 +99,16 @@ class Predictor(Chain):
                 data_dir=self.data_dir,
                 verbose=self.verbose,
             )
-            cif_id, logits = runner.run(prop, mat)
+            cif_id, logits, model_info = runner.run(prop, mat)
             df = pd.DataFrame({'cif_id': cif_id, prop: logits})
             df_ls.append(df)
+            info_ls.append(model_info)
             
         df_total = df_ls[0]
         for df in df_ls[1:]:
             df_total.merge(df, on='cif_id', how='outer')
+
+        information = f'Information of models : {info_ls}. If unit or condition are existed, you must include it in the final output.'
 
         run_manager.on_text(f"[Predictor] Final Thought: ", verbose=self.verbose)
         run_manager.on_text(output['Final Thought'], verbose=self.verbose, color='yellow')
@@ -112,6 +116,7 @@ class Predictor(Chain):
         if len(df_total) < config['max_length_in_predictor']:
             final_output = self.final_single_chain.run(
                 table = df_total.to_markdown(),
+                information=information,
                 question = output['Final Thought']
             )
         else:
@@ -121,6 +126,7 @@ class Predictor(Chain):
                 verbose = self.verbose
             )
             final_output = searcher.run(question=output['Final Thought'],
+                                        information=information,
                                         run_manager=run_manager)
             
         return {self.output_key: final_output}
@@ -140,7 +146,7 @@ class Predictor(Chain):
         )
         fs_template = PromptTemplate(
             template=final_single_prompt,
-            input_variables=['table', 'question']
+            input_variables=['table', 'information', 'question']
         )
 
         llm_chain = LLMChain(llm=llm, prompt=template)
@@ -157,9 +163,9 @@ if __name__ == '__main__':
     from langchain.chat_models import ChatOpenAI
     from matplotlib import pyplot as plt
     
-    llm = ChatOpenAI(temperature=0)
+    llm = ChatOpenAI(temperature=0, model_name='gpt-4')
 
-    prompt = 'What is the highest bandgap MOF?'
+    prompt = 'Find the structure with the highest hydrogen diffusivity in a dilute system'
 
     tool = Predictor.from_llm(llm, verbose=True)
     output = tool.run(prompt)

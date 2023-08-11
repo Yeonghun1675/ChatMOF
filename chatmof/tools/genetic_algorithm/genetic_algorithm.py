@@ -46,20 +46,22 @@ class GeneticAlgorithmChain(Chain):
 
     def parse_parents(self, parents:Iterable[Iterable[str]]):
         n_parents = config['num_parents']
-        string = ""
+        names = []
+
         for i, parent in enumerate(parents):
             if i> n_parents:
-                return string
+                break
             if len(parent) < 2:
                 continue
             elif isinstance(parent, list):
-                name, value = parent
-                name, value = name.strip(), value.strip()
+                name, *_ = parent
+                name = name.strip()
             elif isinstance(parent, dict):
-                name, value = parent.values()
-            string += f'{name} (value: {value[:6]})\n'
+                name, *_ = parent.values()
+            
+            names.append(name)
 
-        return string
+        return ", ".join(names) + "\n"
     
     def _call(
         self,

@@ -2,6 +2,9 @@ import os
 import re
 from pathlib import Path
 import pandas as pd
+import ase
+import ase.io
+import ase.visualize
 from typing import Dict, Any, List, Optional
 
 from langchain.base_language import BaseLanguageModel
@@ -13,15 +16,13 @@ from langchain.tools.python.tool import PythonAstREPLTool
 import tiktoken
 
 from chatmof.config import config
-from chatmof.tools.search_csv.prompt import DF_PROMPT
+from chatmof.tools.ase_repl.prompt import ASE_PROMPT
 
 
-class TableSearcher(Chain):
-    """Tools that search csv using Pandas agent"""
+class ASETool(Chain):
+    """Tools that search csv using ASE agent"""
     llm_chain: LLMChain
-    df: pd.DataFrame
-    encoder: tiktoken.core.Encoding
-    num_max_data: int = 200
+    atoms: ase.Atoms
     input_key: str = 'question'
     output_key: str = 'answer'
 
@@ -38,7 +39,6 @@ class TableSearcher(Chain):
         input_ = re.search(r"Input:\s*(?:```|`)?(.+?)(?:```|`)?\s*(Observation|Final|Input|Thought|Question|$)", text, re.DOTALL)
         final_thought = re.search(r"Final Thought:\s*(.+?)\s*(Observation|Final|Input|Thought|Question|$)", text, re.DOTALL)
         final_answer = re.search(r"Final Answer:\s*(.+?)\s*(Observation|Final|Input|Thought|Question|$)", text, re.DOTALL)
-        observation = re.search(r"Observation:\s*(.+?)\s*(Observation|Final|Input|Thought|Question|$)", text, re.DOTALL)
         
         if (not input_) and (not final_answer):
             raise ValueError(f'unknown format from LLM: {text}')
@@ -48,7 +48,6 @@ class TableSearcher(Chain):
             'Input': (input_.group(1).strip() if input_ else None),
             'Final Thought' : (final_thought.group(1) if final_thought else None),
             'Final Answer': (final_answer.group(1) if final_answer else None),
-            'Observation': (observation.group(1) if observation else None),
         }
     
     def _clear_name(self, text:str) -> str:
@@ -83,11 +82,10 @@ class TableSearcher(Chain):
     ):
         _run_manager = run_manager or CallbackManagerForChainRun.get_noop_manager()
         callbacks = _run_manager.get_child()
-        
         return_observation = inputs.get('return_observation', False)
-        information = inputs.get('information', "If unit exists, you must include it in the final output. The name of the material exists in the column \"name\".")
-
+        
         agent_scratchpad = ''
+        information = inputs.get('information', "If unit exists, you must include it in the final output.")
         max_iteration = config['max_iteration']
 
         input_ = self._clear_name(inputs[self.input_key])
@@ -133,7 +131,7 @@ class TableSearcher(Chain):
             output = self._parse_output(llm_output)
 
             if output['Final Answer']:
-                if output['Observation']:
+                if output['Thought']:
                     raise ValueError(llm_output)
                 
                 self._write_log('Final Thought', output['Final Thought'], run_manager)
@@ -194,7 +192,7 @@ class TableSearcher(Chain):
         cls,
         llm: BaseLanguageModel,
         file_path: Path = Path(config['lookup_dir']),
-        prompt: str = DF_PROMPT,
+        prompt: str = ASE_PROMPT,
         **kwargs
     ) -> Chain:
         template = PromptTemplate(
@@ -207,11 +205,11 @@ class TableSearcher(Chain):
         return cls(llm_chain=llm_chain, df=df, encoder=encoder, **kwargs)
     
     @classmethod
-    def from_dataframe(
+    def from_atoms(
         cls,
         llm: BaseLanguageModel,
-        dataframe: pd.DataFrame,
-        prompt: str = DF_PROMPT,
+        atoms: ase.Atoms,
+        prompt: str = ASE_PROMPT,
         **kwargs
     ) -> Chain:
         template = PromptTemplate(
@@ -220,4 +218,4 @@ class TableSearcher(Chain):
         )
         llm_chain = LLMChain(llm=llm, prompt=template)
         encoder = tiktoken.encoding_for_model(llm.model_name)
-        return cls(llm_chain=llm_chain, df=dataframe, encoder=encoder, **kwargs)
+        return cls(llm_chain=llm_chain, atoms=atoms, encoder=encoder, **kwargs)

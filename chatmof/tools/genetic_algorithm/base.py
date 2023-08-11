@@ -64,7 +64,7 @@ class Generator(Chain):
         prop = output['Property']
         self._write_log('Predict Properties', prop+"\n", run_manager)
         for topology in self.topologies:
-            df = self.run_predictor(prop_text=prop, topology=topology, data_dir=config['hmof_dir'])
+            df, info_ls = self.run_predictor(prop_text=prop, topology=topology, data_dir=config['hmof_dir'])
             df_dict[topology] = df
 
         save_path = Path(config['generate_dir'])/f'{prop}-0.csv'
@@ -72,7 +72,7 @@ class Generator(Chain):
 
         for cycle in range(1, config['num_genetic_cycle']+1):
             run_manager.on_text(f'\n\n[Generator] Run genetic algorithm : Cycle {cycle}.\n', color='green')
-            df_dict = self.run_genetic(df_dict, output, run_manager, cycle)
+            df_dict = self.run_genetic(df_dict, output, run_manager, cycle, info_ls)
 
         self._write_log('Final Thought', output['Final Thought'], run_manager)
         
@@ -81,6 +81,7 @@ class Generator(Chain):
             df_gen = df_dict[topo]
             df_final = df_final.merge(df_gen, how='outer')
 
+        information = f'Information of models : {info_ls}. If unit or condition are existed, you must include it in the final output.'
         searcher = TableSearcher.from_dataframe(
             llm = self.llm,
             dataframe = df_final,
@@ -90,18 +91,21 @@ class Generator(Chain):
 
         final_output = searcher.run(
             question=output['Final Thought'],
-            run_manager=run_manager,    
+            run_manager=run_manager,
+            information=information,
         )
         return {self.output_key: final_output}
 
 
-    def run_genetic(self, df_dict, output, run_manager, cycle):
+    def run_genetic(self, df_dict, output, run_manager, cycle, info_ls):
         self._write_log('Find Parents', output['Search'], run_manager)
 
         prop = output['Property']
         direc = Path(config['generate_dir']) / f'{prop}-{cycle}'
 
         parent_dict = dict()
+        information = f'Information of models : {info_ls}. If unit or condition are existed, you must include it in the final output.'
+
         for topology in self.topologies:
             searcher = TableSearcher.from_dataframe(
                 llm=self.llm,
@@ -115,6 +119,7 @@ class Generator(Chain):
                 question=prompt, 
                 return_observation=True,
                 run_manager = run_manager,
+                information=information,
             )
             parents = self._parse_predictor(search_output)
 
@@ -146,7 +151,7 @@ class Generator(Chain):
         df_ls = []
         for topology in self.topologies:
             try:
-                df_gen = self.run_predictor(
+                df_gen, info_ls = self.run_predictor(
                     prop_text=output['Property'], 
                     topology=topology, 
                     data_dir=direc,
@@ -206,16 +211,18 @@ class Generator(Chain):
         
         material = f'{topology}*.cif'
         df_ls = []
+        info_ls = []
         for prop in self._parse_property(prop_text):
-            cif_id, logits = runner.run(prop, material)
+            cif_id, logits, model_info = runner.run(prop, material)
             df = pd.DataFrame({'cif_id': cif_id, prop: logits})
             df_ls.append(df)
+            info_ls.append(model_info)
 
         df_total = df_ls[0]
         for df in df_ls[1:]:
             df_total.merge(df, on='cif_id', how='outer')
 
-        return df
+        return df, model_info
 
     def _parse_predictor(self, output: str) -> List[List[str]]: 
         try:

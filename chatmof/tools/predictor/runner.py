@@ -31,6 +31,9 @@ class MOFTransformerRunner(BaseModel):
             verbose=self.verbose,
         )
 
+        with (model_dir/'model_info.json').open() as f:
+            model_info = json.load(f)
+
         if 'regression_logits' in output:
             cif_id = output['cif_id']
             logits = output['regression_logits']
@@ -44,7 +47,7 @@ class MOFTransformerRunner(BaseModel):
             cif_id = output['cif_id']
             logits = [labels[i] for i in output['classification_logits_index']]
             
-        return cif_id, logits
+        return cif_id, logits, model_info
         
     def parse_data(self, material:str) -> List[Path]:
         data_dir = Path(self.data_dir)
