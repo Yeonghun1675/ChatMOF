@@ -62,7 +62,7 @@ class ChatMOF(Chain):
         
         agent_kwargs = {
             'prefix': PREFIX,
-            #'format_instructions': FORMAT_INSTRUCTIONS,
+            'format_instructions': FORMAT_INSTRUCTIONS,
             'suffix': SUFFIX
         }
         agent = initialize_agent(
@@ -71,6 +71,6 @@ class ChatMOF(Chain):
             agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
             verbose=verbose,
             agent_kwargs=agent_kwargs,
-            handle_parsing_errors=True,
+            #handle_parsing_errors=True,
         )
         return cls(agent=agent, llm=llm, verbose=verbose)

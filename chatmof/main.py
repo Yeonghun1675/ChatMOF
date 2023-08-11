@@ -15,7 +15,6 @@ if __name__ == '__main__':
     #question = "Does UMODEH02_clean has open metal site or not?"
     #question = "What's the largest cavity diameter in materials with a density greater than a 7.0?"
     #question = "generate MOF with volume fraction == 0.5"
-    #question = "What is the bandgap of ACOGEF_clean?"
     #question = "What is the hydrogen uptake of ACOGEF_clean?"
     #question = "How does the non-accessible surface area of QEZZEC compare with other materials?"
     #question = "What is the pore volume and surface area of ACOGEF_clean?"
@@ -25,13 +24,14 @@ if __name__ == '__main__':
     #question = "What is the void fraction of ACOGEF_clean and ABETAE_clean?"
     #question = "Can you check that ACOGEF is in directory /home/dudgns1675/autogpt/ChatMOF/chatmof/database/structures/raw ?"
     #question = "Can you provide the top 10 materials with the highest largest free pore diameter?"
-    #question = 'What is the metal type in TUYNEI?'
-    question = "Can you generate the structure with accessible volume fraction with 0.5 and visualize it?"
+    #question = 'What is the surface area of MIBQAR16?'
+    #question = "Can VAHSON have an open metal site?"
+    question = "Can you generate structures with a density close to 0.4?"
 
     verbose = True
     search_internet = False
 
-    llm = ChatOpenAI(temperature=config['temperature'], model='gpt-3.5-turbo')
+    llm = ChatOpenAI(temperature=config['temperature'], model='gpt-4')
     callback_manager = [StdOutCallbackHandler()]
 
     chatmof = ChatMOF.from_llm(

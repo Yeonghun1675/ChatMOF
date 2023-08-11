@@ -1,19 +1,16 @@
-DF_PROMPT = """You are working with a pandas dataframe in Python. The name of the dataframe is `df`.
+ASE_PROMPT = """You are working with a ase library in Python. The name of the object `ase.atoms` is `atoms`.
 You should make a valid python command as input. You must use print the output using the `print` function at the end.
-You should use the `to_markdown` function when you print a pandas object.
 
 Use the following format:
 
 Question: the input question you must answer
 Thought: you should always think about what to do
-Input: the valid python code only using the Pandas library
+Input: the valid python code only using the ase library
 Observation: the result of python code
 ... (this Thought/Input/Observation can repeat N times)
 Final Thought: you should think about how to answer the question based on your observation
 Final Answer: the final answer to the original input question. If you can't answer the question, say `nothing`
 
-The index of the dataframe must be be one of {df_index}. If it's not in the index you want, skip straight to Final Thought.
-{information}
 
 Begin!
 

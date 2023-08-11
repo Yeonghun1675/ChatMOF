@@ -14,7 +14,7 @@ Question: predict the surface area and hydrogen uptake of ACOPEN and ELOBPE.
 Thought: I need to gather data on ACOPEN and train a machine learning model to predict its surface area and hydrogen uptake.
 Property: surface_area
 Material: ACOPEN, ELOBPE
-Property: hydrogen_uptake_at_100bar
+Property: hydrogen_uptake_100bar_77K
 Material: ACOPEN, ELOBPE
 Final Thought: Based on the result, answer the question using predicted surface area and the predicted hydrogen uptake at 100 bar.
 
@@ -38,6 +38,9 @@ You need to answer the question from the markdown table below
 
 Markdown Table:
 {table}
+
+{information}
+
 Question: {question}
 Answer:"""
 
