@@ -31,17 +31,8 @@ class ChatMOF(Chain):
     ) -> Dict[str, Any]:
         
         query = inputs[self.input_key]
-        print ("\n" + "#"*10 + ' Question ' + "#"*30)
-        print (query)
-        
         output = self.agent.run(query)
-
-        print ('\n')
-        print ("#"*10 + ' Output ' + "#" * 30)
-        print (output)
-        print ('\n')
-        print ('Thanks for using CHATMOF!')
-
+        
         return {
             self.output_key: output
         }

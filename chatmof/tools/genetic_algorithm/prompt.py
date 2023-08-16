@@ -49,22 +49,3 @@ GENETIC_PROMPT = (
     "{parents}"
     "100 new Children:\n"
 )
-
-
-if __name__ == '__main__':
-    from langchain.prompts import PromptTemplate
-    from langchain.chains import LLMChain
-    from langchain.chat_models import ChatOpenAI
-    from chatmof.tools.predictor.utils import model_names
-
-    llm = ChatOpenAI(temperature=0.0)
-    prompt = PromptTemplate(
-        template=PLAN_PROMPT, 
-        input_variables=['model_names', 'question']
-    )
-    chain = LLMChain(llm=llm, prompt=prompt)
-    output = chain.run(
-        model_names=model_names, 
-        question='Generate a material with surface area near 0.2'
-    )
-    print (output)
