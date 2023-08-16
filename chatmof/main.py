@@ -1,42 +1,43 @@
-from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.callbacks import StdOutCallbackHandler
-from chatmof.agents.agent import ChatMOF
+from langchain.callbacks.manager import CallbackManagerForChainRun
 from chatmof.config import config
+from chatmof.agents.agent import ChatMOF
 
 
-if __name__ == '__main__':
-    #question = "What is the surface area of ACOGEF?"
-    #question = "Tell me structures that has void fraction between 0.2 and 0.3"
-    #question = "What is top-3 structures that have high PLD?"
-    #question = "Can you tell me the type of open metal in DUQYEU01?"
-    #question = "Tell me top-5 structures that has void fraction near 0.7."
-    #question = 'Generate the structures with highest surface area and visualize it.'
-    #question = "Does UMODEH02_clean has open metal site or not?"
-    #question = "What's the largest cavity diameter in materials with a density greater than a 7.0?"
-    #question = "generate MOF with volume fraction == 0.5"
-    #question = "What is the hydrogen uptake of ACOGEF_clean?"
-    #question = "How does the non-accessible surface area of QEZZEC compare with other materials?"
-    #question = "What is the pore volume and surface area of ACOGEF_clean?"
-    #question = "Can you predict all bandgap prediction in coremof?"
-    #question = "What is the highest bandgap MOF?"
-    #question = "What is the bandgap of ACOGEF_clean and ABETAE_clean?"
-    #question = "What is the void fraction of ACOGEF_clean and ABETAE_clean?"
-    #question = "Can you check that ACOGEF is in directory /home/dudgns1675/autogpt/ChatMOF/chatmof/database/structures/raw ?"
-    #question = "Can you provide the top 10 materials with the highest largest free pore diameter?"
-    #question = 'What is the surface area of MIBQAR16?'
-    #question = "Can VAHSON have an open metal site?"
-    question = "Can you generate structures with a density close to 0.4?"
+def main(**kwargs) -> str:
+    config.update(kwargs)
 
-    verbose = True
-    search_internet = False
+    model = config['model']
+    search_internet = config['search_internet']
+    verbose = config['verbose']
 
-    llm = ChatOpenAI(temperature=config['temperature'], model='gpt-4')
+    llm = ChatOpenAI(temperature=config['temperature'], model=model)
     callback_manager = [StdOutCallbackHandler()]
+    run_manager = CallbackManagerForChainRun.get_noop_manager()
 
     chatmof = ChatMOF.from_llm(
         llm=llm, 
         verbose=verbose, 
         search_internet=search_internet,
     )
+
+    print ('#' * 50 + "\n")
+    print ('Welcom to ChatMOF!')
+    print ("\n" + "#"*10 + ' Question ' + "#"*30)
+    print ('Please enter the question below >>')
+    question = input()
+    
     output = chatmof.run(question, callbacks=callback_manager)
+
+    print ('\n')
+    print ("#"*10 + ' Output ' + "#" * 30)
+    print (output)
+    print ('\n')
+    print ('Thanks for using CHATMOF!')
+
+    return output
+
+
+if __name__ == '__main__':
+    main()

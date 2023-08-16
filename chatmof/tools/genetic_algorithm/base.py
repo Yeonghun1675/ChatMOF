@@ -124,14 +124,20 @@ class Generator(Chain):
             parents = self._parse_predictor(search_output)
 
             if not parents:
-                raise ValueError('There are no parents')
+                continue
                 
             parent_dict[topology] = parents
-            
+
+        if not parent_dict:
+            raise ValueError('There are no parents') 
+    
         self._write_log('Get Children', output['Generate'], run_manager)
 
         child_dict = dict()
         for topology in self.topologies:
+            if not topology in parent_dict.keys():
+                continue
+
             children = self.generator_chain.run(
                 question=output['Generate'],
                 parents=parent_dict[topology],
@@ -144,12 +150,16 @@ class Generator(Chain):
 
         generator = CIFGenerator(direc)
         for topology in self.topologies:
-                generator.run(topology=topology, cif_list=child_dict[topology])
+            if topology not in child_dict.keys():
+                continue
+            generator.run(topology=topology, cif_list=child_dict[topology])
 
         self._write_log('Predict Properties', output['Property']+"\n", run_manager)
         
         df_ls = []
         for topology in self.topologies:
+            if topology not in child_dict.keys():
+                continue
             try:
                 df_gen, info_ls = self.run_predictor(
                     prop_text=output['Property'], 
