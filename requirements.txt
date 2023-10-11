@@ -8,3 +8,4 @@ tiktoken
 google-api-python-client
 wikipedia
 timeout_decorator
+numexpr
