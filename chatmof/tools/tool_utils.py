@@ -29,7 +29,7 @@ _load_tool_names: List[str] = [
     #'terminal',
     #'human',
     'llm-math',
-    'pal-math'
+    #'pal-math'
 ]
 
 _load_internet_tool_names: list[str] = [

@@ -12,7 +12,7 @@ from chatmof.agents.prompt import PREFIX, FORMAT_INSTRUCTIONS, SUFFIX
 
 class ChatMOF(Chain):
     llm: BaseLanguageModel
-    agent: BaseModel
+    agent: object
     verbose: bool = False
     input_key: str = "query"
     output_key: str = "output"
@@ -64,4 +64,7 @@ class ChatMOF(Chain):
             agent_kwargs=agent_kwargs,
             #handle_parsing_errors=True,
         )
+
+        print (type(agent))
+
         return cls(agent=agent, llm=llm, verbose=verbose)
