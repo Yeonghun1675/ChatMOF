@@ -45,10 +45,10 @@ def load_chatmof_tools(
         search_internet: bool=True,    
     ) -> List[BaseTool]:
     tools = load_tools(_load_tool_names, llm=llm)
-    internet_tools = load_tools(_load_internet_tool_names, llm=llm)
     custom_tools = [model(llm=llm, verbose=verbose) for model in _MOF_TOOLS.values()]
 
     if search_internet:
+        internet_tools = load_tools(_load_internet_tool_names, llm=llm)
         return custom_tools + tools + internet_tools
     else:
         return custom_tools + tools

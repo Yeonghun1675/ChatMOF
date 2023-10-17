@@ -1,0 +1,5 @@
+{
+    "property": "henry coefficient",
+    "unit": "mol/Kg·Pa",
+    "etc": "The result of machine learning is a logarithmic value. To get the original value, you need to apply an exponential."
+}

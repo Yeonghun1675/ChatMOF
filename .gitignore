@@ -1,6 +1,12 @@
 __pycache__/
 etc/
 
+*.cif
+*.graphdata
+*.grid
+*.griddata16
+*.zip
+
 *.out
 *.log
 # *.ipynb
