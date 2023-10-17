@@ -52,8 +52,8 @@ def load_chatmof_tools(
     if search_internet:
         try:
             internet_tools = load_tools(_load_internet_tool_names, llm=llm)
-        except ValidationError as e:
-            warnings.warn(e)
+        except Exception as e:
+            warnings.warn(f'The internet tool does not work: {e}')
             internet_tools = []
         return custom_tools + tools + internet_tools
     else:
