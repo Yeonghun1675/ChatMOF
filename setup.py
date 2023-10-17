@@ -23,6 +23,11 @@ setup(
     author="Yeonghun Kang",
     author_email="dudgns1675@kaist.ac.kr",
     packages=find_packages(),
+    package_data={
+        'chatmof': [
+            'database/tables/*.xlsx'
+        ]
+    }
     install_requires=install_requires,
     extras_require=extras_require,
     scripts=[],
