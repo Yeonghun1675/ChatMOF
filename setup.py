@@ -27,7 +27,7 @@ setup(
         'chatmof': [
             'database/tables/*.xlsx'
         ]
-    }
+    },
     install_requires=install_requires,
     extras_require=extras_require,
     scripts=[],
