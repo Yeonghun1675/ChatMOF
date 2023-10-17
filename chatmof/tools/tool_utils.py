@@ -1,4 +1,6 @@
+import warnings
 from typing import Dict, Callable, List
+from pydantic import ValidationError
 from langchain.base_language import BaseLanguageModel
 from langchain.tools.base import BaseTool
 from langchain.agents import load_tools, get_all_tool_names
@@ -48,7 +50,11 @@ def load_chatmof_tools(
     custom_tools = [model(llm=llm, verbose=verbose) for model in _MOF_TOOLS.values()]
 
     if search_internet:
-        internet_tools = load_tools(_load_internet_tool_names, llm=llm)
+        try:
+            internet_tools = load_tools(_load_internet_tool_names, llm=llm)
+        except ValidationError as e:
+            warnings.warn(e)
+            internet_tools = []
         return custom_tools + tools + internet_tools
     else:
         return custom_tools + tools
