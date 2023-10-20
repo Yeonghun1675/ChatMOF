@@ -50,7 +50,7 @@ class PythonREPLTool(BaseTool):
         "If you want to see the output of a value, you should print it out "
         "with `print(...)`."
     )
-    python_repl: PythonREPL = Field(default_factory=_get_default_python_repl)
+    python_repl: PythonREPL = Field(_get_default_python_repl)
     sanitize_input: bool = True
 
     def _cleanup(self, query):
@@ -66,7 +66,7 @@ class PythonREPLTool(BaseTool):
         if self.sanitize_input:
             query = sanitize_input(query)
         query = self._cleanup(query)
-        return self.python_repl.run(query)
+        return self.python_repl.default().run(query)
 
     async def _arun(
         self,

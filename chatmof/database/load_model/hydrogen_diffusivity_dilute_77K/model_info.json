@@ -1,7 +1,0 @@
-{
-    "property": "hydrogen uptake",
-    "pressure": "infinity dilute",
-    "temperature": "77K",
-    "unit": "cm^2/s",
-    "etc": "The result of machine learning is a logarithmic value. To get the original value, you need to apply an exponential."
-}

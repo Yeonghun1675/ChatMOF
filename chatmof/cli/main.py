@@ -4,16 +4,12 @@ from argparse import RawTextHelpFormatter
 from chatmof import __version__
 
 commands = [
-    # ('info' , 'moftransformer.cli.info'),
-    ("install-griday", "moftransformer.cli.install_griday"),
-    ("uninstall-griday", "moftransformer.cli.uninstall_griday"),
-    ("run", "moftransformer.cli.run"),
-    ("predict", "moftransformer.cli.predict"),
-    ("download", "moftransformer.cli.download"),
+    ("run", "chatmof.cli.run"),
+    ("setup", "chatmof.cli.setup"),
 ]
 
 
-def main(prog="moftransformer", version=__version__, commands=commands, args=None):
+def main(prog="chatmof", version=__version__, commands=commands, args=None):
     parser = argparse.ArgumentParser(
         prog=prog,
     )

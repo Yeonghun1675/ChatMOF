@@ -32,7 +32,7 @@ setup(
     extras_require=extras_require,
     scripts=[],
     #url="https://hspark1212.github.io/MOFTransformer/",
-    #download_url="https://github.com/hspark1212/MOFTransformer",
-    #entry_points={"console_scripts": ["moftransformer=moftransformer.cli.main:main"]},
+    download_url="https://github.com/Yeonghun1675/ChatMOF",
+    entry_points={"console_scripts": ["chatmof=chatmof.cli.main:main"]},
     python_requires=">=3.9",
 )

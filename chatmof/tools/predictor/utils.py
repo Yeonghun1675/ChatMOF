@@ -16,8 +16,9 @@ from chatmof.tools.predictor.dataset import ChatDataset
 
 
 _predictable_properties = [
-    path.stem for path in Path(default_config['model_dir']).iterdir()
+    path.stem for path in Path(default_config['model_dir']).iterdir() if not path.stem.startswith('__')
 ]
+
 model_names = ",".join(_predictable_properties + ['else'])
 
 
