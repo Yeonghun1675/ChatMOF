@@ -19,9 +19,13 @@ python>=3.9
 ### Installation
 
 ```bash
-$ git clone https://github.com/Yeonghun1675/ChatMOF.git
-$ cd ChatMOF/
-$ pip install -e .
+$ pip install chatmof
+```
+
+For prediction and generation task, you have to setup modules.
+
+```bash
+$ chatmof setup
 ```
 
 For MOF generation, you need to install MOFTransformer's GRIDAY.
@@ -31,15 +35,25 @@ $ moftransformer install-griday
 ```
 
 ## How to use ChatMOF
-You can use it by running chatmof's `main.py`.
+You can use it by running chatmof's `run` function.
 
 ```bash
-$ cd [dir_chatmof]/chatmof/
-$ python main.py
+$ chatmof run
 ```
 ![example](figures/example.JPG)
 
-If you want to change the settings, please modify `chatmof/config.py`.
+You can adjust argument of Chatmof such as model and temperature
+
+```bash
+$ chatmof run --model-name gpt-3.5-turbo --temperature 0.5
+```
+
+You can use `help` to see more options.
+
+```bash
+$ chatmof run --help
+```
+
 
 ## Example of ChatMOF
 ### 1) Search task
