@@ -1,5 +1,3 @@
-from chatmof.main import main
-
 class CLICommand:
     """
     Run ChatMOF code
@@ -31,7 +29,7 @@ class CLICommand:
             '--accelerator',
             '-a',
             help='Device name for MOFTransformer. accelerator must be one of [cuda, gpu, cpu]',
-            type=float,
+            type=str,
             default='cuda'
         )
         add(
@@ -54,6 +52,7 @@ class CLICommand:
 
     @staticmethod
     def run(args):
+        from chatmof.main import main
         kwargs = {}
         print (dict(args))
         print (args)

@@ -1,6 +1,6 @@
 import subprocess
 from pathlib import Path
-import shutil
+import zipfile
 from moftransformer.utils.download import _download_file
 from chatmof.config import config
 
@@ -29,7 +29,8 @@ def download_load_model(direc=None):
     if not filename.exists():
         raise InstallationError(f'{name} does not downloaded.')
     
-    shutil.unpack_archive(str(filename), format='zip')
+    zip_file = zipfile.ZipFile(str(filename))
+    zip_file.extractall()
 
 
 def download_hmof(direc=None):
@@ -52,7 +53,8 @@ def download_hmof(direc=None):
     if not filename.exists():
         raise InstallationError(f'{name} does not downloaded.')
     
-    shutil.unpack_archive(str(filename), format='zip')
+    zip_file = zipfile.ZipFile(str(filename))
+    zip_file.extractall()
 
 
 def download_coremof(direc=None):
@@ -75,7 +77,8 @@ def download_coremof(direc=None):
     if not filename.exists():
         raise InstallationError(f'{name} does not downloaded.')
     
-    shutil.unpack_archive(str(filename), format='zip')
+    zip_file = zipfile.ZipFile(str(filename))
+    zip_file.extractall()
 
 
 def setup():
