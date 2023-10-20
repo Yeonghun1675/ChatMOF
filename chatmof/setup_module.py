@@ -30,7 +30,7 @@ def download_load_model(direc=None):
         raise InstallationError(f'{name} does not downloaded.')
     
     zip_file = zipfile.ZipFile(str(filename))
-    zip_file.extractall()
+    zip_file.extractall(path=direc)
 
 
 def download_hmof(direc=None):
@@ -54,7 +54,7 @@ def download_hmof(direc=None):
         raise InstallationError(f'{name} does not downloaded.')
     
     zip_file = zipfile.ZipFile(str(filename))
-    zip_file.extractall()
+    zip_file.extractall(path=direc)
 
 
 def download_coremof(direc=None):
@@ -78,7 +78,7 @@ def download_coremof(direc=None):
         raise InstallationError(f'{name} does not downloaded.')
     
     zip_file = zipfile.ZipFile(str(filename))
-    zip_file.extractall()
+    zip_file.extractall(path=direc)
 
 
 def setup():

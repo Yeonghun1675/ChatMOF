@@ -1,3 +1,25 @@
+from itertools import chain
+
+
+str_kwargs_names = {
+    'accelerator': "Device name for MOFTransformer. accelerator must be one of [cuda, gpu, cpu] (default: cuda)",
+    'logger': 'logger for generation task (Default: generate_mof.log)',
+}
+
+int_kwargs_names = {
+    'max_length_in_predictor': 'max number of MOFs in predictor step. (default: 30)',
+    'num_genetic_cycle': 'number of genetic algorithm cycle (default: 3)',
+}
+
+float_kwargs_names = {
+}
+
+bool_kwargs_names = {
+    'search_internet': 'If True, using "search internet" tools. (default = False)',
+    'verbose': 'If True, print intermediate step. (default = True)'
+}
+
+
 class CLICommand:
     """
     Run ChatMOF code
@@ -25,35 +47,31 @@ class CLICommand:
             default=0.1,
         )
 
-        add(
-            '--accelerator',
-            '-a',
-            help='Device name for MOFTransformer. accelerator must be one of [cuda, gpu, cpu]',
-            type=str,
-            default='cuda'
-        )
-        add(
-            '--max-length-in-predictor',
-            type=int,
-            default=30,
-        )
-        add(
-            '--num-genetic-cycle',
-            type=int,
-            default=3,
-        )
-        add(
-            '--logger',
-            help='logger for generation task (Default: generate_mof.log)',
-            type=str,
-            default='generate_mof.log'
-        )
+        for key, value in str_kwargs_names.items():
+            parser.add_argument(f"--{key}", type=str, required=False, help=f"(optional) {value}")
 
+        for key, value in int_kwargs_names.items():
+            parser.add_argument(f"--{key}", type=int, required=False, help=f"(optional) {value}")
+
+        for key, value in float_kwargs_names.items():
+            parser.add_argument(f"--{key}", type=float, required=False, help=f"(optional) {value}")
+
+        for key, value in bool_kwargs_names.items():
+            parser.add_argument(f"--{key}", action='store_true', required=False, help=f"(optional) {value}")
 
     @staticmethod
     def run(args):
         from chatmof.main import main
+        model = args.model_name
+        temperature = args.temperature
+
         kwargs = {}
-        print (dict(args))
-        print (args)
-        main(kwargs)
+        for key in chain(str_kwargs_names.keys(), 
+                         int_kwargs_names.keys(),
+                         float_kwargs_names.keys(),
+                         bool_kwargs_names.keys(),
+                         ):
+            if value := getattr(args, key):
+                kwargs[key] = value
+        
+        main(model=model, temperature=temperature, **kwargs)

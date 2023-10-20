@@ -1,6 +1,6 @@
 import os
 
-__version__ = '0.1.7'   
+__version__ = '0.1.8'   
 __root_dir__ = os.path.dirname(__file__)
 
 
