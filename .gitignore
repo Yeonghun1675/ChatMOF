@@ -23,7 +23,7 @@ test/
 .ipynb_checkpoints/
 
 # database
-#database/
+database/
 
 # libs
 libs/
