@@ -2,7 +2,7 @@
 
 # ChatMOF : An Autonomous AI System for Predicting and Generating Metal-Organic Frameworks
 
-ChatMOF is an autonomous Artificial Intelligence (AI) system that is built to predict and generate of metal-organic frameworks (MOFs). By leveraging a large-scale language model (gpt-3.5-turbo), ChatMOF extracts key details from textual inputs and delivers appropriate responses, thus eliminating the necessity for rigid structured queries. The system is comprised of  three core components (i.e. an agent, a toolkit, and an evaluator) and it forms a robust pipeline that manages a variety of tasks, including data retrieval, property prediction, and structure generation. The study further explores the merits and constraints of using large language models (LLMs) AI system in material sciences using and showcases its transformative potential for future advancements.
+ChatMOF is an autonomous Artificial Intelligence (AI) system that is built to predict and generate of metal-organic frameworks (MOFs). By leveraging a large-scale language model (GPT-4 and GPT-3.5-turbo), ChatMOF extracts key details from textual inputs and delivers appropriate responses, thus eliminating the necessity for rigid structured queries. The system is comprised of  three core components (i.e. an agent, a toolkit, and an evaluator) and it forms a robust pipeline that manages a variety of tasks, including data retrieval, property prediction, and structure generation. The study further explores the merits and constraints of using large language models (LLMs) AI system in material sciences using and showcases its transformative potential for future advancements.
 
 NOTE: We've resolved the unavailability issue, if you run into any further issues please leave a github issue.
 
@@ -21,11 +21,25 @@ python>=3.9
 ```bash
 $ pip install chatmof
 ```
+If you have a dependency issues between `torch` and `moftransformer`, uninstall `torch` and `pytorch-lightning`, install `torch <2.0.0`, and reinstall.
 
 For prediction and generation task, you have to setup modules.
 
 ```bash
 $ chatmof setup
+```
+
+Add the following line to `.bashrc` for the openai api key.
+```shell
+# openai api key
+export OPENAI_API_KEY="enter_your_api_key"
+```
+
+If you want to search the internet, you'll need to enter the `GOOGLE_API_KEY` and `GOOGLE_CSE_ID` into `.bashrc`.
+```shell
+# google api and cse_id
+export GOOGLE_API_KEY="enter_your_api_key"
+export GOOGLE_CSE_ID="enter_your_id"
 ```
 
 For MOF generation, you need to install MOFTransformer's GRIDAY.
@@ -42,7 +56,7 @@ $ chatmof run
 ```
 ![example](figures/example.JPG)
 
-You can adjust argument of Chatmof such as model and temperature
+You can adjust argument of Chatmof such as model and temperature.
 
 ```bash
 $ chatmof run --model-name gpt-3.5-turbo --temperature 0.5
