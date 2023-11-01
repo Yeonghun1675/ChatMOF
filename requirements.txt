@@ -11,3 +11,4 @@ timeout_decorator
 numexpr
 streamlit
 bitsandbytes
+accelerate

@@ -6,6 +6,11 @@ ChatMOF is an autonomous Artificial Intelligence (AI) system that is built to pr
 
 NOTE: We've resolved the unavailability issue, if you run into any further issues please leave a github issue.
 
+## Online Demo
+You can test ChatMOF in [Online-Demo](https://chatmof-online.streamlit.app/) site. It requires an `OpenAI key` (For more information, visit the [OpenAI site](https://platform.openai.com/docs/introduction)). In online demo, only the Search task is available. For prediction tasks and generation tasks that require machine learning do not work properly, except for the provided examples.
+
+![OnlineDemo](figures/online_demo.JPG)
+
 ## Install
 
 ### Dependencies
