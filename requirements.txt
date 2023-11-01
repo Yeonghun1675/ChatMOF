@@ -10,3 +10,4 @@ wikipedia
 timeout_decorator
 numexpr
 streamlit
+bitsandbytes

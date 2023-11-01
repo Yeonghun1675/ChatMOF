@@ -9,11 +9,11 @@ from langchain.chains.base import Chain
 from langchain.chains.llm import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.callbacks.manager import CallbackManagerForChainRun
-from langchain.tools.python.tool import PythonAstREPLTool
 import tiktoken
 
 from chatmof.config import config
 from chatmof.tools.search_csv.prompt import DF_PROMPT
+from chatmof.tools.python_repl.base import PythonAstREPLTool
 
 
 class TableSearcher(Chain):

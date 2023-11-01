@@ -6,6 +6,7 @@ from chatmof import __version__
 commands = [
     ("run", "chatmof.cli.run"),
     ("setup", "chatmof.cli.setup"),
+    ("install-griday", "chatmof.cli.install_griday"),
 ]
 
 

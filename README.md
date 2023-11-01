@@ -42,10 +42,10 @@ export GOOGLE_API_KEY="enter_your_api_key"
 export GOOGLE_CSE_ID="enter_your_id"
 ```
 
-For MOF generation, you need to install MOFTransformer's GRIDAY.
+For MOF generation, you need to install GRIDAY.
 
 ```bash
-$ moftransformer install-griday
+$ chatmof install-griday
 ```
 
 ## How to use ChatMOF
