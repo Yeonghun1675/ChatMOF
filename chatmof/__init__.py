@@ -7,6 +7,7 @@ __root_dir__ = os.path.dirname(__file__)
 from langchain.chat_models import ChatOpenAI
 from chatmof.agents.agent import ChatMOF
 from chatmof.config import config
+from chatmof import llm
 
 
 __all__ = [
@@ -14,4 +15,5 @@ __all__ = [
     "config",
     "ChatOpenAI",
     "__version__",
+    'llm',
 ]

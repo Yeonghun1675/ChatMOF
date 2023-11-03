@@ -35,8 +35,7 @@ class CLICommand:
             '--model-name',
             '-m',
             type=str,
-            help="OpenAI model name. model_name must be one of [gpt-4, gpt-3.5-turbo, gpt-3.5-turbo-16k]. (default: gpt-4)",
-            choices=['gpt-4', 'gpt-3.5-turbo', 'gpt-3.5-turbo-16k'],
+            help="LLM model name. model_name must be one of [gpt-4, gpt-3.5-turbo, gpt-3.5-turbo-16k]. (default: gpt-4)",
             default='gpt-4'
         )
         add(

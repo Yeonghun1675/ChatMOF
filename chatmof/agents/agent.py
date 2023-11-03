@@ -65,6 +65,4 @@ class ChatMOF(Chain):
             #handle_parsing_errors=True,
         )
 
-        print (type(agent))
-
         return cls(agent=agent, llm=llm, verbose=verbose)

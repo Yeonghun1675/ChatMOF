@@ -12,3 +12,4 @@ numexpr
 streamlit
 bitsandbytes
 accelerate
+xformers

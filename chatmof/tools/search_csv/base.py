@@ -2,7 +2,7 @@ import os
 import re
 from pathlib import Path
 import pandas as pd
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Callable
 
 from langchain.base_language import BaseLanguageModel
 from langchain.chains.base import Chain
@@ -20,7 +20,7 @@ class TableSearcher(Chain):
     """Tools that search csv using Pandas agent"""
     llm_chain: LLMChain
     df: pd.DataFrame
-    encoder: tiktoken.core.Encoding
+    encode_function: Callable
     num_max_data: int = 200
     input_key: str = 'question'
     output_key: str = 'answer'
@@ -165,7 +165,7 @@ class TableSearcher(Chain):
             pytool = PythonAstREPLTool(locals={'df':self.df})
             observation = str(pytool.run(output['Input'])).strip()
 
-            num_tokens = len(self.encoder.encode(observation))
+            num_tokens = self.encode_function(observation)
             
             if return_observation:
                 if "\n" in observation:
@@ -174,8 +174,8 @@ class TableSearcher(Chain):
                     self._write_log('Observation', observation, run_manager)
                 return {self.output_key: observation}
             
-            if num_tokens > 3400:
-                raise ValueError('The number of tokens has been exceeded.')
+            #if num_tokens > 3400:
+                #raise ValueError('The number of tokens has been exceeded.')
                 observation = f"The number of tokens has been exceeded. To reduce the length of the message, please modify code to only pull up to {self.num_max_data} data."
                 self.num_max_data = self.num_max_data // 2
 
@@ -184,7 +184,7 @@ class TableSearcher(Chain):
             else:
                 self._write_log('Observation', observation, run_manager)
 
-            agent_scratchpad += 'Thought: {}\nInput: {} \nObservation: {}\n'\
+            agent_scratchpad += 'Thought: {}\nInput: {} \nObservation: {}'\
                 .format(output['Thought'], output['Input'], observation)
 
         raise AssertionError('Code Error! please report to author!')
@@ -203,8 +203,8 @@ class TableSearcher(Chain):
         )
         llm_chain = LLMChain(llm=llm, prompt=template)
         df = cls._get_df(file_path)
-        encoder = tiktoken.encoding_for_model(llm.model_name)
-        return cls(llm_chain=llm_chain, df=df, encoder=encoder, **kwargs)
+        encode_function = llm.get_num_tokens
+        return cls(llm_chain=llm_chain, df=df, encode_function=encode_function, **kwargs)
     
     @classmethod
     def from_dataframe(
@@ -219,5 +219,6 @@ class TableSearcher(Chain):
             input_variables=['df_index', 'information', 'df_head', 'question', 'agent_scratchpad']
         )
         llm_chain = LLMChain(llm=llm, prompt=template)
-        encoder = tiktoken.encoding_for_model(llm.model_name)
-        return cls(llm_chain=llm_chain, df=dataframe, encoder=encoder, **kwargs)
+
+        encode_function = llm.get_num_tokens
+        return cls(llm_chain=llm_chain, df=dataframe, encode_function=encode_function, **kwargs)
