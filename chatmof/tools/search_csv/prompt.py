@@ -26,7 +26,7 @@ import json
 print(df.head().to_markdown())
 ```
 Observation: {df_head}
-Final Thought: The head() function in pandas provides the first 5 rows of the DataFrame. 
+Final Thought: we have to answer the question "What is the head of df? If you extracted successfully, derive 'success' as the final answer" using observation. 
 Final Answer: success
 
 
