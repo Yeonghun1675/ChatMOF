@@ -1,8 +1,9 @@
 moftransformer>=2.0
 pyyaml
-urllib3==1.25.11
-requests==2.27.1
-langchain==0.0.235
+urllib3<=1.25.11
+requests<=2.27.1
+langchain<=0.0.235
+transformers>=4.34.1
 pormake
 openai
 openpyxl
