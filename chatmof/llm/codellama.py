@@ -33,7 +33,8 @@ def get_codellama_llm(model_name: str, max_token: int =4096, temperature: float=
                 do_sample=True,
                 top_k=30,
                 max_new_tokens=max_token,
-                eos_token_id=tokenizer.eos_token_id
+                eos_token_id=tokenizer.eos_token_id,
+                pad_token_id=tokenizer.eos_token_id,
                 )
 
     llm = HuggingFacePipeline(pipeline = pipe, model_kwargs = {'temperature':temperature})

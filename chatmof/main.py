@@ -1,3 +1,7 @@
+import os
+os.environ['CURL_CA_BUNDLE'] = ''
+os.environ["CUDA_VISIBLE_DEVICES"]='1'
+
 import argparse
 import copy
 from itertools import chain

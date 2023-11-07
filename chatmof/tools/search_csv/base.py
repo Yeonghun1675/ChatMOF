@@ -116,7 +116,7 @@ class TableSearcher(Chain):
                 )
             
             #if llm_output.endswith('Final Answer: success'):
-            if re.search(r'Final Answer: (success|.* above|.* DataFrames?).?$', llm_output):
+            if re.search(r'Final Answer: (success|.* above|.* success|.* succeed|.* DataFrames?).?$', llm_output):
                 thought = f'Final Thought: we have to answer the question `{input_}` using observation\n'
                 agent_scratchpad += thought
                 llm_output = self.llm_chain.run(
