@@ -1,0 +1,18 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the hydrogen uptake of OCUUVF_clean at 77K and 100bar pressure.
+Action: search_csv
+Action Input: "Search name OCUUVF_clean and provide information on its hydrogen uptake at 77K and 100bar pressure"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the pandas function loc() to find the row of the material with the name 'OCUUVF' and then extract the information on its hydrogen uptake at 77K and 100bar pressure.[0m
+[Table Searcher] Input: [33;1m[1;3mdf.loc['OCUUVF'][0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: 'OCUUVF'[0m<class 'ValueError'> unknown format from LLM: 
+What is your answer?
+
+Note: Please provide the unit of the result if it exists.

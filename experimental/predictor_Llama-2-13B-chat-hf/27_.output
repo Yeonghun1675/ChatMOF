@@ -1,0 +1,16 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the thermal stability of materials with bandgap above 2.5 eV.
+Action: search_csv
+Action Input: "Search for materials with bandgap above 2.5 eV and provide information on their thermal stability"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the 'Pore limiting diameter' and 'Largest free pore diameter' to get an idea of the material's thermal stability.[0m
+[Table Searcher] Input: [33;1m[1;3mdf[df['Pore limiting diameter'] > 2.5].to_markdown()[0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: 'Pore limiting diameter'[0m<class 'ValueError'> unknown format from LLM: 
+

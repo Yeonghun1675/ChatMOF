@@ -1,0 +1,41 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3mI need to find the solvent removal stability of DUVNIS01_charged.
+Action: search_csv
+Action Input: "Search name DUVNIS01_charged and provide information on its solvent removal stability"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mTo search for a specific value in a DataFrame, we can use the `loc` function and specify the condition for the search. We can then extract the information related to the solvent removal stability for the specific material.[0m
+[Table Searcher] Input: [33;1m[1;3mduvnis01_info = df.loc[df['name'] == 'DUVNIS01', 'Solvent removal stability']
+print(duvnis01_info.to_markdown())[0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: 'Solvent removal stability'[0m
+[Table Searcher] Final Thought: [33;1m[1;3mThe column 'Solvent removal stability' does not exist in the dataframe, so we cannot provide information on it for the material 'DUVNIS01'.[0m
+[1m> Finished chain.[0m
+
+Observation: [36;1m[1;3mThere are no data in database.[0m
+Thought:[32;1m[1;3mThe search_csv tool did not provide any information on the solvent removal stability of DUVNIS01_charged. I need to find another way to obtain this information.
+Action: predictor
+Action Input: "Predict the solvent removal stability of DUVNIS01_charged"[0m
+
+[1m> Entering new Predictor chain...[0m
+
+[Predictor] Thought: [33;1m[1;3mI need to gather data on the solvent removal stability of DUVNIS01_charged and train a machine learning model to predict its solvent removal stability.[0m
+[Predictor] Property: [33;1m[1;3msolvent_removal_stability[0m
+[Predictor] Materials: [33;1m[1;3mDUVNIS01_charged
+[0mload model : /home/dudgns1675/ChatMOF/chatmof/database/load_model/solvent_removal_stability/epoch=18-step=836.ckpt
+Predicting: 0it [00:00, ?it/s]Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting DataLoader 0:   0%|          | 0/1 [00:00<?, ?it/s]Predicting DataLoader 0: 100%|##########| 1/1 [00:00<00:00, 95.17it/s]Predicting DataLoader 0: 100%|##########| 1/1 [00:00<00:00, 11.17it/s]
+[Predictor] Final Thought: [33;1m[1;3mBased on the result, I can provide the predicted solvent removal stability of DUVNIS01_charged.[0m
+[1m> Finished chain.[0m
+
+Observation: [33;1m[1;3mBased on the result, the predicted solvent removal stability of DUVNIS01_charged is unstable.[0m
+Thought:[32;1m[1;3mI now know the final answer
+Final Answer: The solvent removal stability of DUVNIS01_charged is predicted to be unstable.[0m
+
+[1m> Finished chain.[0m
+
+[1m> Finished chain.[0m

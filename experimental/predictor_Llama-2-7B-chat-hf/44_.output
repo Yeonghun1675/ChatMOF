@@ -1,0 +1,12 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find out if GUCJAQ_clean can handle N2.
+Action: predictor
+Action Input: "Predict the diffusion coefficient of N2 in GUCJAQ_clean at 298K and dilute system"[0m
+
+[1m> Entering new Predictor chain...[0m
+<class 'ValueError'> number of properties and materials are not the same: {text}

@@ -1,0 +1,12 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find out if GAJTUI_clean can take up a significant volume of N2 under conditions of 298K and 1 bar.
+Action: predictor
+Action Input: "predict the adsorption capacity of GAJTUI_clean under conditions of 298K and 1 bar"[0m
+
+[1m> Entering new Predictor chain...[0m
+<class 'ValueError'> Predictor can not predict the property: adsorption_capacity

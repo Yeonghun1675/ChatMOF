@@ -1,0 +1,12 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find if XAVDUV_clean can store hydrogen under 100bar pressure at 77K.
+Action: predictor
+Action Input: "Predict if XAVDUV_clean can stably store hydrogen under 100bar pressure when observed at 77K"[0m
+
+[1m> Entering new Predictor chain...[0m
+<class 'ValueError'> Predictor can not predict the property: pore_size_distribution

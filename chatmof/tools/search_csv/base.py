@@ -151,11 +151,16 @@ class TableSearcher(Chain):
                     final_answer += check_sentence
                 else:
                     final_answer = f'The answer for question "{input_}" is {final_answer}.{check_sentence}'
+
+                self._write_log('Final Answer', final_answer, run_manager)
                 return {self.output_key: final_answer}
             
             elif i >= max_iteration:
                 final_answer = 'There are no data in database'
-                self._write_log('Final Thought', final_answer, run_manager)
+                self._write_log('Final Thought',
+                                output['Final Thought'], run_manager)
+                self._write_log('Final Answer', final_answer, run_manager)
+
                 return {self.output_key: final_answer}
 
             else:
@@ -176,8 +181,8 @@ class TableSearcher(Chain):
             
             #if num_tokens > 3400:
                 #raise ValueError('The number of tokens has been exceeded.')
-                observation = f"The number of tokens has been exceeded. To reduce the length of the message, please modify code to only pull up to {self.num_max_data} data."
-                self.num_max_data = self.num_max_data // 2
+                # observation = f"The number of tokens has been exceeded. To reduce the length of the message, please modify code to only pull up to {self.num_max_data} data."
+                # self.num_max_data = self.num_max_data // 2
 
             if "\n" in observation:
                 self._write_log('Observation', "\n"+observation, run_manager)

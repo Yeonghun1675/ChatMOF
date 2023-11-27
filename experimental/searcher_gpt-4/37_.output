@@ -1,0 +1,17 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+########## Question ##############################
+Can you list materials with a pore limiting diameter greater than a 6.0?
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3mI need to find materials with a pore limiting diameter greater than 6.0.
+Action: search_csv
+Action Input: "List materials with a pore limiting diameter greater than 6.0"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mTo list materials with a pore limiting diameter greater than 6.0, we can use the pandas function loc[] to filter the DataFrame based on the condition.[0m
+[Table Searcher] Input: [33;1m[1;3mprint(df.loc[df['Pore limiting diameter (Å)'] > 6.0].to_markdown())[0m<class 'ValueError'> The number of tokens has been exceeded.

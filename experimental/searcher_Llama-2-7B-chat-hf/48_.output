@@ -1,0 +1,12 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the type of open metal in QOWRAV11.
+Action: predictor
+Action Input: "predict the type of open metal in QOWRAV11"[0m
+
+[1m> Entering new Predictor chain...[0m
+<class 'ValueError'> number of properties and materials are not the same: {text}

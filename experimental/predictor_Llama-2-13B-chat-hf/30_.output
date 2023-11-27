@@ -1,0 +1,17 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find out if QINSUD_clean can remove solvents stably.
+Action: search_csv
+Action Input: "Search name QINSUD_clean and provide information on its stability in removing solvents"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mTo search for the name QINSUD in the dataframe, we can use the pandas function loc() to search for a specific value in the dataframe. If the value is found, we can extract the row(s) that contain the value.[0m
+[Table Searcher] Input: [33;1m[1;3mprint(df.loc['QINSUD'])[0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: 'QINSUD'[0m<class 'ValueError'> unknown format from LLM: 
+
+

@@ -1,0 +1,17 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find materials that show solvent removal stability.
+Action: search_csv
+Action Input: "search for materials that show solvent removal stability and provide their names and properties"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the 'has open metal site' column to filter the materials that show solvent removal stability. We can also use the 'type of open metal' column to get more information about the materials.[0m
+[Table Searcher] Input: [33;1m[1;3mdf[df['has open metal site'] == True].to_markdown(orient='table')[0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: 'has open metal site'[0m<class 'ValueError'> unknown format from LLM: The column 'has open metal site' does not exist in the dataframe.
+
+

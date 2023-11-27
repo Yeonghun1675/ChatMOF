@@ -1,0 +1,16 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the Henry coefficient of CO2 for WOYJOL_clean.
+Action: calculator
+Action Input: "Calculate the Henry coefficient of CO2 for WOYJOL_clean at 298K"[0m
+Observation: calculator is not a valid tool, try another one.
+Thought:[32;1m[1;3m The calculator tool is not valid for this question. I need to find another way to obtain this information.
+Action: predictor
+Action Input: "Predict the Henry coefficient of CO2 for WOYJOL_clean at 298K"[0m
+
+[1m> Entering new Predictor chain...[0m
+<class 'ValueError'> Predictor can not predict the property: henry_coefficient_298K

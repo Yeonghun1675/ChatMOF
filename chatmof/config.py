@@ -4,11 +4,12 @@ from chatmof import __root_dir__
 
 config = {
     # ChatMOF
-    'search_internet': False,
+    'search_internet': True,
     'verbose': True,
+    'handle_errors': True,
 
     # LLM - openAI
-    'temperature': 0.1,    
+    'temperature': 0.0,    
     'model': 'gpt-4',
 
     # data directory

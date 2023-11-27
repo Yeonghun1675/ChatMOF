@@ -1,0 +1,16 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the hydrogen diffusivity for NISPEL_charged under 77K and infinity dilute conditions.
+Action: calculator
+Action Input: "Calculate the hydrogen diffusivity for NISPEL_charged under 77K and infinity dilute conditions using the Nernst-Planck equation"[0m
+Observation: calculator is not a valid tool, try another one.
+Thought:[32;1m[1;3m I can use the predictor tool to predict the hydrogen diffusivity.
+Action: predictor
+Action Input: "Predict the hydrogen diffusivity for NISPEL_charged under 77K and infinity dilute conditions"[0m
+
+[1m> Entering new Predictor chain...[0m
+<class 'ValueError'> Predictor can not predict the property: hydrogen_diffusivity_dilute_77K,hydrogen_diffusivity_infinity_dilute

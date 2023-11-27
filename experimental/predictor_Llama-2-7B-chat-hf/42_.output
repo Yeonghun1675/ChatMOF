@@ -1,0 +1,12 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the hydrogen uptake of OCUVUF_clean at 77K and 100bar pressure.
+Action: predictor
+Action Input: "predict the hydrogen uptake of OCUVUF_clean at 77K and 100bar pressure"[0m
+
+[1m> Entering new Predictor chain...[0m
+<class 'ValueError'> Predictor can not predict the property: hydrogen_uptake_77K_100bar

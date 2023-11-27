@@ -1,0 +1,34 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find out if XEGKUR_clean can stably remove solvents.
+Action: search_csv
+Action Input: "Search name XEGKUR_clean and provide information on its solvent removal"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mTo search for a specific row in a DataFrame, we can use the pandas function loc(), which takes the row index as an argument.[0m
+[Table Searcher] Input: [33;1m[1;3mdf.loc[['name', 'XEGKUR']].to_markdown()[0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: "None of [Index(['name', 'XEGKUR'], dtype='object')] are in the [index]"[0m
+[Table Searcher] Final Thought: [33;1m[1;3mwe have to use the loc() function with the correct index to get the information we want.[0m
+[1m> Finished chain.[0m
+
+Observation: [36;1m[1;3mThere are no data in database.[0m
+Thought:[32;1m[1;3m The search_csv tool did not provide any information on the solvent removal of XEGKUR_clean. I need to find another way to obtain this information.
+Action: predictor
+Action Input: "predict the solvent removal of XEGKUR_clean"[0m
+
+[1m> Entering new Predictor chain...[0m
+
+[Predictor] Thought: [33;1m[1;3mI need to gather data on the solvent removal of XEGKUR_clean and train a machine learning model to predict their solvent removal. Then, I can use the model to make predictions and save the results in a csv format.[0m
+[Predictor] Property: [33;1m[1;3msolvent_removal_stability[0m
+[Predictor] Materials: [33;1m[1;3mXEGKUR_clean
+[0mload model : /home/dudgns1675/ChatMOF/chatmof/database/load_model/solvent_removal_stability/epoch=18-step=836.ckpt
+Predicting: 0it [00:00, ?it/s]Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting DataLoader 0:   0%|          | 0/1 [00:00<?, ?it/s]Predicting DataLoader 0: 100%|##########| 1/1 [00:00<00:00, 13.52it/s]Predicting DataLoader 0: 100%|##########| 1/1 [00:00<00:00,  3.30it/s]
+
+[Predictor] Property: [33;1m[1;3moxygen_diffusivity_dilute_298K[0m
+[Predictor] Materials: [33;1m[1;3mMIL-101(Cr)
+[0m<class 'ValueError'> There are no data in MIL-101(Cr)

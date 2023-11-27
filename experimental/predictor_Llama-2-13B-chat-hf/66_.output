@@ -1,0 +1,17 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the thermal stability of DUVNIS01_charged.
+Action: search_csv
+Action Input: "Search name DUVNIS01_charged and provide information on its thermal stability"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the 'loc' method to search for a specific value in the dataframe. We can also use the 'info' method to extract information about a specific column.[0m
+[Table Searcher] Input: [33;1m[1;3mdf.loc['DUVNIS01']
+df.info(axis=1)[0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: 'DUVNIS01'[0m<class 'ValueError'> unknown format from LLM: 
+

@@ -78,7 +78,13 @@ class Predictor(Chain):
             callbacks=callbacks
         )
 
-        output = self._parse_output(llm_output)
+        if config["handle_errors"]:
+            try:
+                output = self._parse_output(llm_output)
+            except ValueError as e:
+                return {self.output_key: f'ValueError : {str(e)}'}
+        else:
+            output = self._parse_output(llm_output)
         
         run_manager.on_text(f"\n[Predictor] Thought: ", verbose=self.verbose)
         run_manager.on_text(output['Thought'], verbose=self.verbose, color='yellow')
@@ -96,14 +102,20 @@ class Predictor(Chain):
                 data_dir=self.data_dir,
                 verbose=self.verbose,
             )
-            cif_id, logits, model_info = runner.run(prop, mat)
+            if config["handle_errors"]:
+                try:
+                    cif_id, logits, model_info = runner.run(prop, mat)
+                except ValueError as e:
+                    return {self.output_key: f'ValueError : {str(e)}'}
+            else:
+                cif_id, logits, model_info = runner.run(prop, mat)
             df = pd.DataFrame({'cif_id': cif_id, prop: logits})
             df_ls.append(df)
             info_ls.append(model_info)
-            
+
         df_total = df_ls[0]
         for df in df_ls[1:]:
-            df_total.merge(df, on='cif_id', how='outer')
+            df_total = df_total.merge(df, on='cif_id', how='outer')
 
         information = f'Information of models : {info_ls}. If unit or condition are existed, you must include it in the final output.'
 

@@ -1,11 +1,9 @@
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 from pydantic import BaseModel
 from langchain.chains.base import Chain
 from langchain.base_language import BaseLanguageModel
 from langchain.agents import initialize_agent, AgentType
-from langchain.callbacks.base import BaseCallbackHandler
-from langchain.callbacks.manager import CallbackManagerForChainRun
-from langchain.prompts import PromptTemplate
+from chatmof.config import config
 from chatmof.tools import load_chatmof_tools
 from chatmof.agents.prompt import PREFIX, FORMAT_INSTRUCTIONS, SUFFIX
 
@@ -62,7 +60,7 @@ class ChatMOF(Chain):
             agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
             verbose=verbose,
             agent_kwargs=agent_kwargs,
-            #handle_parsing_errors=True,
+            handle_parsing_errors=config["handle_errors"],
         )
 
         return cls(agent=agent, llm=llm, verbose=verbose)

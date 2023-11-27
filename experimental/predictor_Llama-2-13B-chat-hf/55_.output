@@ -1,0 +1,11 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the diffusivity of N2 in IHAJIL_clean.
+Action: Calculator
+Action Input: "Calculate the diffusivity of N2 in IHAJIL_clean at 298K and dilute system"[0m<class 'ValueError'> LLMMathChain._evaluate("
+diffusivity = 1.143e-5 * (1000/298)**(-0.5) * (1 - 0.05*1000/298)**(-0.5)
+") raised error: invalid syntax (<expr>, line 1). Please try again with a valid numerical expression

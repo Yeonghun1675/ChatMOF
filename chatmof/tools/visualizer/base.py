@@ -73,7 +73,7 @@ class Visualizer(Chain):
         materials = output['Material'].split(',')
         for material in materials:
             material = material.strip()
-            ls_st = search_file(f'**/**/{material}.cif', self.data_dir)
+            ls_st = search_file(f'{material}.cif', self.data_dir)
             if not ls_st:
                 return {self.output_key: f'There are no structures with {material}.'}
             

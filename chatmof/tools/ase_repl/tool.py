@@ -5,23 +5,23 @@ from langchain.base_language import BaseLanguageModel
 from langchain.tools.base import BaseTool
 
 from chatmof.config import config
-from chatmof.tools.search_csv.base import TableSearcher
+from chatmof.tools.ase_repl.base import ASETool
 
 
-def _get_search_csv(
+def _get_ase_repl(
         llm: BaseLanguageModel,
         file_path: str = config['lookup_dir'],
         verbose: bool = False,
         **kwargs: Any) -> BaseTool:
 
     return Tool(
-        name="search_csv",
+        name="ase_repl",
         description=(
-                "A tools that extract accurate properties from a look-up table in the database. "
-                #"input must be provided in the form of a full sentence. "
-                "The input must be a detailed full sentence to answer the question."
+            "A tools for analyzing materials using the ASE library."
+            "It allows you to perform tasks using ASE, such as atom coordinates and cell information"
+            "The input must be a detailed full sentence to answer the question."
         ),
-        func=TableSearcher.from_filepath(
-            llm=llm, file_path=file_path, verbose=verbose
+        func=ASETool.from_llm(
+            llm=llm, verbose=verbose,
         ).run
     )

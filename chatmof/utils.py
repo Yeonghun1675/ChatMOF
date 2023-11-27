@@ -13,12 +13,19 @@ def preprocess_json_input(input_str: str) -> str:
 
 
 def search_file(name: str, direc: Path) -> List[Path]:
-    name = name.strip()
     if '*' in name:
-        return list(direc.glob(name))
-    
-    f_name = direc/name
-    if f_name.exists():
-        return [f_name]
-    
-    return False
+        files = list(direc.glob(name))
+        if files:
+            return files
+    else:
+        f_name = direc/name
+        if f_name.exists():
+            return [f_name]
+        
+    iterdir = sorted([i for i in direc.iterdir() if i.is_dir()])
+    for direc in iterdir:
+        files = search_file(name, direc)
+        if files:
+            return files
+            
+    return []

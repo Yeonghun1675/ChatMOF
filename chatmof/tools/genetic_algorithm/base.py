@@ -230,7 +230,7 @@ class Generator(Chain):
 
         df_total = df_ls[0]
         for df in df_ls[1:]:
-            df_total.merge(df, on='cif_id', how='outer')
+            df_total = df_total.merge(df, on='cif_id', how='outer')
 
         return df, model_info
 

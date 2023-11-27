@@ -1,0 +1,32 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the stability of JALCAD_clean at 298K and 1bar when the solvent is removed.
+Action: Python_REPL
+Action Input: "import thermo.thermo_utils; thermo.thermo_utils.get_phase_equilibria('JALCAD_clean','remove_solvent', 298, 1)"[0m
+Observation: [38;5;200m[1;3mModuleNotFoundError("No module named 'thermo'")[0m
+Thought:[32;1m[1;3m I cannot use the Python_REPL tool to get the stability of JALCAD_clean. I need to find another way to obtain this information.
+Action: search_csv
+Action Input: "Search for the stability of JALCAD_clean when the solvent is removed"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the 'Accessible volume volume fraction' column to search for stability. If the value is less than 0.5, the material is unstable.[0m
+[Table Searcher] Input: [33;1m[1;3mdf['Accessible volume volume fraction'] < 0.5[0m
+[Table Searcher] Observation: [33;1m[1;3m
+0        False
+1         True
+2        False
+3        False
+4         True
+         ...  
+12015    False
+12016     True
+12017    False
+12018    False
+12019    False
+Name: Accessible volume volume fraction, Length: 12020, dtype: bool[0m<class 'ValueError'> unknown format from LLM: 
+

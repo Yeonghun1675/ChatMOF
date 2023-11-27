@@ -1,0 +1,11 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to calculate the volume of N2 that IZEHAX_clean can hold at standard temperature and pressure.
+Action: Calculator
+Action Input: "Calculate the volume of N2 that IZEHAX_clean can hold at standard temperature and pressure"[0m<class 'ValueError'> LLMMathChain._evaluate("
+V = (44.01 * 1000) / (287.058 * 10^(-3)) * (101325 * 10^(-3))
+") raised error: invalid syntax (<expr>, line 1). Please try again with a valid numerical expression

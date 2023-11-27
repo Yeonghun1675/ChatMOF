@@ -1,0 +1,12 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the stability of JEDJUY_clean at elevated temperatures.
+Action: predictor
+Action Input: "predict the stability of JEDJUY_clean at elevated temperatures"[0m
+
+[1m> Entering new Predictor chain...[0m
+<class 'ValueError'> Predictor can not predict the property: CO2_diffusion_coefficient

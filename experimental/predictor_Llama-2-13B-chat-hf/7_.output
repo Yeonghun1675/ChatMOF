@@ -1,0 +1,18 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the solvent removal stability of XEGKUR_clean.
+Action: search_csv
+Action Input: "Search name XEGKUR_clean and provide information on its solvent removal stability"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the pandas function information() to extract the information of a specific column. We can also use the iloc() function to select a specific row.[0m
+[Table Searcher] Input: [33;1m[1;3mdf.info(XEGKUR)
+df.iloc[XEGKUR]['Largest cavity diameter (Å)'][0m
+[Table Searcher] Observation: [33;1m[1;3mNameError: name 'XEGKUR' is not defined[0m<class 'ValueError'> unknown format from LLM: 
+
+

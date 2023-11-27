@@ -1,0 +1,29 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the thermal stability of COKMUM_clean.
+Action: search_csv
+Action Input: "Search name COKMUM_clean and provide information on its thermal stability"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mTo search for the name COKMUM in the dataframe, we can use the pandas function loc(), which will return the rows where the value in the specified column matches the given value.[0m
+[Table Searcher] Input: [33;1m[1;3mdf.loc[df['name'].str.contains('COKMUM')][0m
+[Table Searcher] Observation: [33;1m[1;3m
+name  ...  Type of open metal
+1334  COKMUM  ...                  Mn
+
+[1 rows x 17 columns][0m
+[Table Searcher] Final Thought: [33;1m[1;3mWe have found the row(s) where the name contains COKMUM. We can extract the information we need from the corresponding columns.[0m
+[1m> Finished chain.[0m
+
+Observation: [36;1m[1;3mThe thermal stability of COKMUM is Mn.[0m
+Thought:[32;1m[1;3m The search_csv tool provided the thermal stability of COKMUM, but not the specific temperature. I need to find the specific temperature.
+Action: predictor
+Action Input: "Predict the specific temperature of COKMUM"[0m
+
+[1m> Entering new Predictor chain...[0m
+<class 'ValueError'> Predictor can not predict the property: specific_temperature

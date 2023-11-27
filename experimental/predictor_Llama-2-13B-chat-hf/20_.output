@@ -1,0 +1,17 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the materials with the highest thermal stability.
+Action: search_csv
+Action Input: "find for materials with highest thermal stability and provide its name and thermal stability"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the column "name" to filter the materials with the highest thermal stability. We can also use the "Accessible Surface Area" and "Nonaccessible Surface Area" to determine the thermal stability.[0m
+[Table Searcher] Input: [33;1m[1;3mdf[df['Accessible Surface Area'] > df['Nonaccessible Surface Area']].sort_values(by='Accessible Surface Area', ascending=False)[0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: 'Accessible Surface Area'[0m<class 'ValueError'> unknown format from LLM: 
+
+

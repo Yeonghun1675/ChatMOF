@@ -1,0 +1,12 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find out if DUVNIS01_charged can take up a significant volume of hydrogen at 77K and 100 bar.
+Action: predictor
+Action Input: "predict the hydrogen uptake of DUVNIS01_charged at 77K and 100 bar"[0m
+
+[1m> Entering new Predictor chain...[0m
+<class 'ValueError'> number of properties and materials are not the same: {text}

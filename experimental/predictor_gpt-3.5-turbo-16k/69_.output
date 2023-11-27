@@ -1,0 +1,64 @@
+
+
+> Entering new AgentExecutor chain...
+I need to find materials with a high bandgap.
+Action: predictor
+Action Input: "Predict the bandgap of various materials and provide a list of materials with high bandgaps"
+
+> Entering new Predictor chain...
+
+[Predictor] Thought: I need to gather data on the bandgap of various materials and train a machine learning model to predict their bandgap values. Then, I can use the model to make predictions and create a list of materials with high bandgaps.
+[Predictor] Property: bandgap
+[Predictor] Materials: *
+load model : /home/dudgns1675/ChatMOF_reproduce/ChatMOF-0.0.0-beta/chatmof/database/load_model/bandgap/model.ckpt
+Predicting DataLoader 0: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1246/1246 [00:40<00:00, 30.71it/s]
+[Predictor] Final Thought: Based on the predicted bandgap values, compile a list of materials with high bandgaps.
+
+> Entering new TableSearcher chain...
+
+[Table Searcher] Thought: To compile a list of materials with high bandgaps, we need to filter the DataFrame based on a condition. We can use the pandas function `loc` to select rows that meet a certain condition.
+[Table Searcher] Input: high_bandgap_materials = df.loc[df['bandgap'] > 2.0]
+print(high_bandgap_materials.to_markdown())Traceback (most recent call last):
+  File "/home/dudgns1675/ChatMOF_reproduce/ChatMOF-0.0.0-beta/chatmof/main.py", line 46, in <module>
+    output = chatmof.run(question, callbacks=callback_manager)
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 440, in run
+    return self(args[0], callbacks=callbacks, tags=tags, metadata=metadata)[
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 243, in __call__
+    raise e
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 239, in __call__
+    else self._call(inputs)
+  File "/home/dudgns1675/ChatMOF_reproduce/ChatMOF-0.0.0-beta/chatmof/agents/agent.py", line 37, in _call
+    output = self.agent.run(query)
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 440, in run
+    return self(args[0], callbacks=callbacks, tags=tags, metadata=metadata)[
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 243, in __call__
+    raise e
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 237, in __call__
+    self._call(inputs, run_manager=run_manager)
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/agents/agent.py", line 994, in _call
+    next_step_output = self._take_next_step(
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/agents/agent.py", line 855, in _take_next_step
+    observation = tool.run(
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/tools/base.py", line 320, in run
+    raise e
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/tools/base.py", line 292, in run
+    self._run(*tool_args, run_manager=run_manager, **tool_kwargs)
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/tools/base.py", line 444, in _run
+    self.func(
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 440, in run
+    return self(args[0], callbacks=callbacks, tags=tags, metadata=metadata)[
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 243, in __call__
+    raise e
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 237, in __call__
+    self._call(inputs, run_manager=run_manager)
+  File "/home/dudgns1675/ChatMOF_reproduce/ChatMOF-0.0.0-beta/chatmof/tools/predictor/base.py", line 123, in _call
+    final_output = searcher.run(question=output['Final Thought'],
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 445, in run
+    return self(kwargs, callbacks=callbacks, tags=tags, metadata=metadata)[
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 243, in __call__
+    raise e
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 237, in __call__
+    self._call(inputs, run_manager=run_manager)
+  File "/home/dudgns1675/ChatMOF_reproduce/ChatMOF-0.0.0-beta/chatmof/tools/search_csv/base.py", line 175, in _call
+    raise ValueError('The number of tokens has been exceeded.')
+ValueError: The number of tokens has been exceeded.

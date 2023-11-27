@@ -1,0 +1,41 @@
+
+
+[1m> Entering new  chain...[0m
+
+########## Question ##############################
+Is the solvent removal stability of XEGKUR_clean strong?
+
+
+[1m> Entering new  chain...[0m
+[32;1m[1;3mI need to determine the solvent removal stability of XEGKUR_clean.
+Action: search_csv
+Action Input: "Search name XEGKUR_clean and provide information on its solvent removal stability"[0m
+Observation: search_csv is not a valid tool, try another one.
+Thought:[32;1m[1;3mThe search_csv tool did not provide any information on the solvent removal stability of XEGKUR_clean. I need to find another way to obtain this information.
+Action: predictor
+Action Input: "Predict the solvent removal stability of XEGKUR_clean"[0m
+
+[1m> Entering new  chain...[0m
+
+[Predictor] Thought: [33;1m[1;3mI need to gather data on the solvent removal stability of XEGKUR_clean and train a machine learning model to predict its solvent removal stability.[0m
+[Predictor] Property: [33;1m[1;3msolvent_removal_stability[0m
+[Predictor] Materials: [33;1m[1;3mXEGKUR_clean
+[0mload model : /home/dudgns1675/autogpt/ChatMOF/chatmof/database/load_model/solvent_removal_stability/epoch=18-step=836.ckpt
+Predicting: 0it [00:00, ?it/s]Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting DataLoader 0:   0%|          | 0/1 [00:00<?, ?it/s]Predicting DataLoader 0: 100%|██████████| 1/1 [00:00<00:00,  4.47it/s]Predicting DataLoader 0: 100%|██████████| 1/1 [00:00<00:00,  3.73it/s]
+[Predictor] Final Thought: [33;1m[1;3mBased on the result, answer the question using the predicted solvent removal stability of XEGKUR_clean.[0m
+[1m> Finished chain.[0m
+
+Observation: [36;1m[1;3mBased on the predicted solvent removal stability of XEGKUR_clean, it is classified as "Unstable".[0m
+Thought:[32;1m[1;3mI now know the final answer
+Final Answer: The solvent removal stability of XEGKUR_clean is classified as "Unstable".[0m
+
+[1m> Finished chain.[0m
+
+
+########## Output ##############################
+The solvent removal stability of XEGKUR_clean is classified as "Unstable".
+
+
+Thanks for using CHATMOF!
+
+[1m> Finished chain.[0m

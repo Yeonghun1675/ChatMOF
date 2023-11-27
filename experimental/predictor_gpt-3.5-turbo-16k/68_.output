@@ -1,0 +1,78 @@
+
+
+> Entering new AgentExecutor chain...
+I need to find the materials with the highest N2 uptake at 298K and standard pressure.
+Action: search_csv
+Action Input: "Search materials with highest N2 uptake at 298K and standard pressure"
+
+> Entering new TableSearcher chain...
+
+[Table Searcher] Thought: To search for materials with the highest N2 uptake at 298K and standard pressure, we need to find the maximum value in the column that represents N2 uptake at those conditions.
+[Table Searcher] Input: max_n2_uptake = df['N2 uptake at 298K and standard pressure (cm^3/g)'].max()
+df[df['N2 uptake at 298K and standard pressure (cm^3/g)'] == max_n2_uptake].to_markdown()
+[Table Searcher] Observation: KeyError: 'N2 uptake at 298K and standard pressure (cm^3/g)'
+[Table Searcher] Final Thought: The column 'N2 uptake at 298K and standard pressure (cm^3/g)' does not exist in the dataframe.
+> Finished chain.
+
+Observation: There are no data in database.
+Thought:The search_csv tool did not provide any information on the materials with the highest N2 uptake. I need to find another way to obtain this information.
+Action: predictor
+Action Input: "Predict the N2 uptake of materials at 298K and standard pressure"
+
+> Entering new Predictor chain...
+
+[Predictor] Thought: I need to gather data on the N2 uptake of different materials at 298K and standard pressure and train a machine learning model to predict their N2 uptake.
+[Predictor] Property: nitrogen_uptake_1bar_298K
+[Predictor] Materials: *
+load model : /home/dudgns1675/ChatMOF_reproduce/ChatMOF-0.0.0-beta/chatmof/database/load_model/nitrogen_uptake_1bar_298K/epoch=19-step=2660.ckpt
+Predicting DataLoader 0: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1246/1246 [00:40<00:00, 30.71it/s]
+[Predictor] Final Thought: Based on the result, find the materials with the predicted N2 uptake values at 298K and standard pressure.
+
+> Entering new TableSearcher chain...
+
+[Table Searcher] Thought: We can see from the result that the column 'nitrogen_uptake_1bar_298K' contains the predicted N2 uptake values at 298K and standard pressure. We can filter the DataFrame based on this column to find the materials with these values.
+[Table Searcher] Input: filtered_df = df[df['nitrogen_uptake_1bar_298K'].notnull()]
+print(filtered_df.to_markdown())Traceback (most recent call last):
+  File "/home/dudgns1675/ChatMOF_reproduce/ChatMOF-0.0.0-beta/chatmof/main.py", line 46, in <module>
+    output = chatmof.run(question, callbacks=callback_manager)
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 440, in run
+    return self(args[0], callbacks=callbacks, tags=tags, metadata=metadata)[
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 243, in __call__
+    raise e
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 239, in __call__
+    else self._call(inputs)
+  File "/home/dudgns1675/ChatMOF_reproduce/ChatMOF-0.0.0-beta/chatmof/agents/agent.py", line 37, in _call
+    output = self.agent.run(query)
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 440, in run
+    return self(args[0], callbacks=callbacks, tags=tags, metadata=metadata)[
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 243, in __call__
+    raise e
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 237, in __call__
+    self._call(inputs, run_manager=run_manager)
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/agents/agent.py", line 994, in _call
+    next_step_output = self._take_next_step(
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/agents/agent.py", line 855, in _take_next_step
+    observation = tool.run(
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/tools/base.py", line 320, in run
+    raise e
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/tools/base.py", line 292, in run
+    self._run(*tool_args, run_manager=run_manager, **tool_kwargs)
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/tools/base.py", line 444, in _run
+    self.func(
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 440, in run
+    return self(args[0], callbacks=callbacks, tags=tags, metadata=metadata)[
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 243, in __call__
+    raise e
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 237, in __call__
+    self._call(inputs, run_manager=run_manager)
+  File "/home/dudgns1675/ChatMOF_reproduce/ChatMOF-0.0.0-beta/chatmof/tools/predictor/base.py", line 123, in _call
+    final_output = searcher.run(question=output['Final Thought'],
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 445, in run
+    return self(kwargs, callbacks=callbacks, tags=tags, metadata=metadata)[
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 243, in __call__
+    raise e
+  File "/home/dudgns1675/anaconda3/envs/chatmof_reproduce/lib/python3.9/site-packages/langchain/chains/base.py", line 237, in __call__
+    self._call(inputs, run_manager=run_manager)
+  File "/home/dudgns1675/ChatMOF_reproduce/ChatMOF-0.0.0-beta/chatmof/tools/search_csv/base.py", line 175, in _call
+    raise ValueError('The number of tokens has been exceeded.')
+ValueError: The number of tokens has been exceeded.

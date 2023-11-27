@@ -1,0 +1,21 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the solvent removal stability of DUVNIS01_charged.
+Action: search_csv
+Action Input: "Search name DUVNIS01_charged and provide information on its solvent removal stability"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mTo search for a specific name in the DataFrame, we can use the pandas function loc() to find the index of the row that matches the name. If the name is not found, we can use the function isin() to check if the name is in the column 'name'[0m
+[Table Searcher] Input: [33;1m[1;3mimport pandas as pd
+
+df = pd.read_csv('data.csv')
+
+print(df.loc[df['name'] == 'DUVNIS01'].to_markdown())[0m
+[Table Searcher] Observation: [33;1m[1;3mFileNotFoundError: [Errno 2] No such file or directory: 'data.csv'[0m<class 'ValueError'> unknown format from LLM: 
+
+

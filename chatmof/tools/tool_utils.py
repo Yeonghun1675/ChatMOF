@@ -10,14 +10,18 @@ from chatmof.tools.search_csv import _get_search_csv
 from chatmof.tools.genetic_algorithm import _get_generator
 from chatmof.tools.visualizer import _get_visualizer
 from chatmof.tools.python_repl import _get_python_repl
+from chatmof.tools.unit_converter import _get_unit_converter
+from chatmof.tools.ase_repl import _get_ase_repl
 
 
 _MOF_TOOLS: Dict[str, Callable[[BaseLanguageModel], BaseTool]] = {
     "search_csv" : _get_search_csv,
     "predictor": _get_predict_properties,
-    #'generator': _get_generator,
-    #"visualizer": _get_visualizer,
+    'generator': _get_generator,
+    "visualizer": _get_visualizer,
     "python_repl": _get_python_repl,
+    'ase_repl': _get_ase_repl,
+    "unit_converter": _get_unit_converter,
 }
 
 _load_tool_names: List[str] = [
@@ -30,7 +34,7 @@ _load_tool_names: List[str] = [
     #'requests_delete',
     #'terminal',
     #'human',
-    'llm-math',
+    # 'llm-math',
     #'pal-math'
 ]
 
@@ -53,7 +57,7 @@ def load_chatmof_tools(
         try:
             internet_tools = load_tools(_load_internet_tool_names, llm=llm)
         except Exception as e:
-            warnings.warn(f'The internet tool does not work: {e}')
+            print(f'Warning: The internet tool does not work - {str(e)}')
             internet_tools = []
         return custom_tools + tools + internet_tools
     else:

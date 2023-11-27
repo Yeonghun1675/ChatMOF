@@ -1,0 +1,17 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find materials with a bandgap near 1.6 eV.
+Action: search_csv
+Action Input: "search for materials with bandgap near 1.6 eV at 298K and 1bar and provide their name"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the "accessible volume volume fraction" column to search for materials with a bandgap near 1.6 eV. We can use the pandas function "loc" to select rows where the "bandgap" column is close to 1.6 eV.[0m
+[Table Searcher] Input: [33;1m[1;3mdf.loc[df['bandgap'] > 1.58 & df['bandgap'] < 1.62, 'name'][0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: 'bandgap'[0m<class 'ValueError'> unknown format from LLM: 
+
+

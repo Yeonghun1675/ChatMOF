@@ -1,0 +1,16 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find materials with high O2 uptake.
+Action: search_csv
+Action Input: "Search for materials with high O2 uptake at standard conditions"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the "accessible volume volume fraction" column to search for materials with high O2 uptake at standard conditions.[0m
+[Table Searcher] Input: [33;1m[1;3mdf[df['accessible volume volume fraction'] > 0.3][0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: 'accessible volume volume fraction'[0m<class 'ValueError'> unknown format from LLM: 
+

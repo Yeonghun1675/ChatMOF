@@ -1,0 +1,12 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find out if AYOYOE_clean can handle a high volume of O2.
+Action: predictor
+Action Input: "Predict if AYOYOE_clean can handle a high volume of O2 at 298K and 1 bar"[0m
+
+[1m> Entering new Predictor chain...[0m
+<class 'ValueError'> Predictor can not predict the property: nitrogen_uptake_77K

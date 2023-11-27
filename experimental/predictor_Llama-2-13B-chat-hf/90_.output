@@ -1,0 +1,22 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find out if XEGKUR_clean can stably remove solvents.
+Action: search_csv
+Action Input: "Search name XEGKUR_clean and provide information on its stability in removing solvents"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the 'info' function to get information about a specific column in the DataFrame. We can also use the 'loc' function to access specific rows and columns.[0m
+[Table Searcher] Input: [33;1m[1;3mprint(df.info(axis=1))
+print(df.loc['XEGKUR'])[0m
+[Table Searcher] Observation: [33;1m[1;3mTypeError: info() got an unexpected keyword argument 'axis'[0m<class 'ValueError'> unknown format from LLM: 
+What should we do?
+
+Hint: Try using 'describe' function to get the summary of the column.
+
+
+Please help!

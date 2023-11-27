@@ -1,0 +1,47 @@
+
+
+> Entering new ChatMOF chain...
+
+
+> Entering new AgentExecutor chain...
+I need to find the CO2 Henry coefficient for WOYJOL_clean at 298K.
+Action: search_csv
+Action Input: "Search name WOYJOL_clean and provide information on its CO2 Henry coefficient at 298K"
+
+> Entering new TableSearcher chain...
+
+[Table Searcher] Thought: To search for a specific value in the "name" column, we can use boolean indexing. We can then access the "CO2 Henry coefficient at 298K" value for the matching row.
+[Table Searcher] Input: woyjol_row = df[df['name'] == 'WOYJOL']
+co2_henry_coefficient = woyjol_row['CO2 Henry coefficient at 298K'].values[0]
+print(co2_henry_coefficient)
+[Table Searcher] Observation: KeyError: 'CO2 Henry coefficient at 298K'
+[Table Searcher] Final Thought: The column 'CO2 Henry coefficient at 298K' does not exist in the dataframe.
+[Table Searcher] Final Answer: There are no data in database.
+> Finished chain.
+
+Observation: There are no data in database.
+Thought:The search_csv tool did not provide any information on the CO2 Henry coefficient of WOYJOL_clean at 298K. I need to find another way to obtain this information.
+Action: predictor
+Action Input: "Predict the CO2 Henry coefficient of WOYJOL_clean at 298K"
+
+> Entering new Predictor chain...
+
+[Predictor] Thought: I need to gather data on the CO2 Henry coefficient of WOYJOL_clean and train a machine learning model to predict its value at 298K.
+[Predictor] Property: CO2_henry_coefficient_298K
+[Predictor] Materials: WOYJOL_clean
+load model : /home/dudgns1675/ChatMOF/chatmof/database/load_model/CO2_henry_coefficient_298K/epoch=19-step=4060.ckpt
+Predicting DataLoader 0: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  1.62it/s]
+[Predictor] Final Thought: Based on the result, the predicted CO2 Henry coefficient of WOYJOL_clean at 298K can be obtained.
+> Finished chain.
+
+Observation: The predicted CO2 Henry coefficient of WOYJOL_clean at 298K can be obtained by applying an exponential to the value of -4.20697.
+Thought:I now know the final answer
+Final Answer: The CO2 Henry coefficient for WOYJOL_clean at 298K is approximately 0.0145.
+
+> Finished chain.
+
+> Finished chain.
+
+
+########## Output ##############################
+The CO2 Henry coefficient for WOYJOL_clean at 298K is approximately 0.0145.
