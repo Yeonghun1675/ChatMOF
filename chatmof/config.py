@@ -22,6 +22,7 @@ config = {
     # table searcher
     'lookup_dir': os.path.join(__root_dir__, 'database/tables/coremof.xlsx'),
     'max_iteration': 3,
+    'token_limit': False,
 
     # building block searcher
     'buildingblock_dir' : os.path.join(__root_dir__, 'database/tables/mofkey.xlsx'),

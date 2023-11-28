@@ -4,7 +4,7 @@
 
 ChatMOF is an autonomous Artificial Intelligence (AI) system that is built to predict and generate of metal-organic frameworks (MOFs). By leveraging a large-scale language model (GPT-4 and GPT-3.5-turbo), ChatMOF extracts key details from textual inputs and delivers appropriate responses, thus eliminating the necessity for rigid structured queries. The system is comprised of  three core components (i.e. an agent, a toolkit, and an evaluator) and it forms a robust pipeline that manages a variety of tasks, including data retrieval, property prediction, and structure generation. The study further explores the merits and constraints of using large language models (LLMs) AI system in material sciences using and showcases its transformative potential for future advancements.
 
-NOTE: We've resolved the unavailability issue, if you run into any further issues please leave a github issue.
+NOTE: ChatMOF has been updated to 0.2.0 and includes a new tool `unit converter`.
 
 ## Online Demo
 You can test ChatMOF in [Online-Demo](https://chatmof-online.streamlit.app/) site. It requires an `OpenAI key` (For more information, visit the [OpenAI site](https://platform.openai.com/docs/introduction)). In online demo, only the Search task is available. For prediction tasks and generation tasks that require machine learning do not work properly, except for the provided examples.
