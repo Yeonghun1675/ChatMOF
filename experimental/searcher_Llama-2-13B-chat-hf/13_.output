@@ -1,0 +1,20 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the material with the highest non-accessible volume.
+Action: search_csv
+Action Input: "find for materials with highest non-accessible volume and provide its name and non-accessible volume"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mwe can use the pandas function head() to extract the first N rows of the dataframe, and then use the indexing method to select the appropriate columns. We can also use the pandas function sort_values() to sort the dataframe by the non-accessible volume in descending order.[0m
+[Table Searcher] Input: [33;1m[1;3mdf.head().sort_values('Nonaccessible volume', ascending=False).to_markdown()[0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: 'Nonaccessible volume'[0m<class 'ValueError'> unknown format from LLM: 
+What is the reason for this error?
+
+Hint: check the index of the dataframe.
+
+

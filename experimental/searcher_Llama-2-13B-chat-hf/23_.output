@@ -1,0 +1,16 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the type of open metal in YUNJIB.
+Action: search_csv
+Action Input: "Search name YUNJIB and provide information on its type of open metal"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the 'has open metal site' column to search for the presence of open metal sites. If the value is 'Yes', we know that the material has an open metal site.[0m
+[Table Searcher] Input: [33;1m[1;3mdf[df['name'] == 'YUNJIB'].has_open_metal_site.to_markdown()[0m
+[Table Searcher] Observation: [33;1m[1;3mAttributeError: 'DataFrame' object has no attribute 'has_open_metal_site'[0m<class 'ValueError'> unknown format from LLM: 
+

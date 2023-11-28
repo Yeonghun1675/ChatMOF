@@ -1,0 +1,18 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the largest cavity diameter of YAVVUP.
+Action: search_csv
+Action Input: "Search name YAVVUP and provide information on its largest cavity diameter"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the pandas loc function to search for a specific value in a column.[0m
+[Table Searcher] Input: [33;1m[1;3mimport pandas as pd
+import json
+print(df.loc['YAVVUP'].to_markdown())[0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: 'YAVVUP'[0m<class 'ValueError'> unknown format from LLM: 
+

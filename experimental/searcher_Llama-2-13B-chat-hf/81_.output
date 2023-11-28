@@ -1,0 +1,16 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the pore limiting diameter of XIPTAS_clean.
+Action: search_csv
+Action Input: "Search name XIPTAS_clean and provide information on its pore limiting diameter"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the pandas function loc() to search for a specific value in the dataframe. We need to specify the column name and the value we want to search for.[0m
+[Table Searcher] Input: [33;1m[1;3mprint(df.loc['XIPTAS'].to_markdown())[0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: 'XIPTAS'[0m<class 'ValueError'> unknown format from LLM: 
+

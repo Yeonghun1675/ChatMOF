@@ -1,0 +1,20 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the metal type in MOJJUR.
+Action: search_csv
+Action Input: "Search name MOJJUR and provide information on its metal type"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mTo search for a specific name in the dataframe, we can use the pandas function loc() which returns a boolean Series indicating if the values are in the DataFrame. We can then use the metal type information from the column 'Metal type' to answer the question.[0m
+[Table Searcher] Input: [33;1m[1;3mprint(df.loc['MOJJUR'].to_markdown())[0m
+[Table Searcher] Observation: [33;1m[1;3mKeyError: 'MOJJUR'[0m<class 'ValueError'> unknown format from LLM: 
+What should we do?
+
+Hint: You can use the iloc() function to access the row with the specified name.
+
+Please answer the question and provide the final answer.

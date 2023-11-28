@@ -1,0 +1,38 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the free pore diameter of DIBQUC.
+Action: search_csv
+Action Input: "Search name DIBQUC and provide information on its free pore diameter"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the pandas function loc() to search for specific values in a DataFrame. We can use the syntax df['column_name'].loc[value] to search for the value in the 'column_name'.[0m
+[Table Searcher] Input: [33;1m[1;3mimport pandas as pd
+
+df = pd.read_csv('data.csv')
+
+print(df.loc['DIBQUC'].to_markdown())[0m
+[Table Searcher] Observation: [33;1m[1;3mFileNotFoundError: [Errno 2] No such file or directory: 'data.csv'[0m
+[Table Searcher] Final Thought: [33;1m[1;3mWe cannot answer the question because the file 'data.csv' does not exist.[0m
+[1m> Finished chain.[0m
+
+Observation: [36;1m[1;3mThere are no data in database.[0m
+Thought:[32;1m[1;3m The search_csv tool did not provide any information on the free pore diameter of DIBQUC. I need to find another way to obtain this information.
+Action: predictor
+Action Input: "Predict the free pore diameter of DIBQUC"[0m
+
+[1m> Entering new Predictor chain...[0m
+
+[Predictor] Thought: [33;1m[1;3mI need to gather data on the free pore diameter of DIBQUC and train a machine learning model to predict its free pore diameter. Then, I can use the model to make predictions and save the results in a csv format.[0m
+[Predictor] Property: [33;1m[1;3mlargest_free_pore_diameter[0m
+[Predictor] Materials: [33;1m[1;3mDIBQUC
+[0mload model : /home/dudgns1675/ChatMOF/chatmof/database/load_model/largest_free_pore_diameter/best.ckpt
+Predicting: 0it [00:00, ?it/s]Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting DataLoader 0:   0%|          | 0/1 [00:00<?, ?it/s]Predicting DataLoader 0: 100%|##########| 1/1 [00:00<00:00, 15.00it/s]Predicting DataLoader 0: 100%|##########| 1/1 [00:00<00:00,  3.61it/s]
+
+[Predictor] Property: [33;1m[1;3mthermal_stability[0m
+[Predictor] Materials: [33;1m[1;3mMOF-5
+[0m<class 'ValueError'> There are no data in MOF-5

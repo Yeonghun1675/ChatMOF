@@ -1,0 +1,20 @@
+
+
+[1m> Entering new ChatMOF chain...[0m
+
+
+[1m> Entering new AgentExecutor chain...[0m
+[32;1m[1;3m I need to find the largest free pore diameter for LOLREL.
+Action: search_csv
+Action Input: "Search name LOLREL and provide information on its largest free pore diameter"[0m
+
+[1m> Entering new TableSearcher chain...[0m
+
+[Table Searcher] Thought: [33;1m[1;3mWe can use the pandas function loc[] to find the row of the dataframe with the name LOLREL. Then we can extract the largest free pore diameter from the column Pore limiting diameter (Å).[0m
+[Table Searcher] Input: [33;1m[1;3mprint(df.loc[df['name'] == 'LOLREL'].iloc[:, 3].to_markdown())[0m
+[Table Searcher] Observation: [33;1m[1;3m
+|      |   Largest free pore diameter (Å) |
+|-----:|---------------------------------:|
+| 5668 |                          8.50343 |[0m<class 'ValueError'> unknown format from LLM: 
+
+
