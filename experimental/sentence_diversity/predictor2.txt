@@ -1,0 +1,100 @@
+At 77 K, what's the hydrogen uptake for ZAXQOG_clean at 100bar?
+Under standard temperature conditions of 298K and dilute system, can you list the materials with the highest O2 diffusivity?
+Is XEGKUR_clean thermally stable?
+What's the thermal stability of QINSUD_clean?
+Which materials have a bandgap between 1 and 2 eV?
+At room temperature (298K), what's the CO2 Henry coefficient for XEGKUR_clean?
+Can you provide the top 10 materials with the highest N2 diffusivity at 298K and infinity dilute system?
+Is the solvent removal stability of XEGKUR_clean strong?
+Can you list 5 materials with a bandgap near 1.6 eV when evaluated at 298K and 1bar?
+Under 77K and infinity dilute conditions, what's the hydrogen diffusivity for NISPEL_charged?
+What materials show the best performance in hydrogen uptake at 100bar considering a temperature of 77 K?
+How high is the O2 uptake of LOQLIN_SL at 298K and normal pressure?
+Can XAVDUV_clean stably store hydrogen under 100bar pressure when observed at 77K?
+At 298K and standard atmospheric pressure, how high is the N2 uptake for UXABUR_clean?
+What's the O2 diffusivity for OCUVUF_clean under conditions of 298K and dilute system?
+Is XAHWAG_clean stable when the solvent is removed?
+What are the top 5 materials with the highest CO2 Henry coefficient at room temperature?
+At 298K and dilute system, how high is the N2 diffusivity for XEGKUR_clean?
+What materials are known for their high O2 uptake at a temperature of 298K and 1 bar pressure?
+How high is the bandgap for XEGKUR_clean?
+What materials have the highest thermal stability?
+Can you show materials with a bandgap greater than 3.0 eV?
+At 298K and standard atmospheric pressure, how much O2 can XEGKUR_clean take up?
+What is the CO2 Henry coefficient for materials with bandgap less than 1.5 eV at 298K?
+At 77K, how does the hydrogen uptake of OCUVUF_clean compare at 100bar?
+Can you list materials with hydrogen diffusivity greater than 0.1 at 77K and dilute system?
+What is the N2 diffusivity in XEGKUR_clean under 298K and dilute conditions?
+What is the thermal stability of materials with bandgap above 2.5 eV?
+Which materials demonstrate a high level of O2 diffusivity at 298K and dilute condition?
+How does the N2 uptake of XEGKUR_clean compare with others at 298K and 1 bar?
+Can QINSUD_clean remove solvents stably?
+How high is the thermal stability for NISPEL_charged?
+At 298K and 1 bar pressure, what is the O2 uptake of MIFROK_clean?
+Under standard conditions of 298K and 1 bar, which materials have the highest N2 uptake?
+Can you list materials that show solvent removal stability?
+How does the hydrogen diffusivity for QINSUD_clean compare with others at 77K and dilute system?
+Under conditions of 298K, what is the CO2 Henry coefficient for WOYJOL_clean?
+What materials have the best N2 diffusivity when measured at 298K and dilute system?
+Is the bandgap of XEGKUR_clean within the range 0.5-1.5 for photovoltaic applications?
+At standard conditions of 77K and 100 bar, which materials have the highest hydrogen uptake?
+How high is the bandgap for XEGKUR_clean when measured at 298K and under a pressure of 1 bar?
+Can you provide a list of materials with high thermal stability?
+At 77K and 100bar pressure, what is the hydrogen uptake of OCUVUF_clean?
+What is the solvent removal stability of XAHWAG_clean?
+Can GUCJAQ_clean diffusively handle N2 when evaluated at 298K and dilute system?
+What materials show high O2 uptake capabilities under conditions of 298K and 1bar?
+At 298K and dilute system, what is the diffusivity of O2 in XEGKUR_clean?
+How much N2 can DUVNIS01_charged take up at 298K and 1 bar?
+Under conditions of 298K, which materials have a high CO2 Henry coefficient?
+How much hydrogen can XEGKUR_clean take up at 100bar pressure when observed at 77 K?
+Under 298K and dilute conditions, how high is the O2 diffusivity for DUVNIS01_charged?
+At standard temperature (298K) and 1 bar pressure, can IZEHAX_clean hold a high volume of N2?
+At 298K and 1bar, how stable is JALCAD_clean when the solvent is removed?
+What is the thermal stability of COKMUM_clean?
+Can AYOYOE_clean handle a high volume of O2 when tested at 298K and 1 bar?
+At 298K and dilute system, what is the diffusivity of N2 in IHAJIL_clean?
+What materials show a high level of N2 diffusivity under conditions of 298K and 1 bar pressure?
+Is the bandgap of XEGKUR_clean higher or lower than 1.5 eV?
+At a temperature of 298K and a pressure of 1 bar, how does the O2 uptake of DUVNIS01_charged compare with others?
+Under standard ambient temperature (298K), what is the CO2 Henry coefficient for XEGKUR_clean?
+At 77K and 100 bar, can DUVNIS01_charged take up a significant volume of hydrogen?
+Considering conditions of 298K and 1 bar, how much N2 can IZEHAX_clean hold?
+At 77 K and dilute system, what is the hydrogen diffusivity for JALCAD_clean?
+Can COKMUM_clean remain stable when the solvent is removed?
+Which materials exhibit the best O2 diffusivity at 298K and dilute system?
+How high is the bandgap for XEGKUR_clean?
+What is the thermal stability of DUVNIS01_charged?
+Under a temperature of 298K and pressure of 1 bar, how high is the O2 uptake for IZEHAX_clean?
+At 298K and standard pressure, what materials have the highest N2 uptake?
+Can you list the top materials that demonstrate thermal stability?
+Given the conditions of 298K and dilute condition, what is the N2 diffusivity for QINSUD_clean?
+What materials are thermally stable?
+For a metal-organic framework at 298K and 1 bar, what is the CO2 Henry coefficient for KUGQIN_clean?
+Can you provide the materials with the highest O2 diffusivity when measured at 298K and dilute system?
+What materials have a high bandgap?
+Considering 77K and 100bar conditions, how high is the hydrogen uptake of XEGKUR_clean?
+Under ambient conditions of 298K and 1 bar, what is the N2 uptake for DUVNIS01_charged?
+Can OCUVUF_clean remove solvents without compromising its stability?
+At a standardized temperature of 77K and dilute system, how does XAHWAG_clean's hydrogen diffusivity measure?
+What is the O2 uptake of GUCJAQ_clean at the typical conditions of 298K and 1 bar?
+Can GAJTUI_clean take up a significant volume of N2 under conditions of 298K and 1 bar?
+How stable is JEDJUY_clean at elevated temperatures?
+At standard ambient conditions, which materials exhibit a high CO2 Henry coefficient?
+Under the set conditions of 77K and dilute, how high is the hydrogen diffusivity of XEGKUR_clean?
+What is the solvent removal stability of DUVNIS01_charged?
+At 298K and a infinity dilute condition, how does OCUVUF_clean's N2 diffusivity compare to other materials?
+Which materials show a pronounced hydrogen uptake at the standardized condition of 77K and 100 bar?
+Can XEGKUR_clean stably take up a large volume of O2 when examined at 298K and 1 bar?
+What is the thermal stability of DUVNIS01_charged?
+At standard conditions (298K and 1 bar), which materials are known for high O2 uptake?
+Can XEGKUR_clean stably remove solvents?
+How high is the bandgap of DUVNIS01_charged?
+Which materials exhibit the highest N2 diffusivity at a temperature of 298K and infinity dilute condition?
+Under conditions of 298K and 1 bar, how elevated is the N2 uptake for XEGKUR_clean?
+At the standardized 298K and infinity dilute system, what is the O2 diffusivity of DUVNIS01_charged?
+Under standard conditions, how high is the CO2 Henry coefficient for IZEHAX_clean?
+At 77K and 100 bar pressure, can JALCAD_clean stably accommodate a large volume of hydrogen?
+Under the given conditions of 77K and dilute system, which materials have the highest hydrogen diffusivity?
+Is XEGKUR_clean thermally stable?
+Can you provide a list of materials with a bandgap exceeding 2 eV?

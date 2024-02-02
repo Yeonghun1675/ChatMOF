@@ -1,0 +1,100 @@
+What is the hydrogen uptake (100bar) of MAPHAP?
+Which material has the highest O2 diffusivity?
+Which material has the lowest O2 diffusivity?
+Which material has the closest N2 diffusivity to 42.73930536260062?
+What are the top 5 materials with the lowest hydrogen diffusivity?
+What are the top 5 materials with the highest N2 diffusivity?
+Which material's hydrogen uptake (100bar) is most similar to 94.99873459043908?
+What is the N2 diffusivity of QUPZAC?
+Which material has the highest bandgap?
+Which material has the lowest N2 uptake?
+Which material has the closest O2 diffusivity to 90.97647732064009?
+What are the top 5 materials with the lowest thermal stability?
+What are the top 5 materials with the highest bandgap?
+Which material's CO2 henry coefficient is most similar to 31.469439674832667?
+What is the N2 uptake of KOVJAI01?
+Which material has the highest O2 uptake?
+Which material has the lowest O2 uptake?
+Which material has the closest N2 diffusivity to 49.026414939553874?
+What are the top 5 materials with the lowest N2 uptake?
+What are the top 5 materials with the highest thermal stability?
+Which material's hydrogen uptake (100bar) is most similar to 53.44146432444293?
+What is the O2 uptake of EMUYAM01?
+Which material has the highest N2 diffusivity?
+Which material has the lowest hydrogen diffusivity?
+Which material has the closest N2 diffusivity to 24.187412144592933?
+What are the top 5 materials with the lowest N2 uptake?
+What are the top 5 materials with the highest bandgap?
+Which material's CO2 henry coefficient is most similar to 95.6338006700457?
+What is the O2 uptake of PEGQOJ?
+Which material has the highest O2 uptake?
+Which material has the lowest O2 diffusivity?
+Which material has the closest O2 diffusivity to 57.94829161922229?
+What are the top 5 materials with the lowest hydrogen diffusivity?
+What are the top 5 materials with the highest O2 uptake?
+Which material's CO2 henry coefficient is most similar to 33.132097036391706?
+What is the bandgap of EDUVOO?
+Which material has the highest N2 diffusivity?
+Which material has the lowest hydrogen diffusivity?
+Which material has the closest O2 diffusivity to 80.79628573968192?
+What are the top 5 materials with the lowest O2 uptake?
+What are the top 5 materials with the highest bandgap?
+Which material's bandgap is most similar to 73.9910928334429?
+What is the hydrogen uptake (100bar) of HIFWAV?
+Which material has the highest O2 diffusivity?
+Which material has the lowest O2 uptake?
+Which material has the closest O2 diffusivity to 95.48644437996316?
+What are the top 5 materials with the lowest hydrogen diffusivity?
+What are the top 5 materials with the highest hydrogen diffusivity?
+Which material's hydrogen uptake (100bar) is most similar to 34.54815605457695?
+What is the O2 diffusivity of XOPLOE?
+Which material has the highest hydrogen uptake (100bar)?
+Which material has the lowest thermal stability?
+Which material has the closest thermal stability to 36.792784451307405?
+What are the top 5 materials with the lowest O2 uptake?
+What are the top 5 materials with the highest N2 diffusivity?
+Which material's thermal stability is most similar to 13.543013793763869?
+What is the O2 diffusivity of DEPXOM?
+Which material has the highest O2 diffusivity?
+Which material has the lowest O2 uptake?
+Which material has the closest bandgap to 48.7234991054311?
+What are the top 5 materials with the lowest N2 uptake?
+What are the top 5 materials with the highest O2 uptake?
+Which material's hydrogen uptake (100bar) is most similar to 46.097466187401416?
+What is the hydrogen uptake (100bar) of cg5010616_si_003?
+Which material has the highest bandgap?
+Which material has the lowest hydrogen diffusivity?
+Which material has the closest O2 diffusivity to 42.05428132108544?
+What are the top 5 materials with the lowest O2 uptake?
+What are the top 5 materials with the highest bandgap?
+Which material's N2 uptake is most similar to 8.686525547864765?
+What is the N2 uptake of ORERAG?
+Which material has the highest O2 diffusivity?
+Which material has the lowest O2 uptake?
+Which material has the closest N2 diffusivity to 44.80519694608468?
+What are the top 5 materials with the lowest hydrogen uptake (100bar)?
+What are the top 5 materials with the highest O2 uptake?
+Which material's N2 uptake is most similar to 9.63831130754217?
+What is the thermal stability of VUPFET?
+Which material has the highest hydrogen uptake (100bar)?
+Which material has the lowest bandgap?
+Which material has the closest CO2 henry coefficient to 80.19621947723975?
+What are the top 5 materials with the lowest hydrogen diffusivity?
+What are the top 5 materials with the highest hydrogen uptake (100bar)?
+Which material's O2 diffusivity is most similar to 14.169623373336082?
+What is the hydrogen uptake (100bar) of cm071462f-file004?
+Which material has the highest N2 diffusivity?
+Which material has the lowest N2 uptake?
+Which material has the closest thermal stability to 35.05689536803283?
+What are the top 5 materials with the lowest bandgap?
+What are the top 5 materials with the highest hydrogen uptake (100bar)?
+Which material's CO2 henry coefficient is most similar to 23.236062333843776?
+What is the N2 uptake of MOHSEJ?
+Which material has the highest N2 uptake?
+Which material has the lowest O2 uptake?
+Which material has the closest bandgap to 32.0288753053389?
+What are the top 5 materials with the lowest hydrogen diffusivity?
+What are the top 5 materials with the highest CO2 henry coefficient?
+Which material's hydrogen uptake (100bar) is most similar to 67.1778160863075?
+What is the thermal stability of HAZNIH?
+Which material has the highest N2 diffusivity?
