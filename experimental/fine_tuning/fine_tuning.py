@@ -11,8 +11,6 @@ def save_file(filepath, content):
     with open(filepath, 'a', encoding='utf-8') as outfile:
         outfile.write(content)
 
-
-openai.api_key = "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"  # molsim3
 model_name = "gpt-3.5-turbo"
 jsonl_file = "ft_agent.jsonl"
 file_id = "file-igVH7HfJ3335W78S6OOc4Td6"
