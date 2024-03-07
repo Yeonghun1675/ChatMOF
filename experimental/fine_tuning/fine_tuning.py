@@ -13,9 +13,8 @@ def save_file(filepath, content):
 
 model_name = "gpt-3.5-turbo"
 jsonl_file = "ft_agent.jsonl"
-file_id = "file-igVH7HfJ3335W78S6OOc4Td6"
-job_id = "ftjob-giqMHoikBgHnjI3FTAspQnyK"
-# created = "ft:gpt-3.5-turbo-0613:molsimllm::8BLsb5DT"
+file_id = "your_file_id"
+job_id = "your_job_id"
 
 # File upload
 
