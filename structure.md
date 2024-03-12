@@ -1,0 +1,33 @@
+# Structure of ChatMOF
+
+- main.py : Functions for running ChatMOF
+- config.py : Configuration of ChatMOF
+- agents : Implement ChatMOF's agent and evaluator.
+- tools: Toolkit for ChatMOF
+  - ase_repl : Tools for running ASE library
+  - genetic algorithm : Tools for generating MOF using genetic algorithm
+  - predictor: Tools for predict MOF's properties using MOFTransformer
+  - python_repl : Tools for running python code
+  - search_csv : Tools for searching data from database
+  - unit_converter: Tools for converting unit.
+  - visualizer: Tools for visualizing the MOF
+  - tool_utils.py : Functions for integrating tools with ChatMOF
+- llm : Large language models that work with ChatMOF
+  - codellama.py : Codellama, CodeLlama2
+  - llama.py : Llama, Llama2
+  - openai.py : GPT-4, GPT-3.5-turbo, GPT-3.5-turbo-16k
+  - utils.py : Functions for integrating LLMs with ChatMOF
+- Database: Database for using ChatMOF
+  - load_model : Fine-tuned MOFTransformer model
+  - structures : MOF Structure File
+    - coremof : CoREMOF Structure File
+    - generate : MOFs created using the Generator tool
+    - hMOF : hypothetical MOF (Used in generator tool)
+  - tables: The look-up table used by ChatMOF (used by the search_csv tool)
+- utils.py : ChatMOF Utility Functions
+- setup_module.py : Functions for setting up ChatMOF's module
+- cli : Functions for the Commend-line interface
+  - install_griday : Functions for installing GRIDAY
+  - main.py : command line interface main function
+  - run.py : Functions for running ChatMOF
+  - setup.py : Functions to install ChatMOF
