@@ -1,4 +1,21 @@
-![figure1](figures/fig1.jpg)
+<center><img src="figures/fig1.jpg" width="800"></center>
+
+
+<p align="center">
+  <a href="https://pypi.org/project/chatmof/">
+     <img alt="PypI" src="https://img.shields.io/badge/PyPI-v2.1.4-blue.svg?style=plastic&logo=PyPI">
+ </a>
+  <a href="https://figshare.com/articles/dataset/Database_for_ChatMOF/24287731">
+     <img alt="Figshare" src="https://img.shields.io/badge/Figshare-v2-blue.svg?style=plastic&logo=figshare">
+ </a>
+ <a href="https://doi.org/10.5281/zenodo.10806289">
+     <img alt="DOI" src="https://img.shields.io/badge/DOI-doi-organge.svg?style=plastic">
+ </a>
+ <a href="https://pypi.org/project/chatmof/">
+     <img alt="Lincense" src="https://img.shields.io/badge/License-MIT-lightgrey.svg?style=plastic">
+ </a>
+</p>
+
 
 # ChatMOF : An Autonomous AI System for Predicting and Generating Metal-Organic Frameworks
 
@@ -76,19 +93,19 @@ $ chatmof run --help
 
 ## Example of ChatMOF
 ### 1) Search task
-![ex1](figures/ex1.jpg)
+<center><img src="figures/ex1.jpg" width="800"></center>
 
 ### 2) prediction task
-![ex2](figures/ex2.jpg)
+<center><img src="figures/ex2.jpg" width="800"></center>
 
-### 3) prediction task
-![ex3](figures/ex3.jpg)
+### 3) generation task
+<center><img src="figures/ex3.jpg" width="800"></center>
 
 ## Architecture
 
-ChatMOF comprises three core components: an agent, toolkits, and an evaluator. Upon receiving a query from human, the agent formulates a plan and selects a suitable toolkit. Subsequently, the toolkit generates outputs following the proposed plan, and the evaluator makes these results into a final response.
+ChatMOF comprises three core components: an agent, toolkits, and an evaluator. Upon receiving a query from human, the agent formulates a plan and selects a suitable toolkit. Subsequently, the toolkit generates outputs following the proposed plan, and the evaluator makes these results into a final response. More details for ChatMOF structure are described at [structure.md](structure.md).
 
-![figure1](figures/fig2.jpg)
+<center><img src="figures/fig2.jpg" width="800"></center>
 
 
 ## Citation
