@@ -17,9 +17,9 @@
 </p>
 
 
-# ChatMOF : An Autonomous AI System for Predicting and Generating Metal-Organic Frameworks
+# ChatMOF: an artificial intelligence system for predicting and generating metal-organic frameworks using large language models
 
-ChatMOF is an autonomous Artificial Intelligence (AI) system that is built to predict and generate of metal-organic frameworks (MOFs). By leveraging a large-scale language model (GPT-4 and GPT-3.5-turbo), ChatMOF extracts key details from textual inputs and delivers appropriate responses, thus eliminating the necessity for rigid structured queries. The system is comprised of  three core components (i.e. an agent, a toolkit, and an evaluator) and it forms a robust pipeline that manages a variety of tasks, including data retrieval, property prediction, and structure generation. The study further explores the merits and constraints of using large language models (LLMs) AI system in material sciences using and showcases its transformative potential for future advancements.
+ChatMOF is an artificial intelligence (AI) system that is built to predict and generate metal-organic frameworks (MOFs). By leveraging a large-scale language model (GPT-4, GPT-3.5-turbo, and GPT-3.5-turbo-16k), ChatMOF extracts key details from textual inputs and delivers appropriate responses, thus eliminating the necessity for rigid and formal structured queries. The system is comprised of three core components (i.e., an agent, a toolkit, and an evaluator) and it forms a robust pipeline that manages a variety of tasks, including data retrieval, property prediction, and structure generations. ChatMOF shows high accuracy rates of 96.9% for searching, 95.7% for predicting, and 87.5% for generating tasks with GPT-4. Additionally, it successfully creates materials with user-desired properties from natural language.
 
 NOTE: ChatMOF has been updated to 0.2.0 and includes a new tool `unit converter`.
 
@@ -110,7 +110,7 @@ ChatMOF comprises three core components: an agent, toolkits, and an evaluator. U
 
 ## Citation
 if you want to cite ChatMOF, please refer to the following paper:
-> ChatMOF: An Autonomous AI System for Predicting and Generating Metal-Organic Frameworks, arxiv:2308.01423 [[link]](https://arxiv.org/abs/2308.01423)
+> ChatMOF: an artificial intelligence system for predicting and generating metal-organic frameworks using large language models, Nature Communications 15, 4705 (2024) [[link]](https://www.nature.com/articles/s41467-024-48998-4)
 
 ## Contributing 🙌
 
