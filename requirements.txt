@@ -17,3 +17,4 @@ bitsandbytes
 accelerate
 xformers
 SentencePiece
+openai<1.0.0
