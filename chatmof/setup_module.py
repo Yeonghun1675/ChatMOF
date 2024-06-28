@@ -45,7 +45,8 @@ def download_hmof(direc=None):
         direc.mkdir(parents=True, exist_ok=True)
 
     # load_model
-    link = "https://figshare.com/ndownloader/files/42633475"
+    # link = "https://figshare.com/ndownloader/files/42633475" # before link
+    link = "https://figshare.com/ndownloader/files/47294845" 
     name = 'hMOF'
     filename = direc / f"{name}.zip"
     _download_file(link, filename, name)
