@@ -3,7 +3,7 @@
 
 <p align="center">
   <a href="https://pypi.org/project/chatmof/">
-     <img alt="PypI" src="https://img.shields.io/badge/PyPI-v0.2.1-blue.svg?style=plastic&logo=PyPI">
+     <img alt="PypI" src="https://img.shields.io/badge/PyPI-v0.2.22blue.svg?style=plastic&logo=PyPI">
  </a>
   <a href="https://figshare.com/articles/dataset/Database_for_ChatMOF/24287731">
      <img alt="Figshare" src="https://img.shields.io/badge/Figshare-v2-blue.svg?style=plastic&logo=figshare">
