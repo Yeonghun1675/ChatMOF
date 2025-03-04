@@ -50,8 +50,8 @@ For prediction and generation task, you have to setup modules.
 ```bash
 $ chatmof setup
 ```
-> **Note**
-> If you have problems installing MOFTransformer or Pytorch-lightning, try downgrading your pip version (pip < 24.1).
+> **Note**  
+> If you have problems installing MOFTransformer or Pytorch-lightning, try downgrading your pip version (pip < 24.1).  
 
 
 Add the following line to `.bashrc` for the openai api key.
@@ -66,9 +66,9 @@ If you want to search the internet, you'll need to enter the `GOOGLE_API_KEY` an
 export GOOGLE_API_KEY="enter_your_api_key"
 export GOOGLE_CSE_ID="enter_your_id"
 ```
-> **Note**
-> You can get `GOOGLE_API_KEY` at the following site: https://developers.google.com/maps/documentation/javascript/get-api-key
-> You can get `GOOGLE_CSE_ID` at the following site: https://programmablesearchengine.google.com/controlpanel/all
+> **Note**  
+> You can get `GOOGLE_API_KEY` at the following site: https://developers.google.com/maps/documentation/javascript/get-api-key  
+> You can get `GOOGLE_CSE_ID` at the following site: https://programmablesearchengine.google.com/controlpanel/all  
 
 For MOF generation, you need to install GRIDAY.
 
