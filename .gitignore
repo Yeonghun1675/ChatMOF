@@ -7,6 +7,8 @@ etc/
 *.griddata16
 *.zip
 
+.DS_Store
+
 *.out
 *.log
 # *.ipynb
